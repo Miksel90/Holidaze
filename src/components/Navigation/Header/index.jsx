@@ -11,7 +11,6 @@ const HeaderNavigation = () => {
 
   return (
     <nav className="bg-primary font-condensed w-full">
-      {/* Hamburger Button only visible on small screens */}
       <div className="lg:hidden">
         <HamburgerButton isMenuOpen={isMenuOpen} onClick={toggleMenu} />
       </div>
