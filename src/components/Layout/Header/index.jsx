@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <header className="fixed top-0 left-0 z-30 w-full md:w-[180px] md:h-screen bg-primary shadow-lg ">
-      <div className="bg-primary py-4 px-4 gap-14 md:px-10 flex md:flex-col lg:flex-col justify-between md:items-center lg:items-center lg:justify-center md:space-y-4 lg:space-y-4">
+      <div className="bg-primary py-4 px-4 gap-8 md:px-10 flex md:flex-col lg:flex-col justify-between md:items-center lg:items-center lg:justify-center md:space-y-4 lg:space-y-4">
         <Link to="/" className="flex md:flex-col justify-center items-center">
           <img
             src={logo}
