@@ -3,7 +3,7 @@ import FooterNavigation from "/src/components/Navigation/Footer/index.jsx";
 
 const Footer = () => {
   return (
-    <footer className="font-sans shadow-md w-full bottom-0 flex md-flex-row">
+    <footer className=" bg-primary font-sans shadow-md w-full bottom-0 flex md-flex-row p-5">
       <div>
         <div>
           <img

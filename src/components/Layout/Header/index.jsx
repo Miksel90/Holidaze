@@ -13,7 +13,7 @@ const Header = () => {
             className="rounded-full"
             style={{ width: "75px", height: "75px" }}
           />
-          <span className="text-white font-condensed uppercase text-4xl  xxs:ml-4">
+          <span className="text-white font-condensed uppercase text-4xl font-semibold xxs:ml-4">
             Holidaze.
           </span>
         </Link>
