@@ -1,15 +1,31 @@
+import { Routes, Route } from "react-router-dom";
+import {
+  HomePage,
+  AboutPage,
+  ProfilePage,
+  VenuePage,
+  BookedPage,
+  VenueSpecificPage,
+  NotFound,
+} from "./pages";
+import Layout from "./components/Layout/index.jsx";
 import "./App.css";
 
 function App() {
   return (
-    <div className="p-4 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
-      <div>
-        <div className="text-xl font-medium text-primary">Hello World</div>
-        <p className="text-matisse">You are using Tailwind CSS with React!</p>
-        <p className="text-porsche">You are using Tailwind CSS with React!</p>
-        <p className="text-porsche">You are using Tailwind CSS with React!</p>
-      </div>
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="venues" element={<VenuePage />} />
+          <Route path="venue/:id" element={<VenueSpecificPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="about" element={<AboutPage />} />
+          <Route path="booked" element={<BookedPage />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </>
   );
 }
 
