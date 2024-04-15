@@ -7,6 +7,7 @@ function App() {
         <div className="text-xl font-medium text-primary">Hello World</div>
         <p className="text-matisse">You are using Tailwind CSS with React!</p>
         <p className="text-porsche">You are using Tailwind CSS with React!</p>
+        <p className="text-porsche">You are using Tailwind CSS with React!</p>
       </div>
     </div>
   );
