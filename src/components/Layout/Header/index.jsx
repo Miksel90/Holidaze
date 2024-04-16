@@ -11,7 +11,7 @@ const Header = () => {
           <img
             src={logo}
             alt="The logo of Holidaze"
-            className="rounded-full"
+            className="rounded-full shadow-cedar shadow-lg"
             style={{ width: "75px", height: "75px" }}
           />
           <span className="text-white font-condensed uppercase text-4xl font-semibold xxs:ml-4">

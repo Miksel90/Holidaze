@@ -20,17 +20,17 @@ const HeaderNavigation = () => {
             isMenuOpen ? "block" : "hidden"
           } absolute top-full left:0 xxs:-ml-14 md:ml-0 bg-primary transition-all duration-300 ease-in-out shadow-md text-2xl text-shadow-black p-4`}
       >
-        <li className="py-2 px-5 hover:bg-gray-700 ">
+        <li className="py-2 px-5  ">
           <Link to="/" className="no-underline text-white">
             Home
           </Link>
         </li>
-        <li className="py-2 px-5 hover:bg-gray-700">
+        <li className="py-2 px-5 ">
           <Link to="/profile" className="no-underline text-white">
             Profile
           </Link>
         </li>
-        <li className="py-2 px-5 hover:bg-gray-700">
+        <li className="py-2 px-5 ">
           <Link to="/venues" className="no-underline text-white">
             Venues
           </Link>

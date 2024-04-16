@@ -12,6 +12,7 @@ export default {
     },
     colors: {
       primary: "#fe6601",
+      orange: "#c2410c",
       white: "#ffffff",
       black: "#000000",
       cedar: "#281e32",

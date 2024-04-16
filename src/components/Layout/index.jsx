@@ -14,7 +14,7 @@ const Layout = () => {
         </div>
       </div>
       <div className="w-full md:pl-[180px] lg:pl-64">
-        <div className=" mx-auto">
+        <div className=" mx-auto px-1">
           <Footer />
         </div>
       </div>
