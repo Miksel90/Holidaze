@@ -1,5 +1,4 @@
-const BASE_URL = "https://v2.api.noroff.dev/";
-const loginUrl = `${BASE_URL}auth/login`;
+import { loginUrl } from "../../../constants/url.js";
 
 async function loginUser(email, password) {
   try {

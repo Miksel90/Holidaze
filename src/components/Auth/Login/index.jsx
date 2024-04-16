@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DefaultButton from "../../Buttons/Button";
 import loginUser from "./login";
 
@@ -7,7 +7,16 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [userName, setUserName] = useState(""); // State to hold the userName
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if "userName" exists in localStorage when component mounts
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName);
+    }
+  }, []);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -24,7 +33,7 @@ const LoginForm = () => {
       const { name, accessToken } = response.data;
       localStorage.setItem("userName", name);
       localStorage.setItem("accessToken", accessToken);
-      //   console.log("Login successful", response);
+      setUserName(name); // Update userName state
       setError("");
       navigate("/profile");
     } catch (error) {
@@ -33,47 +42,55 @@ const LoginForm = () => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="w-full flex flex-col items-center "
-    >
-      <div className="mb-4 w-full max-w-md">
-        <label
-          htmlFor="email"
-          className="block text-cedar text-lg uppercase font-medium"
+    <>
+      {userName ? (
+        <div className="text-cedar text-2xl mt-3 text-center">
+          Welcome {userName}! You are allready Logged in!{" "}
+        </div>
+      ) : (
+        <form
+          onSubmit={handleSubmit}
+          className="w-full flex flex-col items-center "
         >
-          Email:
-        </label>
-        <input
-          required
-          type="text"
-          placeholder="Email Address"
-          id="Email"
-          value={email}
-          onChange={handleEmailChange}
-          className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
-        />
-      </div>
-      <div className="mb-4 w-full max-w-md">
-        <label
-          htmlFor="password"
-          className="block text-cedar text-lg uppercase font-medium"
-        >
-          Password
-        </label>
-        <input
-          required
-          type="password"
-          id="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordChange}
-          className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
-        />
-      </div>
-      {error && <div className="text-black text-lg mb-2">{error}</div>}
-      <DefaultButton>Login</DefaultButton>
-    </form>
+          <div className="mb-4 w-full max-w-md">
+            <label
+              htmlFor="email"
+              className="block text-cedar text-lg uppercase font-medium"
+            >
+              Email:
+            </label>
+            <input
+              required
+              type="text"
+              placeholder="Email Address"
+              id="Email"
+              value={email}
+              onChange={handleEmailChange}
+              className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
+            />
+          </div>
+          <div className="mb-4 w-full max-w-md">
+            <label
+              htmlFor="password"
+              className="block text-cedar text-lg uppercase font-medium"
+            >
+              Password
+            </label>
+            <input
+              required
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={handlePasswordChange}
+              className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
+            />
+          </div>
+          {error && <div className="text-black text-lg mb-2">{error}</div>}
+          <DefaultButton>Login</DefaultButton>
+        </form>
+      )}
+    </>
   );
 };
 
