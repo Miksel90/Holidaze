@@ -6,6 +6,7 @@ import {
   VenuePage,
   BookedPage,
   VenueSpecificPage,
+  RegisterPage,
   NotFound,
 } from "./pages";
 import Layout from "./components/Layout/index.jsx";
@@ -19,6 +20,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="venues" element={<VenuePage />} />
           <Route path="venue/:id" element={<VenueSpecificPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="booked" element={<BookedPage />} />

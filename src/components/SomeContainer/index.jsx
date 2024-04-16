@@ -9,23 +9,31 @@ import { TiSocialGooglePlus } from "react-icons/ti";
 
 const SomeContainer = () => {
   const icons = [
-    FaFacebookF,
-    FaTwitter,
-    TiSocialGooglePlus,
-    FaInstagram,
-    FaLinkedinIn,
-    FaTiktok,
+    { Component: FaFacebookF, url: "https://www.facebook.com" },
+    { Component: FaTwitter, url: "https://www.twitter.com" },
+    { Component: TiSocialGooglePlus, url: "https://plus.google.com" },
+    { Component: FaInstagram, url: "https://www.instagram.com" },
+    { Component: FaLinkedinIn, url: "https://www.linkedin.com" },
+    { Component: FaTiktok, url: "https://www.tiktok.com" },
   ];
-  const iconClasses = "text-white text-5xl border-2 border-white p-1";
+  const iconClasses =
+    "text-white text-5xl border-2 border-white p-1 hover:text-cedar hover:border-cedar ";
 
   return (
-    <div className="flex flex-wrap  p-2 justify-center py-8">
-      {icons.map((Icon, index) => (
-        <div key={index}>
-          <Icon className={iconClasses} />
-        </div>
+    <div className="flex flex-wrap p-2 justify-center py-8">
+      {icons.map((icon, index) => (
+        <a
+          key={index}
+          href={icon.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Social media link"
+        >
+          <icon.Component className={iconClasses} />
+        </a>
       ))}
     </div>
   );
 };
+
 export default SomeContainer;

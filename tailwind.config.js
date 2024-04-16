@@ -47,7 +47,10 @@ export default {
         100: "6.70rem",
       },
       textShadow: {
-        black: "5px 5px 10px rgba(0, 0, 0, 0.5)",
+        black: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+      },
+      opacity: {
+        10: "0.12",
       },
     },
   },

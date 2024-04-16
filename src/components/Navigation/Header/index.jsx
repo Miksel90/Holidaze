@@ -18,26 +18,26 @@ const HeaderNavigation = () => {
         className={`lg:flex lg:flex-col  lg:static lg:w-auto lg:p-0 lg:shadow-none lg:bg-transparent
           ${
             isMenuOpen ? "block" : "hidden"
-          } absolute top-full left:0 xxs:-ml-14 md:ml-0 bg-primary transition-all duration-300 ease-in-out shadow-md text-2xl text-shadow-black p-4`}
+          } absolute top-full left:0 xxs:-ml-14 md:ml-0 bg-primary transition-all duration-300 ease-in-out shadow-md text-2xl text-cedar text-shadow-black p-4`}
       >
         <li className="py-2 px-5  ">
-          <Link to="/" className="no-underline text-white">
+          <Link to="/" className="no-underline hover:underline">
             Home
           </Link>
         </li>
         <li className="py-2 px-5 ">
-          <Link to="/profile" className="no-underline text-white">
-            Profile
+          <Link to="/register" className="no-underline hover:underline">
+            Register
           </Link>
         </li>
         <li className="py-2 px-5 ">
-          <Link to="/venues" className="no-underline text-white">
+          <Link to="/venues" className="no-underline hover:underline">
             Venues
           </Link>
         </li>
-        <li className="py-2 px-5 hover:bg-gray-700">
-          <Link to="/about" className="no-underline text-white">
-            About
+        <li className="py-2 px-5">
+          <Link to="/about" className="no-underline hover:underline">
+            About Us
           </Link>
         </li>
       </ul>
