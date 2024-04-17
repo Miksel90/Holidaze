@@ -1,4 +1,5 @@
 import BrowseContainer from "../../components/BrowseContainer";
+import RegisterForm from "../../components/Auth/Register";
 
 function RegisterPage() {
   return (
@@ -7,6 +8,7 @@ function RegisterPage() {
         <h1 className="text-cedar text-center font-condensed text-3xl uppercase font-bold rounded-sm">
           Register
         </h1>
+        <RegisterForm />
       </div>
       <div className="col-span-1 md:col-span-3 bg-primary p-1 flex flex-col justify-evenly ">
         <BrowseContainer />
