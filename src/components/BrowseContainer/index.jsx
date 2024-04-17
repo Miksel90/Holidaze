@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import background1 from "../../assets/Images/bg1.webp";
 import background2 from "../../assets/Images/bg2.webp";
 import background3 from "../../assets/Images/bg3.webp";
-import { Link } from "react-router-dom";
 import DefaultButton from "../Buttons/DefaultButton";
 
 function BrowseContainer() {
@@ -17,7 +16,7 @@ function BrowseContainer() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currentBackground]);
+  }, []);
 
   return (
     <div
@@ -32,9 +31,7 @@ function BrowseContainer() {
         <h2 className="text-white text-shadow-black text-center font-condensed text-3xl capitalize font-bold rounded-sm py-5 underline">
           Find your paradise today
         </h2>
-        <Link to="/venues">
-          <DefaultButton>Browse</DefaultButton>
-        </Link>
+        <DefaultButton to="/venues">Browse</DefaultButton>
       </div>
     </div>
   );
