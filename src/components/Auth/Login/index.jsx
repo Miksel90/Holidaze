@@ -1,17 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import DefaultButton from "../../Buttons/Button";
+import Submitbutton from "../../Buttons/SubmitButton";
 import loginUser from "./login";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [userName, setUserName] = useState(""); // State to hold the userName
+  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if "userName" exists in localStorage when component mounts
     const storedUserName = localStorage.getItem("userName");
     if (storedUserName) {
       setUserName(storedUserName);
@@ -33,7 +32,7 @@ const LoginForm = () => {
       const { name, accessToken } = response.data;
       localStorage.setItem("userName", name);
       localStorage.setItem("accessToken", accessToken);
-      setUserName(name); // Update userName state
+      setUserName(name);
       setError("");
       navigate("/profile");
     } catch (error) {
@@ -87,7 +86,7 @@ const LoginForm = () => {
             />
           </div>
           {error && <div className="text-black text-lg mb-2">{error}</div>}
-          <DefaultButton>Login</DefaultButton>
+          <Submitbutton>Login</Submitbutton>
         </form>
       )}
     </>

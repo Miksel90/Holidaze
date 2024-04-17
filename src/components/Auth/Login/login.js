@@ -1,4 +1,4 @@
-import { loginUrl } from "../../../constants/url.js";
+import { loginUrl } from "../../../utils/constants";
 
 async function loginUser(email, password) {
   try {

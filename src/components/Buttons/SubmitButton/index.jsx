@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function DefaultButton({ children }) {
+function SubmitButton({ children }) {
   return (
     <button
       className="border-2 border-porsche p-2 px-8 rounded text-cedar text-lg font-bold
@@ -12,8 +12,8 @@ function DefaultButton({ children }) {
   );
 }
 
-DefaultButton.propTypes = {
+SubmitButton.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default DefaultButton;
+export default SubmitButton;

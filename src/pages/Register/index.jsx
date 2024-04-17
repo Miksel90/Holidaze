@@ -1,7 +1,33 @@
+import BrowseContainer from "../../components/BrowseContainer";
+
 function RegisterPage() {
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch">
+      <div className="col-span-1 md:col-span-3 bg-primary rounded-sm p-4 ">
+        <h1 className="text-cedar text-center font-condensed text-3xl uppercase font-bold rounded-sm">
+          Register
+        </h1>
+      </div>
+      <div className="col-span-1 md:col-span-3 bg-primary p-1 flex flex-col justify-evenly ">
+        <BrowseContainer />
+      </div>
+
+      <div className="col-span-1 md:col-span-2 bg-primary text-center">
+        Venue 1
+      </div>
+      <div className="col-span-1 md:col-span-2  bg-primary text-center">
+        Venue 2
+      </div>
+      <div className="col-span-1 md:col-span-2 bg-primary text-center">
+        Venue 3
+      </div>
+
+      <div className="col-span-1 md:col-span-3 bg-primary text-center">
+        Feedback
+      </div>
+      <div className="col-span-1 md:col-span-3 bg-primary text-center">
+        Pop Managers
+      </div>
     </div>
   );
 }
