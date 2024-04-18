@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Submitbutton from "../../Buttons/SubmitButton";
+import { fetchApiKey } from "../ApiKey/createApiKey";
 import loginUser from "./login";
 
 const LoginForm = () => {
@@ -27,16 +28,33 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
     try {
       const response = await loginUser(email, password);
       const { name, accessToken } = response.data;
       localStorage.setItem("userName", name);
       localStorage.setItem("accessToken", accessToken);
       setUserName(name);
-      setError("");
-      navigate("/profile");
-    } catch (error) {
+
+      try {
+        const apiKey = await fetchApiKey(accessToken, name);
+        if (apiKey) {
+          console.log("API Key:", apiKey);
+          localStorage.setItem("apiKey", apiKey);
+
+          navigate("/profile", { replace: true });
+
+          window.location.reload();
+        } else {
+          setError("Failed to fetch API key. No key returned.");
+        }
+      } catch (apiKeyError) {
+        setError("Failed to fetch API key.");
+        console.error("API Key Fetch Error:", apiKeyError);
+      }
+    } catch (loginError) {
       setError("Login failed. Please check your email and password.");
+      console.error("Login Error:", loginError);
     }
   };
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import HamburgerButton from "../../Buttons/Hamburger/index.jsx";
 import { Link } from "react-router-dom";
+import LogoutUser from "../../Auth/Logout/index.jsx";
 
 const HeaderNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +16,10 @@ const HeaderNavigation = () => {
         <HamburgerButton isMenuOpen={isMenuOpen} onClick={toggleMenu} />
       </div>
       <ul
-        className={`lg:flex lg:flex-col  lg:static lg:w-auto lg:p-0 lg:shadow-none lg:bg-transparent
+        className={`lg:flex lg:flex-col  lg:static lg:w-auto lg:p-0 lg:shadow-none lg:bg-transparent bg-white md:rounded-md
           ${
             isMenuOpen ? "block" : "hidden"
-          } absolute top-full left:0 xxs:-ml-14 md:ml-0 bg-primary transition-all duration-300 ease-in-out shadow-md text-2xl text-cedar text-shadow-black p-4`}
+          } absolute top-full left:0 xxs:-ml-14 md:ml-0 bg-primary transition-all duration-300 ease-in-out shadow-md text-2xl text-cedar p-4`}
       >
         <li className="py-2 px-5  ">
           <Link to="/" className="no-underline hover:underline">
@@ -39,6 +40,9 @@ const HeaderNavigation = () => {
           <Link to="/about" className="no-underline hover:underline">
             About Us
           </Link>
+        </li>
+        <li className="py-2 px-5">
+          <LogoutUser />
         </li>
       </ul>
     </nav>

@@ -13,17 +13,29 @@ const schema = yup
   })
   .required();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await registerUser(userName, email, password);
-    navigate("/home");
-  } catch (error) {
-    setError("Login failed. Please check your email and password.");
-  }
+function RegisterForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const navigate = useNavigate();
 
+  const onSubmit = async (data) => {
+    try {
+      await registerUser(data);
+      navigate("/");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
-    <form onSubmit={handleSubmit} className="w-full flex flex-col items-center">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full flex flex-col items-center"
+    >
       <div className="mb-4 w-full max-w-md">
         <label
           htmlFor="userName"
@@ -75,6 +87,6 @@ const handleSubmit = async (e) => {
       <Submitbutton>Register</Submitbutton>
     </form>
   );
-};
+}
 
 export default RegisterForm;

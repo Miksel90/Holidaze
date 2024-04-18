@@ -14,7 +14,7 @@ const ProfileIcon = () => {
 
   return (
     userName && (
-      <div className="flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center">
         <Link
           to="/profile"
           className="no-underline hover:underline"
@@ -22,6 +22,9 @@ const ProfileIcon = () => {
         >
           <CgProfile className="text-4xl md:text-6xl text-cedar" />
         </Link>
+        <span className="text-md md:text-md capitalize font-condensed ">
+          {userName}
+        </span>
       </div>
     )
   );

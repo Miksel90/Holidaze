@@ -1,25 +1,27 @@
 import { registerUrl } from "../../../utils/constants";
-console.log(registerUrl);
 
-async function registerUser(registerURL, userData) {
+async function registerUser(userData) {
+  const postData = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  };
+
   try {
-    const postData = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userData),
-    };
-
-    const response = await fetch(registerURL, postData);
-    console.log(response);
+    const response = await fetch(registerUrl, postData);
     const json = await response.json();
 
     if (response.ok) {
       console.log(json);
+      return json;
+    } else {
+      throw new Error(json.message || "Registration failed.");
     }
   } catch (error) {
-    console.log(error);
+    console.error("Registration error:", error);
+    throw error;
   }
 }
 

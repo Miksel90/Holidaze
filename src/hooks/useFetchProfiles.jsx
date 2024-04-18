@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
-import { fetchProfiles } from "../utils/api";
+import { fetchVenues } from "../utils/api";
 
-export function useFetchProfiles() {
-  const [products, setProducts] = useState([]);
+export function useFetchVenues() {
+  const [venues, setVenues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchProfiles()
+    fetchVenues()
       .then((json) => {
-        setProducts(json.data);
+        setVenues(json.data);
         console.log(json);
       })
       .catch((e) => {
@@ -22,5 +22,5 @@ export function useFetchProfiles() {
       });
   }, []);
 
-  return { products, isLoading, error };
+  return { venues, isLoading, error };
 }
