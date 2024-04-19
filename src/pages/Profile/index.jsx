@@ -1,21 +1,24 @@
 import { useParams } from "react-router-dom";
-// import { useEffect, useState } from "react";
 import { useFetchProfiles } from "../../hooks/useFetchProfiles";
-console.log(useFetchProfiles);
 
 function ProfilePage() {
   const { name } = useParams();
   const decodedName = decodeURIComponent(name);
-  const { data, loading, error } = useFetchProfiles(decodedName);
+  const { profiles, isLoading, error } = useFetchProfiles(decodedName);
 
-  if (loading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!data) return <div>No profile data found.</div>;
+  if (!profiles || !profiles.data) return <div>No profile data found.</div>;
+
+  const profileData = profiles.data;
 
   return (
     <div>
-      <h1 className="text-cedar">Hello, {data.name}</h1>
-      <img src={data.avatar.url} alt={data.avatar.alt || "Profile avatar"} />
+      <h1 className="text-cedar">Hello, {profileData.name}</h1>
+      <img
+        src={profileData.avatar.url}
+        alt={profileData.avatar.alt || "Profile avatar"}
+      />
     </div>
   );
 }
