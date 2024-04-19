@@ -26,7 +26,7 @@ const Header = () => {
           <HeaderNavigation />
         </div>
       </div>
-      <div className="hidden lg:block mt-15">
+      <div className="hidden lg:block mt-8">
         <SomeContainer />
       </div>
     </header>
