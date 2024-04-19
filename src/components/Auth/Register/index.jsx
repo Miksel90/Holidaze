@@ -34,9 +34,9 @@ function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full flex flex-col items-center"
+      className="flex flex-col justify-evenly h-full items-center"
     >
-      <div className="mb-4 w-full max-w-md">
+      <div className=" w-full max-w-md">
         <label
           htmlFor="userName"
           className="block text-cedar text-lg uppercase font-medium"
@@ -52,7 +52,7 @@ function RegisterForm() {
         />
         {errors.name && <p>{errors.name.message}</p>}
       </div>
-      <div className="mb-4 w-full max-w-md">
+      <div className=" w-full max-w-md">
         <label
           htmlFor="email"
           className="block text-cedar text-lg uppercase font-medium"
@@ -68,7 +68,7 @@ function RegisterForm() {
         />
         {errors.email && <p>{errors.email.message}</p>}
       </div>
-      <div className="mb-4 w-full max-w-md">
+      <div className=" w-full max-w-md">
         <label
           htmlFor="password"
           className="block text-cedar text-lg uppercase font-medium"

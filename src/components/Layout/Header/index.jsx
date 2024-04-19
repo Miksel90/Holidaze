@@ -1,7 +1,7 @@
 import HeaderNavigation from "/src/components/Navigation/Header/index.jsx";
 import logo from "../../../assets/Logo/holidazeLogo.webp";
 import ProfileIcon from "../../ProfileIcon";
-import SomeContainer from "../../SomeContainer";
+import SomeContainer from "../../Containers/SomeContainer/index.jsx";
 import { Link } from "react-router-dom";
 
 const Header = () => {

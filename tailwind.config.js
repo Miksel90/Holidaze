@@ -13,7 +13,7 @@ export default {
     colors: {
       primary: "#fe6601",
       orange: "#c2410c",
-      white: "#ffffff",
+      white: "#FDFFF5",
       black: "#000000",
       cedar: "#281e32",
       boulder: "#7a7979",
@@ -36,6 +36,11 @@ export default {
       6: "1.5rem",
       7: "1.75rem",
       8: "2rem",
+      9: "2.25rem",
+      10: "2.5rem",
+      11: "2.75rem",
+      12: "3rem",
+      13: "3.5rem",
     },
     extend: {
       screens: {
@@ -44,6 +49,7 @@ export default {
       spacing: {
         14: "4.5rem",
         15: "7.5rem",
+        52: "13rem",
         100: "6.70rem",
       },
       textShadow: {

@@ -39,12 +39,10 @@ const LoginForm = () => {
       try {
         const apiKey = await fetchApiKey(accessToken, name);
         if (apiKey) {
-          console.log("API Key:", apiKey);
           localStorage.setItem("apiKey", apiKey);
+          console.log("Stored API Key:", localStorage.getItem("apiKey"));
 
           navigate("/profile", { replace: true });
-
-          window.location.reload();
         } else {
           setError("Failed to fetch API key. No key returned.");
         }

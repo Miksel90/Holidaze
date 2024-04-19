@@ -21,7 +21,7 @@ function App() {
           <Route path="venues" element={<VenuePage />} />
           <Route path="venue/:id" element={<VenueSpecificPage />} />
           <Route path="register" element={<RegisterPage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profiles/:name" element={<ProfilePage />} />
           <Route path="about" element={<AboutPage />} />
           <Route path="booked" element={<BookedPage />} />
           <Route path="*" element={<NotFound />} />

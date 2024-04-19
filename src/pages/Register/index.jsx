@@ -1,5 +1,6 @@
-import BrowseContainer from "../../components/BrowseContainer";
+import BrowseContainer from "../../components/Containers/BrowseContainer";
 import RegisterForm from "../../components/Auth/Register";
+import ReviewContainer from "../../components/Containers/ReviewsContainer";
 
 function RegisterPage() {
   return (
@@ -10,7 +11,7 @@ function RegisterPage() {
         </h1>
         <RegisterForm />
       </div>
-      <div className="col-span-1 md:col-span-3 bg-primary p-1 flex flex-col justify-evenly ">
+      <div className="col-span-1 md:col-span-3 bg-primary p-1 flex flex-col justify-evenly text-xl ">
         <BrowseContainer />
       </div>
 
@@ -24,8 +25,8 @@ function RegisterPage() {
         Venue 3
       </div>
 
-      <div className="col-span-1 md:col-span-3 bg-primary text-center">
-        Feedback
+      <div className="col-span-1 md:col-span-3 bg-white text-center">
+        <ReviewContainer />
       </div>
       <div className="col-span-1 md:col-span-3 bg-primary text-center">
         Pop Managers

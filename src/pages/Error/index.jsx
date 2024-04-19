@@ -4,7 +4,7 @@ const NotFound = () => {
   return (
     <main>
       <Helmet>
-        <title>404 | GadgetVault</title>
+        <title>404 | Holidaze</title>
       </Helmet>
       <h2>404</h2>
       <p>That page does not exist!</p>

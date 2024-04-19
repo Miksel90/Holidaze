@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
-import { fetchProfiles } from "../utils/fetchProfiles.js";
+import { fetchVenues } from "../utils/fetchVenues.js";
 
-export function useFetchProfiles() {
-  const [profiles, setProfiles] = useState([]);
+export function useFetchVenues() {
+  const [venues, setVenues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     setIsLoading(true);
-    fetchProfiles()
+    fetchVenues()
       .then((json) => {
-        setProfiles(json.data);
-        console.log(json);
+        setVenues(json.data);
+        // console.log(json);
       })
       .catch((e) => {
         setError(e.message);
@@ -22,5 +22,5 @@ export function useFetchProfiles() {
       });
   }, []);
 
-  return { profiles, isLoading, error };
+  return { venues, isLoading, error };
 }

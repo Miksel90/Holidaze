@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import background1 from "../../assets/Images/bg1.webp";
-import background2 from "../../assets/Images/bg2.webp";
-import background3 from "../../assets/Images/bg3.webp";
-import DefaultButton from "../Buttons/DefaultButton";
+import background1 from "../../../assets/Images/bg1.webp";
+import background2 from "../../../assets/Images/bg2.webp";
+import background3 from "../../../assets/Images/bg3.webp";
+import DefaultButton from "../../Buttons/DefaultButton";
 
 function BrowseContainer() {
   const backgrounds = [background1, background2, background3];
