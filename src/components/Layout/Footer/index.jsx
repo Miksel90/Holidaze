@@ -3,7 +3,7 @@ import FooterNavigation from "/src/components/Navigation/Footer/index.jsx";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary font-sans shadow-md w-full bottom-0 p-1 text-cedar text-sm md:text-md mt-1">
+    <footer className="bg-white font-sans shadow-md w-full bottom-0 p-1 text-cedar text-md md:text-md mt-1 ">
       <div className="bg-white p-4 rounded-sm">
         <div className="flex flex-col md:flex-row gap-5 justify-center items-center">
           <img

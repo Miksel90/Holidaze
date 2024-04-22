@@ -8,7 +8,7 @@ function ProfileCard({ profile }) {
         <img
           src={profile.avatar.url}
           alt={profile.avatar.alt || "Profile avatar"}
-          className="w-52 h-52 border-2 border-cedar rounded-sm mt-3"
+          className="w-full h-52 border-2 border-cedar rounded-sm mt-3"
         />
         <div className="text-2xl font-condensed mt-5">{profile.name}</div>
       </Link>

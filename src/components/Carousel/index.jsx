@@ -21,7 +21,7 @@ const Carousel = ({ children }) => {
     <div className="relative flex items-center justify-center overflow-hidden">
       <button
         onClick={prevSlide}
-        className="absolute left-0 z-10 text-primary p-1 rounded-full text-2xl font-bold"
+        className="absolute left-0 z-10 text-primary p-1 rounded-full text-4xl font-bold"
       >
         &lt;
       </button>
@@ -36,7 +36,7 @@ const Carousel = ({ children }) => {
       ))}
       <button
         onClick={nextSlide}
-        className="absolute right-0 z-10 text-primary p-1 rounded-full text-2xl font-bold"
+        className="absolute right-0 z-10 text-primary p-1 rounded-full text-4xl font-bold"
       >
         &gt;
       </button>

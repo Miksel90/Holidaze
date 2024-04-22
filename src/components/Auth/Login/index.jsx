@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Submitbutton from "../../Buttons/SubmitButton";
 import { fetchApiKey } from "../ApiKey/createApiKey";
@@ -9,7 +8,6 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUserName = localStorage.getItem("userName");
@@ -40,9 +38,8 @@ const LoginForm = () => {
         const apiKey = await fetchApiKey(accessToken, name);
         if (apiKey) {
           localStorage.setItem("apiKey", apiKey);
-          console.log("Stored API Key:", localStorage.getItem("apiKey"));
-
-          navigate("/profile", { replace: true });
+          // console.log("Stored API Key:", localStorage.getItem("apiKey"));
+          window.location.reload();
         } else {
           setError("Failed to fetch API key. No key returned.");
         }

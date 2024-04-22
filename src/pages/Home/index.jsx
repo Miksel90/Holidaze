@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import LoginForm from "../../components/Auth/Login";
 import SearchBar from "../../components/Search";
 import ReviewContainer from "../../components/Containers/ReviewsContainer";
-import VenuesList from "../../components/Lists/VenueList";
+import imageOne from "../../assets/Images/golf.webp";
+import imageTwo from "../../assets/Images/suiteLife.webp";
+import imageThree from "../../assets/Images/Explore.webp";
 import ProfilesList from "../../components/Lists/ProfilesList";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const [userName, setUserName] = useState(null);
@@ -40,24 +43,52 @@ function HomePage() {
           </div>
         </>
       )}
-      <div className="col-span-1 md:col-span-2 bg-primary text-center">
-        <VenuesList />
+      <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm ">
+        <Link to="/venues">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-2xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+              <h2 className="border-2 px-4 bg-white rounded-sm">Golf</h2>
+            </div>
+            <img src={imageOne} alt="Golf course" className="w-full" />
+          </div>
+        </Link>
       </div>
-      <div className="col-span-1 md:col-span-2  bg-primary text-center">
-        Venue 2
+      <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
+        <Link to="/venues">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-2xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+              <h2 className="border-2 px-4 bg-white rounded-sm">Suite LIfe</h2>
+            </div>
+            <img
+              src={imageTwo}
+              alt="Luxurious hotel with pool"
+              className="w-full"
+            />
+          </div>
+        </Link>
       </div>
-      <div className="col-span-1 md:col-span-2 bg-primary text-center">
-        Venue 3
-      </div>
-
-      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
-        <ReviewContainer />
+      <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
+        <Link to="/venues">
+          <div className="relative">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-2xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+              <h2 className="border-2 px-4 bg-white rounded-sm">Explore</h2>
+            </div>
+            <img
+              src={imageThree}
+              alt="Wineglass overlooking the fields"
+              className="w-full"
+            />
+          </div>
+        </Link>
       </div>
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
         <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
           Popular Managers
         </h2>
         <ProfilesList />
+      </div>
+      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
+        <ReviewContainer />
       </div>
     </div>
   );
