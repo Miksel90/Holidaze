@@ -19,7 +19,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           <Route path="venues" element={<VenuePage />} />
-          <Route path="venue/:id" element={<VenueSpecificPage />} />
+          <Route path="venues/:id" element={<VenueSpecificPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="profiles/:name" element={<ProfilePage />} />
           <Route path="about" element={<AboutPage />} />

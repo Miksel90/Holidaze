@@ -51,7 +51,10 @@ export default {
         15: "7.5rem",
         52: "13rem",
         100: "6.70rem",
+        999: "550px",
+        998: "400px",
       },
+
       textShadow: {
         black: "2px 2px 4px rgba(0, 0, 0, 0.5)",
       },

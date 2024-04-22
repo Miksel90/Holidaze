@@ -3,6 +3,7 @@ import SearchBar from "../../components/Search";
 import ReviewContainer from "../../components/Containers/ReviewsContainer";
 import LoginForm from "../../components/Auth/Login";
 import ProfilesList from "../../components/Lists/ProfilesList";
+import VenuesList from "../../components/Lists/VenueList";
 
 const VenuePage = () => {
   const [userName, setUserName] = useState(null);
@@ -39,7 +40,9 @@ const VenuePage = () => {
           </div>
         </>
       )}
-      <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-col justify-evenly"></div>
+      <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-wrap gap-4 justify-evenly">
+        <VenuesList />
+      </div>
 
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
         <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
