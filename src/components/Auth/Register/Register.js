@@ -14,7 +14,7 @@ async function registerUser(userData) {
     const json = await response.json();
 
     if (response.ok) {
-      console.log(json);
+      // console.log(json);
       return json;
     } else {
       throw new Error(json.message || "Registration failed.");

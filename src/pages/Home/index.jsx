@@ -6,6 +6,7 @@ import imageOne from "../../assets/Images/golf.webp";
 import imageTwo from "../../assets/Images/suiteLife.webp";
 import imageThree from "../../assets/Images/Explore.webp";
 import ProfilesList from "../../components/Lists/ProfilesList";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 
 function HomePage() {
@@ -29,6 +30,9 @@ function HomePage() {
         </div>
       ) : (
         <>
+          <Helmet>
+            <title>Home | Holidaze</title>
+          </Helmet>
           <div className="col-span-1 md:col-span-3 bg-primary rounded-sm p-4 ">
             <h1 className="text-cedar text-center font-condensed text-3xl uppercase font-bold rounded-sm">
               Login

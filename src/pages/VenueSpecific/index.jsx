@@ -1,22 +1,47 @@
-import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { useFetchVenues } from "../../hooks/useFetchVenues";
-import { useEffect } from "react";
+import { fetchProfiles } from "../../utils/fetchProfiles";
+import Carousel from "../../components/Carousel";
+import { FaStar } from "react-icons/fa";
+import DefaultButton from "../../components/Buttons/DefaultButton";
+import defaultImage from "../../assets/Images/defaultProfile.webp";
+
+const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
 const VenueSpecificPage = () => {
   let { id } = useParams();
+  const navigate = useNavigate();
   const { venues, isLoading, error } = useFetchVenues();
+  const [profile, setProfile] = useState(null);
+  const [profileError, setProfileError] = useState(null);
+  const [showBookings, setShowBookings] = useState(false);
 
   useEffect(() => {
     if (venues.length > 0) {
       const venue = venues.find((p) => p.id.toString() === id);
       if (venue) {
-        document.title = venue.title + " | Holidaze";
+        document.title = venue.name + " | Holidaze";
+        console.log("Fetched venue data:", venue);
       }
     }
   }, [venues, id]);
 
+  const navigateToOwnerProfile = async () => {
+    try {
+      const profileData = await fetchProfiles(
+        encodeURIComponent(venue.owner.name)
+      );
+      setProfile(profileData);
+      navigate(`/profiles/${encodeURIComponent(venue.owner.name)}`);
+    } catch (error) {
+      console.error("Error fetching profile:", error);
+      setProfileError(error.message);
+    }
+  };
+
   if (isLoading) {
-    return <div className="">Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
@@ -24,14 +49,175 @@ const VenueSpecificPage = () => {
   }
 
   const venue = venues.find((p) => p.id.toString() === id);
-
   if (!venue) {
     return <div>Product not found</div>;
   }
 
+  const venueImages = venue.media.map((img, index) => (
+    <img
+      key={index}
+      src={img.url}
+      alt={img.alt || "Venue image"}
+      className="w-full h-64 object-cover"
+    />
+  ));
+
+  const formattedDate = (created) => {
+    return created
+      ? new Date(created).toLocaleDateString()
+      : "No date provided";
+  };
+
+  const ratingStars =
+    venue.rating > 0 ? (
+      Array.from({ length: venue.rating }, (_, index) => (
+        <StarIcon key={index} />
+      ))
+    ) : (
+      <span className="text-md">No Rating</span>
+    );
+
+  const toggleBookings = () => {
+    setShowBookings(!showBookings);
+  };
+
   return (
-    <div>
-      <h1>Venue Specific Page</h1>
+    <div className="flex flex-col px-2 bg-white gap-2">
+      <h1 className="text-4xl text-start font-condensed p-2">{venue.name}</h1>
+      <div className="flex justify-center items-center ">
+        <Carousel>{venueImages}</Carousel>
+      </div>
+      <div className="bg-primary p-4 text-cedar rounded-sm mt-5 grid grid-cols-1 md:grid-cols-6">
+        <div className="col-span-1 md:col-span-3">
+          <h2 className="text-2xl px-2 capitalize">{venue.description}</h2>
+          <p className="text-lg px-2">
+            {venue.location.city}, {venue.location.country}
+          </p>
+        </div>
+        <div className="col-span-1 md:col-span-3">
+          <p className="md:text-end text-lg px-2">
+            Listed: {formattedDate(venue.created)}
+          </p>
+          <p className="md:text-end text-lg px-2">
+            Updated: {formattedDate(venue.created)}
+          </p>
+        </div>
+        <div
+          className="col-span-1 md:col-span-6 flex items-center gap-2 mt-4 hover:cursor-pointer hover:underline"
+          onClick={navigateToOwnerProfile}
+        >
+          {venue.owner && venue.owner.avatar ? (
+            <img
+              src={venue.owner.avatar.url}
+              alt={venue.owner.avatar.alt || "Owner avatar"}
+              onError={(e) => (e.target.src = defaultImage)}
+              className="w-10 h-10 rounded-full"
+            />
+          ) : (
+            <img
+              src={defaultImage}
+              alt="Default avatar"
+              className="w-10 h-10 rounded-full"
+            />
+          )}
+          <p className="font-condensed text-xl capitalize">
+            Managed by: {venue.owner.name}
+          </p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-6">
+        <div className="bg-white mt-2 px-2 flex flex-col col-span-1 md:col-span-3">
+          <p className="text-4xl font-condensed mb-2">Facilities</p>
+          <ul className="text-lg">
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Price / Night:</p>
+              <div>${venue.price}</div>
+            </li>
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Max Guests:</p>
+              <div>{venue.maxGuests} Guests</div>
+            </li>
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Rating:</p>
+              <div className="flex flex-wrap ">{ratingStars}</div>
+            </li>
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Booked:</p>
+              <div className="">{venue._count.bookings}</div>
+            </li>
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Breakfast:</p>
+              <div>
+                {venue.meta.breakfast
+                  ? "Breakfast Included"
+                  : "Breakfast Not Included"}
+              </div>
+            </li>
+            <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Parking:</p>
+              <div>
+                {venue.meta.parking
+                  ? "Parking Available"
+                  : "No Parking Available"}
+              </div>
+            </li>
+            <li className="border-b border-primary  last:border-b-0 flex flex-row gap-4 py-1">
+              <p className="font-medium">Pets:</p>
+              <div> {venue.meta.pets ? "Pets Allowed" : "No Pets Allowed"}</div>
+            </li>
+            <li className="border-b border-primary  flex flex-row gap-4 py-1">
+              <p className="font-medium">Wifi:</p>
+              <div>{venue.meta.wifi ? "Wifi Included" : "No Wifi"}</div>
+            </li>
+            <li className="border-b border-primary mb-4 flex flex-row gap-4 py-1">
+              <p className="font-medium">Address:</p>
+              <div className="capitalize">
+                {venue.location.address}, {venue.location.city},{" "}
+                {venue.location.country}
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div className=" mt-2 px-2 flex flex-col col-span-1 md:col-span-3">
+          <div className="bg-white border-2 border-cedar text-center font-condensed text-2xl">
+            Book Venue
+          </div>
+        </div>
+      </div>
+      <div className="mt-4  rounded-sm px-2 text-start text-lg font-medium mb-8 ">
+        <DefaultButton onClick={toggleBookings}>
+          {showBookings ? "Hide" : "View"} Previous Bookings
+        </DefaultButton>
+        {showBookings && (
+          <ul className="mt-2 text-left">
+            {venue.bookings && venue.bookings.length > 0 ? (
+              venue.bookings.map((booking, index) => (
+                <li key={index} className="border-b border-gray-300 py-2">
+                  <p>
+                    <strong>Guest:</strong> {booking.customer.name}
+                  </p>
+                  <p>
+                    <strong>Email:</strong> {booking.customer.email}
+                  </p>
+                  <p>
+                    <strong>From:</strong>{" "}
+                    {new Date(booking.dateFrom).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>To:</strong>{" "}
+                    {new Date(booking.dateTo).toLocaleDateString()}
+                  </p>
+                  <p>
+                    <strong>Guests:</strong> {booking.guests}
+                  </p>
+                </li>
+              ))
+            ) : (
+              <li className="p-4 text-2xl">No bookings found.</li>
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

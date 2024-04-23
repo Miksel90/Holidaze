@@ -30,7 +30,6 @@ function ProfilesList() {
     return <p>No venue managers found.</p>;
   }
 
-  // Filter profiles to find those who are venue managers
   const filteredProfiles = profiles.data.filter(
     (profile) => profile.venueManager
   );

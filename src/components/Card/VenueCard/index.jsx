@@ -64,8 +64,10 @@ function VenueCard({
           style={{ height: "300px" }}
           onError={handleImageError}
         />
-        <div className="p-4 w-full text-start ">
-          <div className="text-3xl font-medium font-condensed">{name}</div>
+        <div className="p-4 w-full text-start">
+          <div className="text-3xl font-medium font-condensed text-ellipsis overflow-hidden ...">
+            {name}
+          </div>
           <p className="text-md mt-1">Created: {formattedDate(created)}</p>
           <p className="text-md mt-2">{cutDescription}</p>
           <p className="text-sm mt-1">{`${location.city}, ${location.country}`}</p>
