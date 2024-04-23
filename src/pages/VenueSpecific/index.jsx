@@ -6,6 +6,7 @@ import Carousel from "../../components/Carousel";
 import { FaStar } from "react-icons/fa";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import defaultImage from "../../assets/Images/defaultProfile.webp";
+import BookVenue from "../../components/Booking";
 
 const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
@@ -181,6 +182,7 @@ const VenueSpecificPage = () => {
         <div className=" mt-2 px-2 flex flex-col col-span-1 md:col-span-3">
           <div className="bg-white border-2 border-cedar text-center font-condensed text-2xl">
             Book Venue
+            <BookVenue venue={venue} />
           </div>
         </div>
       </div>
