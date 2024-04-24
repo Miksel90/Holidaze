@@ -1,1 +1,23 @@
-@import "react-datepicker/dist/react-datepicker.css";
+.react-datepicker__header {
+  @apply bg-primary font-condensed text-lg;
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  @apply text-cedar hover:text-white hover:border-cedar;
+}
+
+.react-datepicker {
+  @apply border-cedar shadow-2xl;
+}
+
+.booked-date {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}
+
+.react-datepicker__navigation-icon::before {
+  @apply border-cedar;
+}

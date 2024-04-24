@@ -1,25 +1,25 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { bookVenue } from "../utils/bookVenue";
 
 export function useBookVenue() {
-  const [booking, setBooking] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [booking, setBooking] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    bookVenue()
-      .then((response) => {
-        setBooking(response);
-        console.log("Booked venue: ", response);
-      })
-      .catch((e) => {
-        setError(e);
-        console.error("Booking error: ", e);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
+  const initiateBooking = async (bookingDetails) => {
+    setIsLoading(true);
+    try {
+      const response = await bookVenue(bookingDetails);
+      console.log("Booking response: ", response);
 
-  return { booking, isLoading, error };
+      setBooking(response);
+    } catch (e) {
+      setError(e);
+      console.error("Booking error: ", e);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return { booking, isLoading, error, initiateBooking };
 }

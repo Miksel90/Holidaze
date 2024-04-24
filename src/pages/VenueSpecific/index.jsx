@@ -23,7 +23,7 @@ const VenueSpecificPage = () => {
       const venue = venues.find((p) => p.id.toString() === id);
       if (venue) {
         document.title = venue.name + " | Holidaze";
-        console.log("Fetched venue data:", venue);
+        // console.log("Fetched venue data:", venue);
       }
     }
   }, [venues, id]);
@@ -126,10 +126,10 @@ const VenueSpecificPage = () => {
           </p>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-6">
-        <div className="bg-white mt-2 px-2 flex flex-col col-span-1 md:col-span-3">
+      <div className="flex flex-col md:flex-row mt-2">
+        <div className="bg-white px-2 flex flex-col flex-grow">
           <p className="text-4xl font-condensed mb-2">Facilities</p>
-          <ul className="text-lg">
+          <ul className="text-lg flex-grow">
             <li className="border-b border-primary last:border-b-0 flex flex-row gap-4 py-1">
               <p className="font-medium">Price / Night:</p>
               <div>${venue.price}</div>
@@ -179,14 +179,16 @@ const VenueSpecificPage = () => {
             </li>
           </ul>
         </div>
-        <div className=" mt-2 px-2 flex flex-col col-span-1 md:col-span-3">
-          <div className="bg-white border-2 border-cedar text-center font-condensed text-2xl">
-            Book Venue
+        <div className="px-2 flex flex-col flex-grow">
+          <div className=" p-4 shadow-sm shadow-cedar rounded-md flex-grow">
+            <p className="text-4xl font-condensed mb-2 text-center py-2">
+              Book Venue
+            </p>
             <BookVenue venue={venue} />
           </div>
         </div>
       </div>
-      <div className="mt-4  rounded-sm px-2 text-start text-lg font-medium mb-8 ">
+      <div className="mt-4 rounded-sm px-2 text-start text-lg font-medium mb-8 ">
         <DefaultButton onClick={toggleBookings}>
           {showBookings ? "Hide" : "View"} Previous Bookings
         </DefaultButton>
@@ -199,14 +201,11 @@ const VenueSpecificPage = () => {
                     <strong>Guest:</strong> {booking.customer.name}
                   </p>
                   <p>
-                    <strong>Email:</strong> {booking.customer.email}
-                  </p>
-                  <p>
-                    <strong>From:</strong>{" "}
+                    <strong>From:</strong>
                     {new Date(booking.dateFrom).toLocaleDateString()}
                   </p>
                   <p>
-                    <strong>To:</strong>{" "}
+                    <strong>To:</strong>
                     {new Date(booking.dateTo).toLocaleDateString()}
                   </p>
                   <p>
