@@ -21,6 +21,7 @@ export default {
       korma: "#86370e",
       porsche: "#ed9e67",
       matisse: "#1d5191",
+      danger: "#ff0000",
     },
     fontFamily: {
       sans: ["Barlow", "sans-serif"],
