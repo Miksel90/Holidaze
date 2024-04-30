@@ -38,7 +38,7 @@ const HeaderNavigation = () => {
         </li>
         <li className="py-2 px-5">
           <Link to="/about" className="no-underline hover:underline">
-            About Us
+            About
           </Link>
         </li>
         <li className="py-2 px-5">

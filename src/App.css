@@ -5,7 +5,7 @@
 .react-datepicker__day-name,
 .react-datepicker__day,
 .react-datepicker__time-name {
-  @apply text-cedar hover:text-white hover:border-cedar;
+  @apply text-cedar hover:text-cedar hover:border-cedar;
 }
 
 .react-datepicker {

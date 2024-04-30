@@ -16,10 +16,11 @@ function ProfileCard({ profile }) {
         <img
           src={imageSrc}
           alt={profile.avatar.alt || "Profile avatar"}
-          className="w-full h-52 border-2 border-cedar rounded-sm mt-3"
+          style={{ height: "300px", width: "300px" }}
+          className="object-cover w-full"
           onError={handleImageError}
         />
-        <div className="text-2xl font-condensed mt-5">{profile.name}</div>
+        <div className="text-2xl font-condensed py-2">{profile.name}</div>
       </Link>
     </div>
   );

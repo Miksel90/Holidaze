@@ -18,17 +18,17 @@ const Carousel = ({ children }) => {
   }
 
   return (
-    <div className="relative flex items-center justify-center overflow-hidden">
+    <div className="relative flex items-center justify-center overflow-hidden h-998">
       <button
         onClick={prevSlide}
-        className="absolute left-0 z-10 text-primary  bg-white p-4 text-4xl font-bold border-2 border-cedar"
+        className="absolute left-1 z-10 text-cedar   bg-white rounded-2xl px-2 py-1  text-2xl font-bold"
       >
         &lt;
       </button>
       {React.Children.map(children, (child, index) => (
         <div
           key={child.key}
-          className={index === current ? "slide active" : "hidden"}
+          className={index === current ? "slide active w-full" : "hidden"}
           // style={{ width: "100%", height: "100%" }}
         >
           {index === current && React.cloneElement(child)}
@@ -36,7 +36,7 @@ const Carousel = ({ children }) => {
       ))}
       <button
         onClick={nextSlide}
-        className="absolute right-0 z-10 text-primary bg-white p-4 text-4xl font-bold border-2 border-cedar"
+        className="absolute right-1 z-10 text-cedar bg-white rounded-2xl px-2 py-1  text-2xl font-bold"
       >
         &gt;
       </button>

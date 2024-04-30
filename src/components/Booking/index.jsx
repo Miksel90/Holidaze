@@ -19,6 +19,7 @@ const PickDates = forwardRef(({ value, onClick }, ref) => (
     {value || "Select Dates"}
   </button>
 ));
+
 PickDates.displayName = "DateStart";
 PickDates.propTypes = {
   value: PropTypes.string,
@@ -98,7 +99,16 @@ const BookVenue = ({ venue }) => {
         venueId: venue.id,
       })
         .then(() => {
-          navigate("/booked");
+          navigate("/booked", {
+            state: {
+              startDate,
+              endDate,
+              guestCount,
+              totalPrice,
+              venueName: venue.name,
+              venueLocation: `${venue.location.city}, ${venue.location.country}`,
+            },
+          });
         })
         .catch((error) => {
           console.error("Booking failed:", error);

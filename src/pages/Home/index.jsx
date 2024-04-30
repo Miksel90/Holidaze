@@ -86,7 +86,7 @@ function HomePage() {
         </Link>
       </div>
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
-        <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
+        <h2 className="text-cedar text-center font-condensed text-4xl capitalize font-bold rounded-sm py-2">
           Popular Managers
         </h2>
         <ProfilesList />

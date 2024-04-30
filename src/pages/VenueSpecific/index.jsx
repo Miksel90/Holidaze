@@ -59,7 +59,7 @@ const VenueSpecificPage = () => {
       key={index}
       src={img.url}
       alt={img.alt || "Venue image"}
-      className="w-full h-64 object-cover"
+      style={{ height: "400px", width: "100%", objectFit: "cover" }}
     />
   ));
 
@@ -85,10 +85,10 @@ const VenueSpecificPage = () => {
   return (
     <div className="flex flex-col px-2 bg-white gap-2">
       <h1 className="text-4xl text-start font-condensed p-2">{venue.name}</h1>
-      <div className="flex justify-center items-center ">
-        <Carousel>{venueImages}</Carousel>
-      </div>
-      <div className="bg-primary p-4 text-cedar rounded-sm mt-5 grid grid-cols-1 md:grid-cols-6">
+
+      <Carousel>{venueImages}</Carousel>
+
+      <div className="bg-primary p-4 text-cedar rounded-sm mt-2 grid grid-cols-1 md:grid-cols-6">
         <div className="col-span-1 md:col-span-3">
           <h2 className="text-2xl px-2 capitalize">{venue.description}</h2>
           <p className="text-lg px-2">
@@ -196,7 +196,7 @@ const VenueSpecificPage = () => {
           <ul className="mt-2 text-left">
             {venue.bookings && venue.bookings.length > 0 ? (
               venue.bookings.map((booking, index) => (
-                <li key={index} className="border-b border-gray-300 py-2">
+                <li key={index} className="border-b border-primary py-2">
                   <p>
                     <strong>Guest:</strong> {booking.customer.name}
                   </p>
