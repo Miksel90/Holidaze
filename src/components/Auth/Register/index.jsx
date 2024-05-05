@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Submitbutton from "../../Buttons/SubmitButton";
-import registerUser from "./register.js";
+import { registerUser } from "./register.js";
 
 const schema = yup
   .object({
