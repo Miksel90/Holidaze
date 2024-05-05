@@ -1,5 +1,5 @@
 export async function fetchProfiles(name = "") {
-  const profilesUrl = `https://v2.api.noroff.dev/holidaze/profiles/${name}`;
+  const profilesUrl = `https://v2.api.noroff.dev/holidaze/profiles/${name}?_venues=true&_bookings=true`;
 
   const apiKey = localStorage.getItem("apiKey");
   if (!apiKey) {
