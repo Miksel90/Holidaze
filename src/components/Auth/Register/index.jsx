@@ -31,6 +31,7 @@ function RegisterForm() {
       alert(error.message);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

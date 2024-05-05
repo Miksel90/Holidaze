@@ -13,8 +13,10 @@ async function RegisterUser(userData) {
     const response = await fetch(registerUrl, postData);
     const json = await response.json();
 
+    // console.log("Response:", response);
+
     if (response.ok) {
-      // console.log(json);
+      console.log(json);
       return json;
     } else {
       throw new Error(json.message || "Registration failed.");
