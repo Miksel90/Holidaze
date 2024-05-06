@@ -40,7 +40,7 @@ const VenuePage = () => {
           </div>
         </>
       )}
-      <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-wrap gap-4 justify-evenly">
+      <div className="col-span-1  md:col-span-6 bg-primary p-8  flex flex-wrap gap-4 justify-evenly">
         <VenuesList />
       </div>
 

@@ -103,7 +103,7 @@ function VenuesList() {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-2 ">
         {currentVenues.map((venue) => (
           <VenueCard key={venue.id} {...venue} />
         ))}
