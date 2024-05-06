@@ -60,12 +60,12 @@ const EditProfileModal = ({ isOpen, onClose, initialData }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-primary bg-opacity-50 flex items-center justify-center p-4 ">
+    <div className="fixed inset-0 bg-primary bg-opacity-50 z-50 flex items-center justify-center p-4 ">
       <div
         className="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full border-2 border-cedar"
         ref={modalRef}
       >
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="py-4">
           <label className="block font-medium">
             Bio:
             <input
