@@ -35,7 +35,7 @@ function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-evenly h-full items-center"
+      className="flex flex-col justify-evenly md:h-full items-center"
     >
       <div className=" w-full max-w-md">
         <label
@@ -81,7 +81,7 @@ function RegisterForm() {
           type="password"
           placeholder="Enter your password"
           id="password"
-          className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
+          className="mt-1 mb-2 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
         />
         {errors.password && <p>{errors.password.message}</p>}
       </div>

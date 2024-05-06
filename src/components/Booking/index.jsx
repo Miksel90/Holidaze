@@ -31,14 +31,26 @@ const BookVenue = ({ venue }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [guestCount, setGuestCount] = useState(1);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
 
   const onChange = (dates) => {
     const [start, end] = dates;
+    if (start && end) {
+      // Check if any date in the range is booked
+      for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+        if (isBookedDate(new Date(dt))) {
+          setError("Selected dates includes dates when Venue is booked.");
+          return;
+        }
+      }
+    }
     setStartDate(start);
     setEndDate(end);
+    setError(""); // Clear errors on valid range
   };
-
   const clearDates = () => {
     setStartDate(null);
     setEndDate(null);
@@ -112,6 +124,7 @@ const BookVenue = ({ venue }) => {
         })
         .catch((error) => {
           console.error("Booking failed:", error);
+          setError("Failed to book venue. Please try again.");
         });
     }
   };
@@ -126,6 +139,7 @@ const BookVenue = ({ venue }) => {
           endDate={endDate}
           selectsRange
           excludeDates={bookedDates}
+          minDate={today}
           dayClassName={(date) =>
             isBookedDate(date) ? "booked-date" : undefined
           }
@@ -139,6 +153,9 @@ const BookVenue = ({ venue }) => {
           <ImCross />
         </button>
       </div>
+      {error && (
+        <div className="text-danger text-md font-medium text-wrap">{error}</div>
+      )}
       <div className="flex border-b border-primary p-2">
         <p className="text-lg font-semibold text-start">
           Total Price: ${totalPrice}
