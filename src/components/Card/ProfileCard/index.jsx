@@ -17,7 +17,7 @@ function ProfileCard({ profile }) {
           src={imageSrc}
           alt={profile.avatar.alt || "Profile avatar"}
           style={{ height: "300px", width: "300px" }}
-          className="object-cover w-full"
+          className="object-cover w-full rounded-full"
           onError={handleImageError}
         />
         <div className="text-2xl font-condensed py-2">{profile.name}</div>
