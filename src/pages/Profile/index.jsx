@@ -1,10 +1,10 @@
-import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useFetchProfiles } from "../../hooks/useFetchProfiles";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import EditProfileModal from "../../components/Modal/profile";
 import Carousel from "../../components/Carousel";
 import ListNewVenueModal from "../../components/Modal/venue/CreateVenue";
+import { Link, useParams } from "react-router-dom";
 
 function ProfilePage() {
   const { name } = useParams();
@@ -47,7 +47,7 @@ function ProfilePage() {
 
   return (
     <div className="bg-white">
-      <h1 className="text-cedar font-condensed p-4 text-2xl">
+      <h1 className="text-cedar font-condensed p-4 text-2xl md:text-6xl">
         {profileData.name}
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch h-full">
@@ -65,7 +65,7 @@ function ProfilePage() {
                 />
               </div>
               {canInteractOnProfile && (
-                <div className="text-md">
+                <div className="text-lg">
                   <DefaultButton onClick={handleOpenProfileModal}>
                     Edit Profile
                   </DefaultButton>
@@ -98,7 +98,7 @@ function ProfilePage() {
                 </li>
               </ul>
               {canInteractOnProfile && (
-                <div className="mt-4">
+                <div className="mt-4 text-lg">
                   <DefaultButton onClick={handleOpenListNewVenueModal}>
                     List New Venue
                   </DefaultButton>
@@ -114,18 +114,24 @@ function ProfilePage() {
           </h3>
           <Carousel>
             {profileData.venues.map((venue) => (
-              <div key={venue.id} className="text-center">
-                <h4 className="text-cedar font-normal text-2xl mb-2">
-                  {venue.name}
-                </h4>
-                {venue.media && venue.media.length > 0 && (
-                  <img
-                    src={venue.media[0].url}
-                    alt={venue.media[0].alt}
-                    className="w-full h-auto max-h-52 object-cover px-10"
-                  />
-                )}
-              </div>
+              <Link
+                key={venue.id}
+                to={`/venues/${venue.id}`}
+                className="text-center"
+              >
+                <div className="border-2 border-cedar py-8">
+                  <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
+                    {venue.name}
+                  </h4>
+                  {venue.media && venue.media.length > 0 && (
+                    <img
+                      src={venue.media[0].url}
+                      alt={venue.media[0].alt}
+                      className="w-full h-auto max-h-52 object-cover px-10"
+                    />
+                  )}
+                </div>
+              </Link>
             ))}
           </Carousel>
           {canInteractOnProfile && (
@@ -144,25 +150,31 @@ function ProfilePage() {
           profileData.bookings.length > 0 ? (
             <Carousel>
               {profileData.bookings.map((booking) => (
-                <div key={booking.id} className="text-center">
-                  <h4 className="text-cedar font-normal text-2xl mb-2">
-                    {booking.venue.name}
-                  </h4>
-                  {booking.venue.media && booking.venue.media.length > 0 && (
-                    <img
-                      src={booking.venue.media[0].url}
-                      alt={booking.venue.media[0].alt}
-                      className="w-full h-auto max-h-52 object-cover px-10"
-                    />
-                  )}
-                  <div className=" flex flex-row justify-center text-sm mt-2">
-                    <p>
-                      From: {new Date(booking.dateFrom).toLocaleDateString()}
-                    </p>
-                    <div className="w-4"></div>
-                    <p>To: {new Date(booking.dateTo).toLocaleDateString()}</p>
+                <Link
+                  key={booking.id}
+                  to={`/venues/${booking.venue.id}`}
+                  className="text-center "
+                >
+                  <div className="border-2 border-cedar py-4">
+                    <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
+                      {booking.venue.name}
+                    </h4>
+                    {booking.venue.media && booking.venue.media.length > 0 && (
+                      <img
+                        src={booking.venue.media[0].url}
+                        alt={booking.venue.media[0].alt}
+                        className="w-full h-auto max-h-52 object-cover px-10"
+                      />
+                    )}
+                    <div className=" flex flex-row justify-center text-lg font-medium mt-2">
+                      <p>
+                        From: {new Date(booking.dateFrom).toLocaleDateString()}
+                      </p>
+                      <div className="w-4"></div>
+                      <p>To: {new Date(booking.dateTo).toLocaleDateString()}</p>
+                    </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </Carousel>
           ) : (

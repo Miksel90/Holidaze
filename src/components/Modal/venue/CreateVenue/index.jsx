@@ -101,6 +101,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           <input
             type="text"
             name="name"
+            aria-label="Venue Name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Name"
@@ -108,6 +109,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           />
           <textarea
             name="description"
+            aria-label="Venue Description"
             value={formData.description}
             onChange={handleChange}
             placeholder="Description"
@@ -120,11 +122,13 @@ function ListNewVenueModal({ isOpen, onClose }) {
             value={formData.price}
             onChange={handleChange}
             placeholder="Price"
+            aria-label="Price per night"
             className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
           />
           <input
             type="number"
             name="maxGuests"
+            aria-label="Max Guests"
             value={formData.maxGuests}
             onChange={handleChange}
             placeholder="Max Guests"
@@ -133,6 +137,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           <input
             type="number"
             name="rating"
+            aria-label="Rating"
             value={formData.rating}
             onChange={handleChange}
             placeholder="Rating"
@@ -148,6 +153,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 checked={formData.meta.wifi}
                 onChange={handleChange}
                 className="mr-2"
+                aria-label="WiFi Available"
               />
               WiFi
             </label>
@@ -158,6 +164,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 checked={formData.meta.parking}
                 onChange={handleChange}
                 className="mr-2"
+                aria-label="Parking Available"
               />
               Parking
             </label>
@@ -168,6 +175,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 checked={formData.meta.breakfast}
                 onChange={handleChange}
                 className="mr-2"
+                aria-label="Breakfast Included"
               />
               Breakfast
             </label>
@@ -176,6 +184,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 type="checkbox"
                 name="meta.pets"
                 checked={formData.meta.pets}
+                aria-label="Pets Allowed"
                 onChange={handleChange}
                 className="mr-2"
               />
@@ -185,6 +194,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           <input
             type="text"
             name="location.address"
+            aria-label="Address"
             value={formData.location.address}
             onChange={handleChange}
             placeholder="Address"
@@ -194,6 +204,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           <input
             type="text"
             name="location.city"
+            aria-label="City"
             value={formData.location.city}
             onChange={handleChange}
             placeholder="City"
@@ -203,6 +214,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
           <input
             type="text"
             name="location.country"
+            aria-label="Country"
             value={formData.location.country}
             onChange={handleChange}
             placeholder="Country"
@@ -216,6 +228,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 name={`media.${index}.url`}
                 value={item.url}
                 onChange={handleChange}
+                aria-label="Image URL"
                 placeholder="Image URL"
                 className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
               />
@@ -224,7 +237,8 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 <button
                   type="button"
                   onClick={() => handleRemoveImage(index)}
-                  className="bg-primary text-white px-2 py-1 rounded-md"
+                  aria-label="Remove Image"
+                  className="bg-primary text-cedar px-2 py-1 rounded-md"
                 >
                   Remove
                 </button>
@@ -235,9 +249,10 @@ function ListNewVenueModal({ isOpen, onClose }) {
             <div className="text-sm flex flex-row gap-4 mt-2">
               <button
                 type="button"
+                aria-label="Add Image"
                 onClick={handleAddImage}
                 disabled={formData.media.length >= 5}
-                className="bg-primary text-white px-2 py-1 rounded-md"
+                className="bg-primary text-cedar px-2 py-1 rounded-md"
               >
                 Add Image
               </button>
