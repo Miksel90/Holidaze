@@ -3,32 +3,39 @@ import { useState, useEffect } from "react";
 import { useFetchProfiles } from "../../hooks/useFetchProfiles";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import EditProfileModal from "../../components/Modal/profile";
+import Carousel from "../../components/Carousel";
+import ListNewVenueModal from "../../components/Modal/venue/CreateVenue";
 
 function ProfilePage() {
   const { name } = useParams();
   const decodedName = decodeURIComponent(name);
   const { profiles, isLoading, error } = useFetchProfiles(decodedName);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [canEdit, setCanEdit] = useState(false);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [isListNewVenueModalOpen, setIsListNewVenueModalOpen] = useState(false);
+  const [canInteractOnProfile, setCanInteractOnProfile] = useState(false);
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenProfileModal = () => {
+    setIsProfileModalOpen(true);
+  };
+
+  const handleOpenListNewVenueModal = () => {
+    setIsListNewVenueModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsProfileModalOpen(false);
+    setIsListNewVenueModalOpen(false);
   };
 
   useEffect(() => {
     const username = localStorage.getItem("userName");
     if (username && username === decodedName) {
-      setCanEdit(true);
+      setCanInteractOnProfile(true);
     }
   }, [decodedName]);
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   const handleSaveChanges = (updatedData) => {
     console.log("Updated Profile Data:", updatedData);
-
     handleCloseModal();
   };
 
@@ -43,7 +50,7 @@ function ProfilePage() {
       <h1 className="text-cedar font-condensed p-4 text-2xl">
         {profileData.name}
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch h-full">
         <div
           className="col-span-1 md:col-span-6 bg-primary bg-cover bg-center"
           style={{ backgroundImage: `url('${profileData.banner.url}')` }}
@@ -57,9 +64,11 @@ function ProfilePage() {
                   className="object-cover w-full h-full rounded-full shadow-cedar shadow-md"
                 />
               </div>
-              {canEdit && (
+              {canInteractOnProfile && (
                 <div className="text-md">
-                  <DefaultButton onClick={handleOpenModal}>Edit</DefaultButton>
+                  <DefaultButton onClick={handleOpenProfileModal}>
+                    Edit Profile
+                  </DefaultButton>
                 </div>
               )}
             </div>
@@ -88,18 +97,89 @@ function ProfilePage() {
                   {profileData.venues.length}
                 </li>
               </ul>
+              {canInteractOnProfile && (
+                <div className="mt-4">
+                  <DefaultButton onClick={handleOpenListNewVenueModal}>
+                    List New Venue
+                  </DefaultButton>
+                </div>
+              )}
             </div>
           </div>
         </div>
-        <div className="col-span-1 md:col-span-3 bg-primary bg-cover bg-center">
-          <h3>My Venues</h3>
+
+        <div className="col-span-1 md:col-span-3 bg-primary flex-grow">
+          <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
+            Registered Venues
+          </h3>
+          <Carousel>
+            {profileData.venues.map((venue) => (
+              <div key={venue.id} className="text-center">
+                <h4 className="text-cedar font-normal text-2xl mb-2">
+                  {venue.name}
+                </h4>
+                {venue.media && venue.media.length > 0 && (
+                  <img
+                    src={venue.media[0].url}
+                    alt={venue.media[0].alt}
+                    className="w-full h-auto max-h-52 object-cover px-10"
+                  />
+                )}
+              </div>
+            ))}
+          </Carousel>
+          {canInteractOnProfile && (
+            <div className="px-4 py-4 ">
+              <DefaultButton>Edit Venue</DefaultButton>
+            </div>
+          )}
         </div>
-        <div className="col-span-1 md:col-span-3 bg-primary bg-cover bg-center">
-          <h3>My Bookings</h3>
+        <div className="col-span-1 md:col-span-3 bg-primary flex-grow">
+          <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
+            Booked Venues
+          </h3>
+          {canInteractOnProfile &&
+          profileData &&
+          profileData.bookings &&
+          profileData.bookings.length > 0 ? (
+            <Carousel>
+              {profileData.bookings.map((booking) => (
+                <div key={booking.id} className="text-center">
+                  <h4 className="text-cedar font-normal text-2xl mb-2">
+                    {booking.venue.name}
+                  </h4>
+                  {booking.venue.media && booking.venue.media.length > 0 && (
+                    <img
+                      src={booking.venue.media[0].url}
+                      alt={booking.venue.media[0].alt}
+                      className="w-full h-auto max-h-52 object-cover px-10"
+                    />
+                  )}
+                  <div className=" flex flex-row justify-center text-sm mt-2">
+                    <p>
+                      From: {new Date(booking.dateFrom).toLocaleDateString()}
+                    </p>
+                    <div className="w-4"></div>
+                    <p>To: {new Date(booking.dateTo).toLocaleDateString()}</p>
+                  </div>
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            <p className="text-center font-light text-xl py-8">
+              {canInteractOnProfile
+                ? "No bookings found."
+                : "You cant see other peoples bookings, jeez!"}
+            </p>
+          )}
         </div>
       </div>
+      <ListNewVenueModal
+        isOpen={isListNewVenueModalOpen}
+        onClose={handleCloseModal}
+      />
       <EditProfileModal
-        isOpen={isModalOpen}
+        isOpen={isProfileModalOpen}
         onClose={handleCloseModal}
         onSave={handleSaveChanges}
         initialData={profileData}
