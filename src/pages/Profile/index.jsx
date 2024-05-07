@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useFetchProfiles } from "../../hooks/useFetchProfiles";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import EditProfileModal from "../../components/Modal/profile";
-import Carousel from "../../components/Carousel";
 import ListNewVenueModal from "../../components/Modal/venue/CreateVenue";
+import Carousel from "../../components/Carousel";
 import { Link, useParams } from "react-router-dom";
 
 function ProfilePage() {
@@ -13,20 +13,36 @@ function ProfilePage() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isListNewVenueModalOpen, setIsListNewVenueModalOpen] = useState(false);
   const [canInteractOnProfile, setCanInteractOnProfile] = useState(false);
+  const [currentPage, setCurrentPage] = useState(0);
+  const venuesPerPage = 4;
 
+  // Open the profile modal
   const handleOpenProfileModal = () => {
     setIsProfileModalOpen(true);
   };
 
+  // Open the modal to list a new venue
   const handleOpenListNewVenueModal = () => {
     setIsListNewVenueModalOpen(true);
   };
 
+  // Close any open modals
   const handleCloseModal = () => {
     setIsProfileModalOpen(false);
     setIsListNewVenueModalOpen(false);
   };
 
+  // Move to the next page of venues
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  // Move to the previous page of venues
+  const previousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
+  // Effect to check if the user can interact with the profile
   useEffect(() => {
     const username = localStorage.getItem("userName");
     if (username && username === decodedName) {
@@ -34,16 +50,27 @@ function ProfilePage() {
     }
   }, [decodedName]);
 
+  // Save changes from the profile edit modal
   const handleSaveChanges = (updatedData) => {
     console.log("Updated Profile Data:", updatedData);
     handleCloseModal();
   };
 
+  // Loading state
   if (isLoading) return <div>Loading...</div>;
+  // Error state
   if (error) return <div>Error: {error.message}</div>;
+  // No data found
   if (!profiles || !profiles.data) return <div>No profile data found.</div>;
 
   const profileData = profiles.data;
+  const venueStartIndex = currentPage * venuesPerPage;
+  const currentVenues = profileData.venues.slice(
+    venueStartIndex,
+    venueStartIndex + venuesPerPage
+  );
+  const totalVenues = profileData.venues.length;
+  const hasMoreVenues = venueStartIndex + venuesPerPage < totalVenues;
 
   return (
     <div className="bg-white">
@@ -107,40 +134,44 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-
-        <div className="col-span-1 md:col-span-3 bg-primary flex-grow">
-          <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
+        <div className="col-span-6 bg-primary flex-grow">
+          <h3 className="text-2xl font-medium text-center py-4">
             Registered Venues
           </h3>
-          <Carousel>
-            {profileData.venues.map((venue) => (
-              <Link
+          <div className="grid grid-cols-1 md:grid-cols-2  gap-4 px-4 py-2">
+            {currentVenues.map((venue) => (
+              <div
                 key={venue.id}
-                to={`/venues/${venue.id}`}
-                className="text-center"
+                className="bg-white shadow rounded-lg hover:shadow-md transition-shadow p-4 "
               >
-                <div className="border-2 border-cedar py-8">
-                  <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
+                <Link to={`/venues/${venue.id}`} className="block">
+                  <h4 className="text-cedar font-medium text-xl mb-2 text-center">
                     {venue.name}
                   </h4>
                   {venue.media && venue.media.length > 0 && (
                     <img
                       src={venue.media[0].url}
                       alt={venue.media[0].alt}
-                      className="w-full h-auto max-h-52 object-cover px-10"
+                      className="w-full h-52 object-cover rounded"
                     />
                   )}
-                </div>
-              </Link>
+                  <div className="text-center mt-4">
+                    <DefaultButton>Edit Venue</DefaultButton>
+                  </div>
+                </Link>
+              </div>
             ))}
-          </Carousel>
-          {canInteractOnProfile && (
-            <div className="px-4 py-4 ">
-              <DefaultButton>Edit Venue</DefaultButton>
-            </div>
-          )}
+          </div>
+          <div className="flex justify-center mt-4 mb-4">
+            {currentPage > 0 && (
+              <DefaultButton onClick={previousPage}>Previous</DefaultButton>
+            )}
+            {hasMoreVenues && (
+              <DefaultButton onClick={nextPage}>Next</DefaultButton>
+            )}
+          </div>
         </div>
-        <div className="col-span-1 md:col-span-3 bg-primary flex-grow">
+        <div className="col-span-1 md:col-span-6 bg-primary flex-grow">
           <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
             Booked Venues
           </h3>
@@ -155,7 +186,7 @@ function ProfilePage() {
                   to={`/venues/${booking.venue.id}`}
                   className="text-center "
                 >
-                  <div className="border-2 border-cedar py-4">
+                  <div className=" py-4">
                     <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
                       {booking.venue.name}
                     </h4>

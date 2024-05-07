@@ -3,8 +3,13 @@ import DefaultButton from "../../../Buttons/DefaultButton";
 import SubmitButton from "../../../Buttons/SubmitButton";
 import PropTypes from "prop-types";
 
+import { useCreateNewVenue } from "../../../../hooks/useCreateNewVenue";
+
 function ListNewVenueModal({ isOpen, onClose }) {
   const modalRef = useRef(null);
+  const { createVenue } = useCreateNewVenue();
+  const [errors, setErrors] = useState({});
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -44,20 +49,35 @@ function ListNewVenueModal({ isOpen, onClose }) {
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const keys = name.split(".");
-    if (keys.length > 1) {
-      setFormData((prev) => ({
-        ...prev,
-        [keys[0]]: {
-          ...prev[keys[0]],
-          [keys[1]]: type === "checkbox" ? checked : value,
-        },
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    }
+
+    setFormData((prev) => {
+      let updated = { ...prev };
+      let current = updated;
+
+      keys.forEach((key, index) => {
+        if (index === keys.length - 1) {
+          if (key === "url" && value.length > 250) {
+            setErrors({
+              ...errors,
+              url: "Image URL must be under 250 characters.",
+            });
+            return;
+          } else {
+            const newErrors = { ...errors };
+            delete newErrors.url;
+            setErrors(newErrors);
+          }
+          current[key] = type === "checkbox" ? checked : value;
+        } else {
+          if (!current[key]) {
+            current[key] = {};
+          }
+          current = current[key];
+        }
+      });
+
+      return updated;
+    });
   };
 
   const handleAddImage = () => {
@@ -78,10 +98,59 @@ function ListNewVenueModal({ isOpen, onClose }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    onClose();
+
+    const isUrlTooLong = formData.media.some((item) => item.url.length > 300);
+    if (isUrlTooLong) {
+      console.error(
+        "Validation failed: One or more image URLs exceed the maximum length of 300 characters."
+      );
+      alert(
+        "Validation failed: One or more image URLs exceed the maximum length of 300 characters."
+      );
+      return;
+    }
+
+    const venueData = {
+      name: formData.name.trim(),
+      description: formData.description.trim(),
+      media: formData.media.map((item) => ({
+        url: item.url.trim(),
+        alt: item.alt.trim() || "default alt text",
+      })),
+      price: parseFloat(formData.price),
+      maxGuests: parseInt(formData.maxGuests, 10),
+      rating: parseInt(formData.rating, 10),
+      meta: formData.meta,
+      location: {
+        address: formData.location.address.trim() || null,
+        city: formData.location.city.trim() || null,
+        country: formData.location.country.trim() || null,
+        lat: formData.location.lat ? parseFloat(formData.location.lat) : 0,
+        lng: formData.location.lng ? parseFloat(formData.location.lng) : 0,
+      },
+    };
+
+    if (
+      isNaN(venueData.price) ||
+      isNaN(venueData.maxGuests) ||
+      isNaN(venueData.rating)
+    ) {
+      console.error(
+        "Validation failed: Numeric fields must contain valid numbers."
+      );
+      return;
+    }
+
+    try {
+      const response = await createVenue(venueData);
+      console.log("Venue created successfully!", response);
+      onClose();
+      window.location.reload();
+    } catch (error) {
+      console.error("Failed to create venue:", error);
+    }
   };
 
   if (!isOpen) return null;
@@ -100,6 +169,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
         <form onSubmit={handleSubmit} className="flex flex-col ">
           <input
             type="text"
+            required
             name="name"
             aria-label="Venue Name"
             value={formData.name}
@@ -107,8 +177,10 @@ function ListNewVenueModal({ isOpen, onClose }) {
             placeholder="Name"
             className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
           />
+
           <textarea
             name="description"
+            required
             aria-label="Venue Description"
             value={formData.description}
             onChange={handleChange}
@@ -118,24 +190,33 @@ function ListNewVenueModal({ isOpen, onClose }) {
 
           <input
             type="number"
+            required
             name="price"
+            min="1"
+            max="10000"
             value={formData.price}
             onChange={handleChange}
             placeholder="Price"
             aria-label="Price per night"
             className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
           />
+
           <input
             type="number"
             name="maxGuests"
+            min="1"
+            max="10"
+            required
             aria-label="Max Guests"
             value={formData.maxGuests}
             onChange={handleChange}
             placeholder="Max Guests"
             className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
           />
+
           <input
             type="number"
+            required
             name="rating"
             aria-label="Rating"
             value={formData.rating}
@@ -145,6 +226,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
             max="5"
             className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
           />
+
           <div className="flex flex-col md:flex-row gap-2 justify-between p-4">
             <label className="">
               <input
@@ -203,6 +285,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
 
           <input
             type="text"
+            required
             name="location.city"
             aria-label="City"
             value={formData.location.city}
@@ -213,6 +296,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
 
           <input
             type="text"
+            required
             name="location.country"
             aria-label="Country"
             value={formData.location.country}
@@ -232,6 +316,11 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 placeholder="Image URL"
                 className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
               />
+              {errors[`media.${index}.url`] && (
+                <p className="text-danger text-xs italic">
+                  {errors[`media.${index}.url`]}
+                </p>
+              )}
 
               {formData.media.length > 1 && (
                 <button
@@ -261,7 +350,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
 
           <div className="flex flex-row justify-between p-4">
             <DefaultButton onClick={onClose}>Cancel</DefaultButton>
-            <SubmitButton>Create Venue</SubmitButton>
+            <SubmitButton>Submit</SubmitButton>
           </div>
         </form>
       </div>
