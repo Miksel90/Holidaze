@@ -53,15 +53,6 @@ const BookedPage = () => {
             className="w-full h-998 object-cover px-2 md:px-0"
           />
         </div>
-        <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
-          <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
-            Popular Managers
-          </h2>
-          <ProfilesList />
-        </div>
-        <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
-          <ReviewContainer />
-        </div>
       </div>
     </div>
   );
