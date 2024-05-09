@@ -6,14 +6,26 @@ import { FaSearch } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaHouse } from "react-icons/fa6";
 
+const delaySearch = (func, delay) => {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+};
+
 const SearchBar = () => {
-  const apiKey = localStorage.getItem("apiKey"); // Get the API key from localStorage
-  const { venues } = useFetchVenues(); // Always fetch venues
-  const { profiles } = apiKey ? useFetchProfiles() : { profiles: { data: [] } }; // Conditionally fetch profiles
+  const apiKey = localStorage.getItem("apiKey");
+  const { venues } = useFetchVenues();
+  const { profiles } = apiKey ? useFetchProfiles() : { profiles: { data: [] } };
 
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const delayedSetSearchTerm = delaySearch((value) => {
+    setSearchTerm(value);
+  }, 300);
 
   useEffect(() => {
     if (profiles.data && venues) {
@@ -52,11 +64,11 @@ const SearchBar = () => {
             placeholder="Search..."
             autoFocus
             required
-            className="block w-full rounded-md shadow-sm p-3 text-lg focus:ring-cedar focus:border-cedar pl-10"
+            className="block w-full rounded-md shadow-sm p-3 text-lg focus:ring-cedar focus:border-cedar pl-4"
             autoComplete="off"
             aria-label="Search"
             value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => delayedSetSearchTerm(e.target.value)}
           />
           <FaSearch className="absolute right-3 text-cedar text-xl z-10" />
         </div>
