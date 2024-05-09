@@ -22,7 +22,7 @@ const Carousel = ({ children }) => {
       {length > 1 && (
         <button
           onClick={prevSlide}
-          className="absolute left-1 z-10 text-cedar bg-white rounded-2xl px-2 py-1 text-2xl font-bold"
+          className="absolute left-1 z-12 text-cedar bg-white rounded-2xl px-2 py-1 text-2xl font-bold"
         >
           &lt;
         </button>
@@ -38,7 +38,7 @@ const Carousel = ({ children }) => {
       {length > 1 && (
         <button
           onClick={nextSlide}
-          className="absolute right-1 z-10 text-cedar bg-white rounded-2xl px-2 py-1 text-2xl font-bold"
+          className="absolute right-1 z-12 text-cedar bg-white rounded-2xl px-2 py-1 text-2xl font-bold"
         >
           &gt;
         </button>
