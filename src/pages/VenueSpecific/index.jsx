@@ -19,10 +19,12 @@ const VenueSpecificPage = () => {
   const [profileError, setProfileError] = useState(null);
   const [showBookings, setShowBookings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [canViewBookings, setCanViewBookings] = useState(false);
 
   useEffect(() => {
     const userName = localStorage.getItem("userName");
     setIsLoggedIn(!!userName);
+    setCanViewBookings(!!userName);
 
     if (venues.length > 0) {
       const venue = venues.find((p) => p.id.toString() === id);
@@ -56,7 +58,7 @@ const VenueSpecificPage = () => {
 
   const venue = venues.find((p) => p.id.toString() === id);
   if (!venue) {
-    return <div>Product not found</div>;
+    return <div>Venue not found</div>;
   }
 
   const venueImages = venue.media.map((img, index) => (
@@ -90,9 +92,7 @@ const VenueSpecificPage = () => {
   return (
     <div className="flex flex-col px-2 bg-white gap-2">
       <h1 className="text-4xl text-start font-condensed p-2">{venue.name}</h1>
-
       <Carousel>{venueImages}</Carousel>
-
       <div className="bg-primary p-4 text-cedar rounded-sm mt-2 grid grid-cols-1 md:grid-cols-6">
         <div className="col-span-1 md:col-span-3">
           <h2 className="text-2xl px-2 capitalize">{venue.description}</h2>
@@ -207,37 +207,47 @@ const VenueSpecificPage = () => {
           </div>
         )}
       </div>
-      <div className="mt-4 rounded-sm px-2 text-start text-lg font-medium mb-8 ">
-        <DefaultButton onClick={toggleBookings}>
-          {showBookings ? "Hide" : "View"} Previous Bookings
-        </DefaultButton>
-        {showBookings && (
-          <ul className="mt-2 text-left">
-            {venue.bookings && venue.bookings.length > 0 ? (
-              venue.bookings.map((booking, index) => (
-                <li key={index} className="border-b border-primary py-2">
-                  <p>
-                    <strong>Guest:</strong> {booking.customer.name}
-                  </p>
-                  <p>
-                    <strong>From:</strong>
-                    {new Date(booking.dateFrom).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>To:</strong>
-                    {new Date(booking.dateTo).toLocaleDateString()}
-                  </p>
-                  <p>
-                    <strong>Guests:</strong> {booking.guests}
-                  </p>
-                </li>
-              ))
-            ) : (
-              <li className="p-4 text-2xl">No bookings found.</li>
-            )}
-          </ul>
-        )}
-      </div>
+      {isLoggedIn &&
+      canViewBookings &&
+      venue.owner.name === localStorage.getItem("userName") ? (
+        <div className="mt-4 rounded-sm px-2 text-start text-lg font-medium mb-8 ">
+          <DefaultButton onClick={toggleBookings}>
+            {showBookings ? "Hide" : "View"} Bookings
+          </DefaultButton>
+          {showBookings && (
+            <ul className="mt-2 text-left">
+              {venue.bookings && venue.bookings.length > 0 ? (
+                venue.bookings.map((booking, index) => (
+                  <li key={index} className="border-b border-primary py-2">
+                    <p>
+                      <strong>Guest:</strong> {booking.customer.name}
+                    </p>
+                    <p>
+                      <strong>From:</strong>
+                      {new Date(booking.dateFrom).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>To:</strong>
+                      {new Date(booking.dateTo).toLocaleDateString()}
+                    </p>
+                    <p>
+                      <strong>Guests:</strong> {booking.guests}
+                    </p>
+                  </li>
+                ))
+              ) : (
+                <li className="p-4 text-2xl">No bookings found.</li>
+              )}
+            </ul>
+          )}
+        </div>
+      ) : (
+        <div className="mt-4 rounded-sm px-2 text-start text-lg font-medium mb-8 ">
+          <p className="text-center">
+            You dont have permission to view these bookings
+          </p>
+        </div>
+      )}
     </div>
   );
 };
