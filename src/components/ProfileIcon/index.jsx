@@ -53,7 +53,7 @@ const ProfileIcon = () => {
             <CgProfile className="text-4xl md:text-6xl text-cedar" />
           )}
         </Link>
-        <span className=" text-md md:text-lg capitalize font-condensed">
+        <span className=" hidden sm:block text-md md:text-lg capitalize font-condensed">
           {profile.name || userName}
         </span>
       </div>

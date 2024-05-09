@@ -15,7 +15,7 @@ const Header = () => {
             className="rounded-full shadow-cedar shadow-lg"
             style={{ width: "75px", height: "75px" }}
           />
-          <span className="text-cedar font-condensed uppercase text-4xl font-semibold xxs:ml-4">
+          <span className="text-cedar hidden md:block font-condensed uppercase text-4xl font-semibold xxs:ml-4">
             Holidaze.
           </span>
         </Link>
