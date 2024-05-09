@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet";
-import ProfilesList from "../../components/Lists/ProfilesList";
-import ReviewContainer from "../../components/Containers/ReviewsContainer";
+
 import ImageOne from "../../assets/Images/bg1.webp";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import { useLocation } from "react-router-dom";

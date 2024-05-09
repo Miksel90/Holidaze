@@ -201,8 +201,8 @@ BookVenue.propTypes = {
     price: PropTypes.number,
     maxGuests: PropTypes.number,
     location: PropTypes.shape({
-      city: PropTypes.string.isRequired,
-      country: PropTypes.string.isRequired,
+      city: PropTypes.string,
+      country: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };
