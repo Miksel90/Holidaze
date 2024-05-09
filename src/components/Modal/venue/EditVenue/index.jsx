@@ -385,7 +385,7 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
             </button>
             <DefaultButton onClick={onClose}>Cancel</DefaultButton>
             <button
-              className="px-4 py-2 font-condensed font-medium rounded-md text-cedar bg-white hover:bg-primary hover:text-white border border-porsche transition-colors"
+              className="px-4 py-2 font-condensed border-2 rounded-md text-cedar bg-primary hover:bg-primary hover:text-white  border-porsche transition-colors"
               type="submit"
               disabled={isLoading}
               aria-label="Update Venue"
