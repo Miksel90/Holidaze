@@ -7,8 +7,10 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaHouse } from "react-icons/fa6";
 
 const SearchBar = () => {
-  const { profiles } = useFetchProfiles();
-  const { venues } = useFetchVenues();
+  const apiKey = localStorage.getItem("apiKey"); // Get the API key from localStorage
+  const { venues } = useFetchVenues(); // Always fetch venues
+  const { profiles } = apiKey ? useFetchProfiles() : { profiles: { data: [] } }; // Conditionally fetch profiles
+
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
