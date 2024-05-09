@@ -5,6 +5,7 @@ import EditProfileModal from "../../components/Modal/profile";
 import ListNewVenueModal from "../../components/Modal/venue/CreateVenue";
 import Carousel from "../../components/Carousel";
 import { Link, useParams } from "react-router-dom";
+import EditVenueModal from "../../components/Modal/venue/EditVenue";
 
 function ProfilePage() {
   const { name } = useParams();
@@ -13,36 +14,35 @@ function ProfilePage() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isListNewVenueModalOpen, setIsListNewVenueModalOpen] = useState(false);
   const [canInteractOnProfile, setCanInteractOnProfile] = useState(false);
+  const [editingVenue, setEditingVenue] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const venuesPerPage = 4;
 
-  // Open the profile modal
   const handleOpenProfileModal = () => {
     setIsProfileModalOpen(true);
   };
 
-  // Open the modal to list a new venue
   const handleOpenListNewVenueModal = () => {
     setIsListNewVenueModalOpen(true);
   };
 
-  // Close any open modals
+  const handleEditVenue = (venue) => {
+    setEditingVenue(venue);
+  };
+
   const handleCloseModal = () => {
     setIsProfileModalOpen(false);
     setIsListNewVenueModalOpen(false);
   };
 
-  // Move to the next page of venues
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
   };
 
-  // Move to the previous page of venues
   const previousPage = () => {
     setCurrentPage(currentPage - 1);
   };
 
-  // Effect to check if the user can interact with the profile
   useEffect(() => {
     const username = localStorage.getItem("userName");
     if (username && username === decodedName) {
@@ -50,17 +50,15 @@ function ProfilePage() {
     }
   }, [decodedName]);
 
-  // Save changes from the profile edit modal
   const handleSaveChanges = (updatedData) => {
     console.log("Updated Profile Data:", updatedData);
     handleCloseModal();
   };
 
-  // Loading state
   if (isLoading) return <div>Loading...</div>;
-  // Error state
+
   if (error) return <div>Error: {error.message}</div>;
-  // No data found
+
   if (!profiles || !profiles.data) return <div>No profile data found.</div>;
 
   const profileData = profiles.data;
@@ -155,10 +153,14 @@ function ProfilePage() {
                       className="w-full h-52 object-cover rounded"
                     />
                   )}
-                  <div className="text-center mt-4">
-                    <DefaultButton>Edit Venue</DefaultButton>
-                  </div>
                 </Link>
+                <div className="text-center mt-4">
+                  <div className="text-center mt-4">
+                    <DefaultButton onClick={() => handleEditVenue(venue)}>
+                      Edit Venue
+                    </DefaultButton>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
@@ -226,6 +228,12 @@ function ProfilePage() {
         onClose={handleCloseModal}
         onSave={handleSaveChanges}
         initialData={profileData}
+      />
+      <EditVenueModal
+        isOpen={!!editingVenue}
+        onClose={() => setEditingVenue(null)}
+        venueData={editingVenue}
+        onSave={handleSaveChanges}
       />
     </div>
   );

@@ -22,7 +22,7 @@ export async function createNewVenue(newVenueData) {
 
     const responseData = await response.json();
 
-    console.log("Full API Response:", responseData);
+    console.log(" Response:", responseData);
 
     if (!response.ok) {
       console.error("API Error Response:", responseData);
