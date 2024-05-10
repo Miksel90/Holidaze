@@ -25,17 +25,25 @@ const VenueSpecificPage = () => {
     const userName = localStorage.getItem("userName");
     setIsLoggedIn(!!userName);
     setCanViewBookings(!!userName);
+  }, []);
 
+  useEffect(() => {
     if (venues.length > 0) {
-      const venue = venues.find((p) => p.id.toString() === id);
+      const venue = venues.find((v) => v.id.toString() === id);
       if (venue) {
         document.title = venue.name + " | Holidaze";
-        // console.log("Fetched venue data:", venue);
+      } else {
+        console.error("Venue with ID " + id + " not found.");
       }
     }
   }, [venues, id]);
 
   const navigateToOwnerProfile = async () => {
+    if (!venue || !venue.owner) {
+      console.error("No owner information available for this venue.");
+      return;
+    }
+
     try {
       const profileData = await fetchProfiles(
         encodeURIComponent(venue.owner.name)
@@ -61,14 +69,18 @@ const VenueSpecificPage = () => {
     return <div>Venue not found</div>;
   }
 
-  const venueImages = venue.media.map((img, index) => (
-    <img
-      key={index}
-      src={img.url}
-      alt={img.alt || "Venue image"}
-      style={{ height: "400px", width: "100%", objectFit: "cover" }}
-    />
-  ));
+  const venueImages =
+    venue && venue.media
+      ? venue.media.map((img, index) => (
+          <img
+            key={index}
+            src={img.url || defaultImage}
+            alt={img.alt || "Venue image"}
+            style={{ height: "400px", width: "100%", objectFit: "cover" }}
+            onError={(e) => (e.target.src = defaultImage)}
+          />
+        ))
+      : [];
 
   const formattedDate = (created) => {
     return created
