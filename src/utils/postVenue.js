@@ -1,6 +1,7 @@
 export async function createNewVenue(newVenueData) {
   const venueUrl = "https://v2.api.noroff.dev/holidaze/venues";
-  const apiKey = localStorage.getItem("apiKey");
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const accessToken = localStorage.getItem("accessToken");
 
   if (!apiKey || !accessToken) {

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchProfiles } from "../utils/fetchProfiles";
 
-export function useFetchProfiles(profileName = "") {
+export function useFetchProfiles(profileName = "", isSearch = false) {
   const [profiles, setProfiles] = useState({ data: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const apiKey = localStorage.getItem("apiKey");
+    const apiKey = import.meta.env.VITE_API_KEY;
+
     if (!apiKey) {
       setError("API key is missing");
       setIsLoading(false);
@@ -16,10 +17,10 @@ export function useFetchProfiles(profileName = "") {
     }
 
     setIsLoading(true);
-    fetchProfiles(profileName)
+    fetchProfiles(profileName, isSearch)
       .then((response) => {
         setProfiles(response);
-        // console.log("Profiles response: ", response);
+        console.log("Profiles response: ", response);
       })
       .catch((e) => {
         setError(e.message);
@@ -28,7 +29,7 @@ export function useFetchProfiles(profileName = "") {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [profileName]);
+  }, [profileName, isSearch]);
 
   return { profiles, isLoading, error };
 }

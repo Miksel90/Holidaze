@@ -16,10 +16,12 @@ const delaySearch = (func, delay) => {
 
 const SearchBar = () => {
   const { venues, isLoading: isLoadingVenues } = useFetchVenues();
-
   const [searchTerm, setSearchTerm] = useState("");
-  const { profiles, isLoading: isLoadingProfiles } =
-    useFetchProfiles(searchTerm);
+  const {
+    profiles,
+    isLoading: isLoadingProfiles,
+    error,
+  } = useFetchProfiles(searchTerm, true);
 
   const memoizedProfiles = useMemo(() => profiles, [profiles]);
   const memoizedVenues = useMemo(() => venues, [venues]);
@@ -32,7 +34,7 @@ const SearchBar = () => {
   }, 300);
 
   useEffect(() => {
-    if (memoizedProfiles.data && memoizedVenues) {
+    if (memoizedProfiles.data && Array.isArray(memoizedProfiles.data)) {
       const allResults = [
         ...memoizedProfiles.data.map((p) => ({ ...p, type: "profile" })),
         ...memoizedVenues.map((v) => ({ ...v, type: "venue" })),
@@ -86,7 +88,7 @@ const SearchBar = () => {
                   ? `${item.type}-${item.id}`
                   : `${item.type}-index-${index}`
               }
-              className="border-b last:border-b-0 flex items-center p-3 hover:bg-primary hover:text-white cursor-pointer hover:font-medium transition-colors"
+              className="border-b last:border-b-0 flex items-center p-3 hover:bg-primary hover:text-white hover:border-cedar hover:border-t cursor-pointer hover:font-medium transition-colors"
             >
               <Link
                 to={

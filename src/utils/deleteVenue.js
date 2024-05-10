@@ -2,7 +2,8 @@ import { BASE_URL } from "./constants";
 
 export async function deleteVenue(venueId) {
   const deleteUrl = `${BASE_URL}holidaze/venues/${venueId}`;
-  const apiKey = localStorage.getItem("apiKey");
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const accessToken = localStorage.getItem("accessToken");
 
   if (!apiKey || !accessToken) {

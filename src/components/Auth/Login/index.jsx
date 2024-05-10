@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Submitbutton from "../../Buttons/SubmitButton";
-import { fetchApiKey } from "../ApiKey/createApiKey";
+
 import loginUser from "./login";
 
 const LoginForm = () => {
@@ -33,20 +33,7 @@ const LoginForm = () => {
       localStorage.setItem("userName", name);
       localStorage.setItem("accessToken", accessToken);
       setUserName(name);
-
-      try {
-        const apiKey = await fetchApiKey(accessToken, name);
-        if (apiKey) {
-          localStorage.setItem("apiKey", apiKey);
-          // console.log("Stored API Key:", localStorage.getItem("apiKey"));
-          window.location.reload();
-        } else {
-          setError("Failed to fetch API key. No key returned.");
-        }
-      } catch (apiKeyError) {
-        setError("Failed to fetch API key.");
-        console.error("API Key Fetch Error:", apiKeyError);
-      }
+      window.location.reload();
     } catch (loginError) {
       setError("Login failed. Please check your email and password.");
       console.error("Login Error:", loginError);

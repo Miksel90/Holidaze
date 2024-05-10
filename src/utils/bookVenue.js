@@ -1,7 +1,8 @@
 import { bookingUrl } from "./constants";
 
 export async function bookVenue(bookingData) {
-  const apiKey = localStorage.getItem("apiKey");
+  const apiKey = import.meta.env.VITE_API_KEY;
+
   const accessToken = localStorage.getItem("accessToken");
 
   if (!apiKey || !accessToken) {

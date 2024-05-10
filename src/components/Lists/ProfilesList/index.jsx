@@ -5,15 +5,16 @@ import { FaFaceFrown } from "react-icons/fa6";
 import Carousel from "../../Carousel";
 
 function ProfilesList() {
-  const [apiKeyExists, setApiKeyExists] = useState(false);
+  const [accessTokenExists, setAccessTokenExits] = useState(null);
   const { profiles, isLoading, error } = useFetchProfiles();
 
   useEffect(() => {
-    const apiKey = localStorage.getItem("apiKey");
-    setApiKeyExists(!!apiKey);
+    const accessToken = localStorage.getItem("accessToken");
+
+    setAccessTokenExits(!!accessToken);
   }, []);
 
-  if (!apiKeyExists)
+  if (!accessTokenExists)
     return (
       <div className="flex flex-col justify-center items-center gap-2">
         <p className="font-condensed text-2xl">

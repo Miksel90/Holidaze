@@ -3,7 +3,7 @@ import { BASE_URL } from "./constants";
 export async function updateProfileInfo(profileData) {
   const accessToken = localStorage.getItem("accessToken");
   const userName = localStorage.getItem("userName");
-  const apiKey = localStorage.getItem("apiKey");
+  const apiKey = import.meta.env.VITE_API_KEY;
 
   if (!accessToken || !apiKey) {
     throw new Error("Access token or API key is missing");
