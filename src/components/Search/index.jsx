@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useFetchProfiles } from "../../hooks/useFetchProfiles";
 import { useFetchVenues } from "../../hooks/useFetchVenues";
 import { Link } from "react-router-dom";
@@ -15,12 +15,16 @@ const delaySearch = (func, delay) => {
 };
 
 const SearchBar = () => {
-  const apiKey = localStorage.getItem("apiKey");
-  const { venues } = useFetchVenues();
-  const { profiles } = apiKey ? useFetchProfiles() : { profiles: { data: [] } };
+  const { venues, isLoading: isLoadingVenues } = useFetchVenues();
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const { profiles, isLoading: isLoadingProfiles } =
+    useFetchProfiles(searchTerm);
+
+  const memoizedProfiles = useMemo(() => profiles, [profiles]);
+  const memoizedVenues = useMemo(() => venues, [venues]);
 
   const [searchResults, setSearchResults] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const delayedSetSearchTerm = delaySearch((value) => {
@@ -28,10 +32,10 @@ const SearchBar = () => {
   }, 300);
 
   useEffect(() => {
-    if (profiles.data && venues) {
+    if (memoizedProfiles.data && memoizedVenues) {
       const allResults = [
-        ...profiles.data.map((p) => ({ ...p, type: "profile" })),
-        ...venues.map((v) => ({ ...v, type: "venue" })),
+        ...memoizedProfiles.data.map((p) => ({ ...p, type: "profile" })),
+        ...memoizedVenues.map((v) => ({ ...v, type: "venue" })),
       ];
       const results =
         searchTerm.length > 0
@@ -42,7 +46,7 @@ const SearchBar = () => {
       setSearchResults(results);
       setIsMenuOpen(results.length > 0);
     }
-  }, [searchTerm, profiles, venues]);
+  }, [searchTerm, memoizedProfiles, memoizedVenues]);
 
   const clearSearch = () => {
     setSearchTerm("");

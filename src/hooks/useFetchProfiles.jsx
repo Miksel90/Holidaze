@@ -2,24 +2,24 @@ import { useEffect, useState } from "react";
 import { fetchProfiles } from "../utils/fetchProfiles";
 
 export function useFetchProfiles(profileName = "") {
-  const [profiles, setProfiles] = useState([]);
+  const [profiles, setProfiles] = useState({ data: [] });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const apiKey = localStorage.getItem("apiKey");
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (!apiKey || !accessToken) {
-      setError("API key or access token is missing");
+    if (!apiKey) {
+      setError("API key is missing");
       setIsLoading(false);
+      setProfiles({ data: [] });
       return;
     }
 
     setIsLoading(true);
-    fetchProfiles(profileName) // Now correctly fetching data based on profileName
+    fetchProfiles(profileName)
       .then((response) => {
-        setProfiles(response); // Assume response itself is the data array
+        setProfiles(response);
+        // console.log("Profiles response: ", response);
       })
       .catch((e) => {
         setError(e.message);
@@ -28,7 +28,7 @@ export function useFetchProfiles(profileName = "") {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [profileName]); // Correctly re-fetch when profileName changes
+  }, [profileName]);
 
   return { profiles, isLoading, error };
 }

@@ -50,25 +50,27 @@ function ProfilePage() {
     }
   }, [decodedName]);
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  if (!profiles?.data || !Array.isArray(profiles.data.venues)) {
+    return <div>No profile data found or data is in an unexpected format.</div>;
+  }
+
+  const profileData = profiles.data;
+  const venueStartIndex = currentPage * venuesPerPage;
+  const currentVenues =
+    profileData.venues?.slice(
+      venueStartIndex,
+      venueStartIndex + venuesPerPage
+    ) ?? [];
+  const totalVenues = profileData.venues?.length ?? 0;
+  const hasMoreVenues = venueStartIndex + venuesPerPage < totalVenues;
+
   const handleSaveChanges = (updatedData) => {
     console.log("Updated Profile Data:", updatedData);
     handleCloseModal();
   };
-
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return <div>Error: {error.message}</div>;
-
-  if (!profiles || !profiles.data) return <div>No profile data found.</div>;
-
-  const profileData = profiles.data;
-  const venueStartIndex = currentPage * venuesPerPage;
-  const currentVenues = profileData.venues.slice(
-    venueStartIndex,
-    venueStartIndex + venuesPerPage
-  );
-  const totalVenues = profileData.venues.length;
-  const hasMoreVenues = venueStartIndex + venuesPerPage < totalVenues;
 
   return (
     <div className="bg-white">
