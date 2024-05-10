@@ -20,7 +20,7 @@ export function useFetchProfiles(profileName = "", isSearch = false) {
     fetchProfiles(profileName, isSearch)
       .then((response) => {
         setProfiles(response);
-        console.log("Profiles response: ", response);
+        // console.log("Profiles response: ", response);
       })
       .catch((e) => {
         setError(e.message);

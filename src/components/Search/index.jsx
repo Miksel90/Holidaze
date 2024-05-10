@@ -1,6 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
-import { useFetchProfiles } from "../../hooks/useFetchProfiles";
-import { useFetchVenues } from "../../hooks/useFetchVenues";
+import { useState, useEffect } from "react";
+import { useSearch } from "../../hooks/useSearch"; // Corrected import
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
@@ -15,16 +14,8 @@ const delaySearch = (func, delay) => {
 };
 
 const SearchBar = () => {
-  const { venues, isLoading: isLoadingVenues } = useFetchVenues();
   const [searchTerm, setSearchTerm] = useState("");
-  const {
-    profiles,
-    isLoading: isLoadingProfiles,
-    error,
-  } = useFetchProfiles(searchTerm, true);
-
-  const memoizedProfiles = useMemo(() => profiles, [profiles]);
-  const memoizedVenues = useMemo(() => venues, [venues]);
+  const { profiles, venues, isLoading, error } = useSearch(searchTerm);
 
   const [searchResults, setSearchResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -34,21 +25,20 @@ const SearchBar = () => {
   }, 300);
 
   useEffect(() => {
-    if (memoizedProfiles.data && Array.isArray(memoizedProfiles.data)) {
+    if (!isLoading) {
       const allResults = [
-        ...memoizedProfiles.data.map((p) => ({ ...p, type: "profile" })),
-        ...memoizedVenues.map((v) => ({ ...v, type: "venue" })),
+        ...profiles.map((p) => ({ ...p, type: "profile" })),
+        ...venues.map((v) => ({ ...v, type: "venue" })),
       ];
-      const results =
-        searchTerm.length > 0
-          ? allResults.filter((item) =>
-              item.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-          : [];
-      setSearchResults(results);
-      setIsMenuOpen(results.length > 0);
+      const filteredResults = searchTerm
+        ? allResults.filter((item) =>
+            item.name.toLowerCase().includes(searchTerm.toLowerCase())
+          )
+        : [];
+      setSearchResults(filteredResults);
+      setIsMenuOpen(filteredResults.length > 0);
     }
-  }, [searchTerm, memoizedProfiles, memoizedVenues]);
+  }, [searchTerm, profiles, venues, isLoading]);
 
   const clearSearch = () => {
     setSearchTerm("");
@@ -58,6 +48,21 @@ const SearchBar = () => {
 
   return (
     <div className="relative">
+      <style>
+        {`
+          input[type="search"]::-webkit-search-cancel-button {
+              -webkit-appearance: none;
+          }
+
+          input[type="search"]::-moz-search-clear-button {
+              display: none;
+          }
+
+          input[type="search"]::-ms-clear {
+              display: none;
+          }
+        `}
+      </style>
       <form
         role="search"
         onSubmit={(e) => e.preventDefault()}
