@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useFetchVenues } from "../../../hooks/useFetchVenues";
 import VenueCard from "../../Card/VenueCard";
 import DefaultButton from "../../Buttons/DefaultButton";
 
 function VenuesList() {
   const { venues, isLoading, error } = useFetchVenues();
+  const dropdownRef = useRef(null);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [filterText, setFilterText] = useState("");
@@ -33,6 +34,25 @@ function VenuesList() {
   const startIndex = currentPage * pageSize;
   const endIndex = startIndex + pageSize;
   const currentVenues = filteredVenues.slice(startIndex, endIndex);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        dropdownOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
+        setDropdownOpen(false);
+      }
+    };
+
+    // Bind the event listener on component mount.
+    document.addEventListener("mousedown", handleClickOutside);
+    // Unbind the event listener on clean up.
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownOpen]); // Only re-bind the event if dropdownOpen changes
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -72,7 +92,10 @@ function VenuesList() {
             Filter Options:
           </DefaultButton>
           {dropdownOpen && (
-            <div className="absolute right-0 z-10 mt-2 py-2 w-48 bg-white border rounded shadow-xl">
+            <div
+              ref={dropdownRef}
+              className="absolute right-0 z-10 mt-2 py-2 w-48 bg-white border rounded shadow-xl"
+            >
               {["breakfast", "parking", "pets", "wifi"].map((key) => (
                 <label
                   key={key}
@@ -81,7 +104,9 @@ function VenuesList() {
                   <input
                     type="checkbox"
                     checked={filterMeta[key]}
-                    onChange={() => handleCheckboxChange(key)}
+                    onChange={() =>
+                      setFilterMeta((prev) => ({ ...prev, [key]: !prev[key] }))
+                    }
                     className="mr-2"
                   />
                   {key.charAt(0).toUpperCase() + key.slice(1)}
