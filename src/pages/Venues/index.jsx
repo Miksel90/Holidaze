@@ -18,8 +18,8 @@ const VenuePage = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch">
       {userName ? (
-        <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-row items-baseline justify-around ">
-          <h1 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
+        <div className="col-span-1 md:col-span-6 bg-primary p-4 flex flex-col md:flex-row md:text-center md:items-baseline justify-evenly">
+          <h1 className="text-cedar text-center font-condensed text-3xl capitalize font-bold ">
             Find your paradise today
           </h1>
           <SearchBar />
@@ -32,20 +32,23 @@ const VenuePage = () => {
             </h1>
             <LoginForm />
           </div>
-          <div className="col-span-1 md:col-span-3 bg-primary p-8 flex flex-col justify-evenly ">
-            <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
+          <div className="col-span-1 md:col-span-3 bg-primary p-4 flex flex-col justify-evenly ">
+            <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold ">
               Find your paradise today
             </h2>
             <SearchBar />
           </div>
         </>
       )}
-      <div className="col-span-1  md:col-span-6 bg-primary p-8  flex flex-wrap gap-4 justify-evenly">
+      <div className="col-span-1  md:col-span-6 bg-primary p-4  flex flex-col md:flex-wrap gap-4 justify-evenly">
+        <h3 className="text-cedar text-center font-condensed text-3xl capitalize font-bold ">
+          Recent Venues
+        </h3>
         <VenuesList />
       </div>
 
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
-        <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
+        <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold">
           Popular Managers
         </h2>
         <ProfilesList />
