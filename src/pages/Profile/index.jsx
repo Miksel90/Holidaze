@@ -79,7 +79,7 @@ function ProfilePage() {
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch h-full">
         <div
-          className="col-span-1 md:col-span-6 bg-primary bg-cover bg-center"
+          className="col-span-6 bg-primary bg-cover bg-center"
           style={{ backgroundImage: `url('${profileData.banner.url}')` }}
         >
           <div className="bg-black bg-opacity-50 p-4 flex flex-col px-8 md:flex-row w-full justify-between items-center gap-2 text-white">
@@ -175,7 +175,7 @@ function ProfilePage() {
             )}
           </div>
         </div>
-        <div className="col-span-1 md:col-span-6 bg-primary flex-grow">
+        <div className="col-span-6 bg-primary flex-grow">
           <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
             Booked Venues
           </h3>
