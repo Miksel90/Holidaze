@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchVenues } from "../utils/fetchVenues.js";
+import { fetchAndUpdateVenues } from "../utils/fetchVenues.js";
 
 export function useFetchVenues() {
   const [venues, setVenues] = useState([]);
@@ -8,7 +8,7 @@ export function useFetchVenues() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetchVenues()
+    fetchAndUpdateVenues()
       .then((json) => {
         setVenues(json.data);
         // console.log(json);

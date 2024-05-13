@@ -1,34 +1,29 @@
 import { useState, useEffect } from "react";
-import { useSearch } from "../../hooks/useSearch"; // Corrected import
+import { useSearch } from "../../hooks/useSearch";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaHouse } from "react-icons/fa6";
 
-const delaySearch = (func, delay) => {
-  let timeoutId;
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
-  };
-};
-
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { profiles, venues, isLoading, error } = useSearch(searchTerm);
-
   const [searchResults, setSearchResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const delayedSetSearchTerm = delaySearch((value) => {
-    setSearchTerm(value);
-  }, 300);
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    clearTimeout(window.searchTimeout);
+    window.searchTimeout = setTimeout(() => {
+      setSearchTerm(value);
+    }, 300);
+  };
 
   useEffect(() => {
     if (!isLoading) {
       const allResults = [
-        ...profiles.map((p) => ({ ...p, type: "profile" })),
-        ...venues.map((v) => ({ ...v, type: "venue" })),
+        ...(profiles || []).map((p) => ({ ...p, type: "profile" })),
+        ...(venues || []).map((v) => ({ ...v, type: "venue" })),
       ];
       const filteredResults = searchTerm
         ? allResults.filter((item) =>
@@ -37,8 +32,9 @@ const SearchBar = () => {
         : [];
       setSearchResults(filteredResults);
       setIsMenuOpen(filteredResults.length > 0);
+      console.log("filteredResults set in useEffect", filteredResults);
     }
-  }, [searchTerm, profiles, venues, isLoading]);
+  }, [searchTerm, profiles, venues, isLoading]); // Make sure all variables used are listed
 
   const clearSearch = () => {
     setSearchTerm("");
@@ -46,26 +42,28 @@ const SearchBar = () => {
     setIsMenuOpen(false);
   };
 
+  console.log("Rendering SearchBar", { searchResults, isMenuOpen });
+
   return (
     <div className="relative">
+      {/* Styles to remove browser-specific search input clear buttons */}
       <style>
         {`
           input[type="search"]::-webkit-search-cancel-button {
               -webkit-appearance: none;
           }
-
           input[type="search"]::-moz-search-clear-button {
               display: none;
           }
-
           input[type="search"]::-ms-clear {
               display: none;
           }
         `}
       </style>
+
       <form
         role="search"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={(e) => e.preventDefault()} // Prevent form submission
         className="flex gap-2 mt-5 items-center"
       >
         <div className="relative flex items-center w-full">
@@ -79,11 +77,13 @@ const SearchBar = () => {
             autoComplete="off"
             aria-label="Search"
             value={searchTerm}
-            onChange={(e) => delayedSetSearchTerm(e.target.value)}
+            onChange={handleSearchChange}
           />
           <FaSearch className="absolute right-3 text-cedar text-xl z-10" />
         </div>
       </form>
+
+      {/* Dropdown menu for displaying search results */}
       {isMenuOpen && (
         <ul className="absolute z-10 w-full bg-white shadow-lg mt-1 rounded-md overflow-hidden text-xl">
           {searchResults.map((item, index) => (
@@ -98,11 +98,11 @@ const SearchBar = () => {
               <Link
                 to={
                   item.type === "profile"
-                    ? `/profiles/${item.name}`
+                    ? `/profiles/${item.id}`
                     : `/venues/${item.id}`
                 }
-                className="flex items-center gap-2 w-full"
-                onClick={clearSearch}
+                className="flex items-row gap-2 w-full"
+                onClick={clearSearch} // Clears the search input and results on selecting an item
               >
                 {item.type === "profile" ? (
                   <IoPersonCircleSharp className="text-2xl" />

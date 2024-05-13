@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useFetchVenues } from "../../../hooks/useFetchVenues";
+// import { useFetchVenues } from "../../../hooks/useFetchVenues";
+import useVenueStore from "../../../store/VenuesStore";
 import VenueCard from "../../Card/VenueCard";
 import DefaultButton from "../../Buttons/DefaultButton";
 
 function VenuesList() {
-  const { venues, isLoading, error } = useFetchVenues();
+  const { venues, fetchVenues, isLoading, error } = useVenueStore();
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
   const [filterText, setFilterText] = useState("");
@@ -18,16 +19,24 @@ function VenuesList() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const filtered = venues.filter((venue) => {
-      const matchesText = venue.name
-        .toLowerCase()
-        .includes(filterText.toLowerCase());
-      const matchesMeta = Object.keys(filterMeta).every(
-        (key) => !filterMeta[key] || venue.meta[key]
-      );
-      return matchesText && matchesMeta;
-    });
-    setFilteredVenues(filtered);
+    fetchVenues();
+  }, [fetchVenues]);
+
+  useEffect(() => {
+    if (Array.isArray(venues)) {
+      const filtered = venues.filter((venue) => {
+        const matchesText = venue.name
+          .toLowerCase()
+          .includes(filterText.toLowerCase());
+        const matchesMeta = Object.keys(filterMeta).every(
+          (key) => !filterMeta[key] || venue.meta[key]
+        );
+        return matchesText && matchesMeta;
+      });
+      setFilteredVenues(filtered);
+    } else {
+      console.error("Invalid venues data:", venues);
+    }
   }, [filterText, filterMeta, venues]);
 
   const startIndex = currentPage * pageSize;

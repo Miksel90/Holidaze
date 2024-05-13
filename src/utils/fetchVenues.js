@@ -1,9 +1,17 @@
 import { venuesUrl } from "./constants";
 
-export async function fetchVenues() {
-  const response = await fetch(`${venuesUrl}`);
-  if (!response.ok) {
-    throw new Error("Failed to fetch products");
+// fetchVenues.js
+
+export async function fetchAndUpdateVenues() {
+  try {
+    const response = await fetch(venuesUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch venues");
+    }
+    const data = await response.json();
+    console.log("Fetched venues:", data); // Log the fetched data
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch venues: " + error.message);
   }
-  return response.json();
 }

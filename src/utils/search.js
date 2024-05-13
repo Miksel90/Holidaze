@@ -1,10 +1,8 @@
 import { BASE_URL } from "./constants";
 
-export async function searchVenues(searchTerm, isAuthenticated) {
+export async function searchProfiles(searchTerm, isAuthenticated) {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
-
-  const profileUrl = `${BASE_URL}holidaze/profiles/search?_venues=true&_bookings=true&q=${encodedSearchTerm}`;
-  const venuesUrl = `${BASE_URL}holidaze/venues/search?_owner=true&_bookings=true&q=${encodedSearchTerm}`;
+  const profileUrl = `${BASE_URL}holidaze/profiles/search?q=${encodedSearchTerm}`;
 
   const apiKey = import.meta.env.VITE_API_KEY;
   if (!apiKey) {
@@ -22,28 +20,17 @@ export async function searchVenues(searchTerm, isAuthenticated) {
   }
 
   try {
-    let profileData = {};
-    if (isAuthenticated) {
-      const profileResponse = await fetch(profileUrl, {
-        headers: commonHeaders,
-      });
-      if (!profileResponse.ok) {
-        throw new Error(
-          `Failed to fetch profiles: ${profileResponse.statusText}`
-        );
-      }
-      profileData = await profileResponse.json();
+    const profileResponse = await fetch(profileUrl, { headers: commonHeaders });
+    if (!profileResponse.ok) {
+      throw new Error(
+        `Failed to fetch profiles: ${profileResponse.statusText}`
+      );
     }
+    const profileData = await profileResponse.json();
 
-    const venuesResponse = await fetch(venuesUrl, { headers: commonHeaders });
-    if (!venuesResponse.ok) {
-      throw new Error(`Failed to fetch venues: ${venuesResponse.statusText}`);
-    }
-    const venuesData = await venuesResponse.json();
-
-    return { profileData, venuesData };
+    return profileData;
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Error fetching profiles:", error);
     throw error;
   }
 }

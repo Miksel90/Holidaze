@@ -1,38 +1,37 @@
-import { searchVenues } from "../utils/search";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { useFilteredVenues } from "../hooks/useFilteredVenues";
+import { searchProfiles } from "../utils/search"; // Import searchProfiles
+
+import useVenueStore from "../store/VenuesStore"; // Import the store
 
 export function useSearch(searchTerm = "") {
-  const [data, setData] = useState({ profiles: [], venues: [] });
+  const [profiles, setProfiles] = useState([]);
+  const [venues, setVenues] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const isAuthenticated = Boolean(localStorage.getItem("accessToken"));
+  const filteredVenues = useFilteredVenues(searchTerm);
+  const fetchVenues = useVenueStore((state) => state.fetchVenues); // Fetch venues action from the store
 
   useEffect(() => {
-    const isAuthenticated = Boolean(localStorage.getItem("accessToken"));
-
-    if (!searchTerm.trim()) {
-      setData({ profiles: [], venues: [] });
-      setIsLoading(false);
-      return;
-    }
-
     setIsLoading(true);
-    searchVenues(searchTerm, isAuthenticated)
-      .then((response) => {
-        console.log("Search results: ", response);
-        setData({
-          profiles: response.profileData.data || [],
-          venues: response.venuesData.data || [],
-        });
+    Promise.all([
+      searchProfiles(searchTerm, isAuthenticated), // Fetch profiles
+      fetchVenues(), // Fetch venues from the store
+    ])
+      .then(([profileData, venueData]) => {
+        console.log("Fetched profiles:", profileData); // Log fetched profiles
+        console.log("Fetched venues:", venueData); // Log fetched venues
+        setProfiles((profileData && profileData.data) || []);
+        setVenues((venueData && venueData.data) || []); // Set venues state
+        setIsLoading(false);
       })
-
       .catch((e) => {
         setError(e.message);
         console.error("Fetching error: ", e);
-      })
-      .finally(() => {
         setIsLoading(false);
       });
-  }, [searchTerm]);
+  }, [searchTerm, isAuthenticated, fetchVenues]);
 
-  return { ...data, isLoading, error };
+  return { profiles, venues, filteredVenues, isLoading, error };
 }
