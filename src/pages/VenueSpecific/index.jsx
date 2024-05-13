@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetchSingleVenue } from "../../hooks/useFetchSingleVenue";
 // import { fetchProfiles } from "../../utils/fetchProfiles";
-import { Link } from "react-router-dom";
+
 import Carousel from "../../components/Carousel";
 import { FaStar } from "react-icons/fa";
 import DefaultButton from "../../components/Buttons/DefaultButton";
@@ -170,28 +170,14 @@ const VenueSpecificPage = () => {
             </li>
           </ul>
         </div>
-        {isLoggedIn ? (
-          <div className="px-2 flex flex-col flex-grow">
-            <div className=" p-4 shadow-sm shadow-cedar rounded-md flex-grow">
-              <p className="text-4xl font-condensed mb-2 text-center py-2">
-                Book Venue
-              </p>
-              <BookVenue venue={venue} />
-            </div>
+        <div className="px-2 flex flex-col flex-grow">
+          <div className=" p-2 shadow-sm shadow-cedar rounded-md flex-grow">
+            <p className="text-4xl font-condensed mb-2 text-center ">
+              Book Venue
+            </p>
+            <BookVenue venue={venue} />
           </div>
-        ) : (
-          <div className="px-2 flex flex-col items-center flex-grow">
-            <div className="px-8 text-center text-xl font-medium ">
-              <p>You need to register to book venues.</p>
-            </div>
-            <Link
-              to="/register"
-              className="bg-primary px-4 py-2 rounded m-4 font-condensed font-medium text-white text-xl hover:bg-porsche transition-colors duration-300 ease-in-out"
-            >
-              Register
-            </Link>
-          </div>
-        )}
+        </div>
       </div>
       {isLoggedIn &&
       canViewBookings &&

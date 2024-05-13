@@ -35,11 +35,11 @@ const BookVenue = ({ venue }) => {
   const navigate = useNavigate();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
+  const userName = localStorage.getItem("userName");
 
   const onChange = (dates) => {
     const [start, end] = dates;
     if (start && end) {
-      // Check if any date in the range is booked
       for (let dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
         if (isBookedDate(new Date(dt))) {
           setError("Selected dates includes dates when Venue is booked.");
@@ -49,7 +49,7 @@ const BookVenue = ({ venue }) => {
     }
     setStartDate(start);
     setEndDate(end);
-    setError(""); // Clear errors on valid range
+    setError("");
   };
   const clearDates = () => {
     setStartDate(null);
@@ -103,7 +103,7 @@ const BookVenue = ({ venue }) => {
   const { isLoading, initiateBooking } = useBookVenue();
 
   const handleBooking = () => {
-    if (startDate && endDate && guestCount && venue.id) {
+    if (startDate && endDate && guestCount && venue.id && userName) {
       initiateBooking({
         dateFrom: startDate.toISOString(),
         dateTo: endDate.toISOString(),
@@ -126,12 +126,14 @@ const BookVenue = ({ venue }) => {
           console.error("Booking failed:", error);
           setError("Failed to book venue. Please try again.");
         });
+    } else {
+      setError("You must be logged in to book a venue.");
     }
   };
 
   return (
     <div className="grid grid-cols-1 gap-4 justify-around w-full ">
-      <div className="flex flex-row items-center justify-center sm:justify-between gap-2">
+      <div className="flex flex-row items-center justify-center sm:justify-between gap-2 md:ms-10">
         <DatePicker
           selected={startDate}
           onChange={onChange}
@@ -145,11 +147,13 @@ const BookVenue = ({ venue }) => {
           }
           customInput={<PickDates />}
         />
+
         <button
           onClick={clearDates}
-          className="bg-primary border-2 border-cedar rounded-lg px-2 py-2 text-black ml-4"
+          className="bg-primary border-2 border-cedar rounded-lg px-2 py-2 text-black ml-4 flex flex-row items-center gap-2 hover:bg-cedar hover:text-white"
           aria-label="Clear dates"
         >
+          Clear Dates
           <ImCross />
         </button>
       </div>
@@ -158,9 +162,16 @@ const BookVenue = ({ venue }) => {
       )}
       <div className="flex border-b border-primary p-2">
         <p className="text-lg font-semibold text-start">
+          Total Days:
+          {startDate && endDate ? endDate.getDate() - startDate.getDate() : 0}
+        </p>
+      </div>
+      <div className="flex border-b border-primary p-2">
+        <p className="text-lg font-semibold text-start">
           Total Price: ${totalPrice}
         </p>
       </div>
+
       <div className="flex flex-col gap-8 justify-between flex-grow">
         <div className="flex border-b border-primary p-2">
           <label htmlFor="guestCount" className="font-semibold">
