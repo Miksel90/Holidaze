@@ -36,7 +36,7 @@ const ProfileIcon = () => {
 
   return (
     profile && (
-      <div className="flex flex-row gap-2 md:gap-0 md:flex-col items-center justify-center">
+      <div className="flex flex-col  gap-2 md:gap-0  items-center justify-center">
         <Link
           to={`/profiles/${encodeURIComponent(userName)}`}
           className="no-underline hover:underline"
@@ -53,7 +53,7 @@ const ProfileIcon = () => {
             <CgProfile className="text-4xl md:text-6xl text-cedar" />
           )}
         </Link>
-        <span className=" hidden sm:block text-md md:text-lg capitalize font-condensed">
+        <span className="  text-sm md:text-lg capitalize font-condensed">
           {profile.name || userName}
         </span>
       </div>

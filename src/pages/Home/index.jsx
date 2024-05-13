@@ -50,23 +50,23 @@ function HomePage() {
       <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm ">
         <Link to="/venues">
           <div className="relative">
-            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-xl md:text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed  text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
               <h2 className="border-2 px-4 bg-white rounded-sm">Golf</h2>
             </div>
-            <img src={imageOne} alt="Golf course" className="w-full" />
+            <img src={imageOne} alt="Golf course" className="w-full h-20" />
           </div>
         </Link>
       </div>
       <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
         <Link to="/venues">
           <div className="relative">
-            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-2xl md:text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-4xl  p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
               <h2 className="border-2 px-4 bg-white rounded-sm">Suite LIfe</h2>
             </div>
             <img
               src={imageTwo}
               alt="Luxurious hotel with pool"
-              className="w-full"
+              className="w-full h-20"
             />
           </div>
         </Link>
@@ -74,13 +74,13 @@ function HomePage() {
       <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
         <Link to="/venues">
           <div className="relative">
-            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-2xl md:text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
               <h2 className="border-2 px-4 bg-white rounded-sm">Explore</h2>
             </div>
             <img
               src={imageThree}
               alt="Wineglass overlooking the fields"
-              className="w-full"
+              className="w-full h-20"
             />
           </div>
         </Link>

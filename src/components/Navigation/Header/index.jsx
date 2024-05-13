@@ -12,7 +12,6 @@ const HeaderNavigation = () => {
   };
 
   useEffect(() => {
-    // Check for userName in local storage
     const userName = localStorage.getItem("userName");
     setHasUserName(!!userName);
   }, []);

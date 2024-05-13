@@ -54,9 +54,9 @@ const LoginForm = () => {
           <div className="mb-4 w-full max-w-md">
             <label
               htmlFor="email"
-              className="block text-cedar text-lg uppercase font-medium"
+              className="block text-cedar font-condensed text-xl capitalized font-medium"
             >
-              Email:
+              Email
             </label>
             <input
               required
@@ -71,7 +71,7 @@ const LoginForm = () => {
           <div className="mb-4 w-full max-w-md">
             <label
               htmlFor="password"
-              className="block text-cedar text-lg uppercase font-medium"
+              className="block text-cedar font-condensed text-xl capitalized font-medium"
             >
               Password
             </label>
