@@ -46,14 +46,12 @@ function VenuesList() {
       }
     };
 
-    // Bind the event listener on component mount.
     document.addEventListener("mousedown", handleClickOutside);
-    // Unbind the event listener on clean up.
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [dropdownOpen]); // Only re-bind the event if dropdownOpen changes
-
+  }, [dropdownOpen]);
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -69,9 +67,9 @@ function VenuesList() {
     }
   };
 
-  const handleCheckboxChange = (metaKey) => {
-    setFilterMeta((prev) => ({ ...prev, [metaKey]: !prev[metaKey] }));
-  };
+  // const handleCheckboxChange = (metaKey) => {
+  //   setFilterMeta((prev) => ({ ...prev, [metaKey]: !prev[metaKey] }));
+  // };
 
   return (
     <div className="flex flex-col items-center">
