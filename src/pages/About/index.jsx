@@ -5,15 +5,15 @@ import ContactSchema from "../../components/Containers/ContactContainer";
 
 const AboutPage = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch bg-white text-cedar">
+    <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch bg-white text-cedar ">
       <Helmet>
         <title>About / Contact | Holidaze</title>
       </Helmet>
-      <div className="col-span-1 md:col-span-6 bg-primary  p-4 ">
+      <div className="col-span-6 bg-primary">
         <h2 className="text-4xl font-medium underline font-condensed text-center">
           About Us
         </h2>
-        <p className="font-sans text-lg md:text-xl px-8 py-2 text-wrap">
+        <p className="font-sans text-lg md:text-xl px-8 md:px-4 py-2 mx-auto md:max-w-72 ">
           Holidaze is an innovative and user-centric online platform that
           revolutionizes the way people plan and experience their vacations. At
           Holidaze, we believe that every holiday should be memorable,
@@ -26,10 +26,10 @@ const AboutPage = () => {
           <img
             src={imageOne}
             alt="Sunglasses in the sand"
-            className="rounded-sm w-full h-998 object-cover mt-4 mb-4 px-8"
+            className="rounded-sm w-full h-998 object-cover mt-4 mb-4 "
           />
         </div>
-        <p className="font-sans text-lg md:text-xl px-8 py-2 text-wrap">
+        <p className="font-sans text-lg md:text-xl px-8 md:px-4 py-2 mx-auto md:max-w-72 ">
           What sets Holidaze apart is our commitment to authenticity and local
           experiences. We partner with local hosts who not only provide a place
           to stay but also share insights into their community's culture,
@@ -37,7 +37,7 @@ const AboutPage = () => {
           themselves in the local culture, creating more meaningful and
           enriching experiences.
         </p>
-        <p className="font-sans text-lg md:text-xl px-8 py-2 text-wrap">
+        <p className="font-sans text-lg md:text-xl px-8 md:px-4 py-2 mx-auto md:max-w-72 ">
           Holidaze is not just about booking a place to stay; it's about
           crafting the entire holiday experience. Our platform offers intuitive
           planning tools, personalized recommendations, and exclusive deals on
@@ -49,10 +49,10 @@ const AboutPage = () => {
           <img
             src={imageTwo}
             alt="Sunglasses in the sand"
-            className="rounded-sm w-full h-998 object-cover mt-4 mb-4 px-8"
+            className="rounded-sm w-full h-998 object-cover mt-4 mb-4"
           />
         </div>
-        <p className="font-sans text-lg md:text-xl px-8 py-2 text-wrap">
+        <p className="font-sans text-lg md:text-xl px-8 md:px-4 py-2 mx-auto md:max-w-72 mb-4">
           People should choose Holidaze for our unparalleled blend of diverse
           accommodation options, local expertise, and personalized service.
           We're committed to ensuring that every trip booked through our
@@ -61,10 +61,11 @@ const AboutPage = () => {
           travelers seeking more from their holidays.
         </p>
       </div>
-      <div className="col-span-1 md:col-start-3 md:col-span-2  p-4 justify-center items-center">
+      <div className="col-span-1 md:col-start-3 md:col-span-2 p-4 justify-center items-center ">
         <h3 className="text-4xl font-condensed text-center">Contact</h3>
-        <p className="font-sans text-lg md:text-xl py-4 text-wrap">
-          Have a question or need assistance? Reach out to us via the form below
+        <p className="font-sans text-lg md:text-xl px-8 md:px-4 py-2 mx-auto md:max-w-72 ">
+          Have a question or need assistance? Reach out to us via the form
+          below.
         </p>
         <ContactSchema />
       </div>
