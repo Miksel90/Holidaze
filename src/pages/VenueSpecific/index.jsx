@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFetchVenues } from "../../hooks/useFetchVenues";
-import { fetchProfiles } from "../../utils/fetchProfiles";
+import { useFetchSingleVenue } from "../../hooks/useFetchSingleVenue";
+// import { fetchProfiles } from "../../utils/fetchProfiles";
 import { Link } from "react-router-dom";
 import Carousel from "../../components/Carousel";
 import { FaStar } from "react-icons/fa";
@@ -14,46 +14,22 @@ const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 const VenueSpecificPage = () => {
   let { id } = useParams();
   const navigate = useNavigate();
-  const { venues, isLoading, error } = useFetchVenues();
-  const [profile, setProfile] = useState(null);
-  const [profileError, setProfileError] = useState(null);
+  const { venue, isLoading, error } = useFetchSingleVenue(id);
   const [showBookings, setShowBookings] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [canViewBookings, setCanViewBookings] = useState(false);
 
   useEffect(() => {
-    const userName = localStorage.getItem("userName");
-    setIsLoggedIn(!!userName);
-    setCanViewBookings(!!userName);
+    setIsLoggedIn(!!localStorage.getItem("userName"));
+    setCanViewBookings(!!localStorage.getItem("userName"));
   }, []);
 
-  useEffect(() => {
-    if (venues.length > 0) {
-      const venue = venues.find((v) => v.id.toString() === id);
-      if (venue) {
-        document.title = venue.name + " | Holidaze";
-      } else {
-        console.error("Venue with ID " + id + " not found.");
-      }
-    }
-  }, [venues, id]);
-
-  const navigateToOwnerProfile = async () => {
-    if (!venue || !venue.owner) {
+  const navigateToOwnerProfile = () => {
+    if (!venue.owner) {
       console.error("No owner information available for this venue.");
       return;
     }
-
-    try {
-      const profileData = await fetchProfiles(
-        encodeURIComponent(venue.owner.name)
-      );
-      setProfile(profileData);
-      navigate(`/profiles/${encodeURIComponent(venue.owner.name)}`);
-    } catch (error) {
-      console.error("Error fetching profile:", error);
-      setProfileError(error.message);
-    }
+    navigate(`/profiles/${encodeURIComponent(venue.owner.name)}`);
   };
 
   if (isLoading) {
@@ -64,23 +40,20 @@ const VenueSpecificPage = () => {
     return <div>Error: {error}</div>;
   }
 
-  const venue = venues.find((p) => p.id.toString() === id);
   if (!venue) {
-    return <div>Venue not found</div>;
+    return <div>Loading venue information...</div>;
   }
 
   const venueImages =
-    venue && venue.media
-      ? venue.media.map((img, index) => (
-          <img
-            key={index}
-            src={img.url || defaultImage}
-            alt={img.alt || "Venue image"}
-            style={{ height: "400px", width: "100%", objectFit: "cover" }}
-            onError={(e) => (e.target.src = defaultImage)}
-          />
-        ))
-      : [];
+    venue.media?.map((img, index) => (
+      <img
+        key={index}
+        src={img.url || defaultImage}
+        alt={img.alt || "Venue image"}
+        style={{ height: "400px", width: "100%", objectFit: "cover" }}
+        onError={(e) => (e.target.src = defaultImage)}
+      />
+    )) || [];
 
   const formattedDate = (created) => {
     return created
@@ -109,7 +82,8 @@ const VenueSpecificPage = () => {
         <div className="col-span-1 md:col-span-3">
           <h2 className="text-2xl px-2 capitalize">{venue.description}</h2>
           <p className="text-lg px-2">
-            {venue.location.city}, {venue.location.country}
+            {venue.location?.city || "City not available"},{" "}
+            {venue.location?.country || "Country not available"}
           </p>
         </div>
         <div className="col-span-1 md:col-span-3">
@@ -117,7 +91,7 @@ const VenueSpecificPage = () => {
             Listed: {formattedDate(venue.created)}
           </p>
           <p className="md:text-end text-lg px-2">
-            Updated: {formattedDate(venue.created)}
+            Updated: {formattedDate(venue.updated)}
           </p>
         </div>
         <div
