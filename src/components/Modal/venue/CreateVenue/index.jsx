@@ -313,6 +313,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
                 value={item.url}
                 onChange={handleChange}
                 aria-label="Image URL"
+                required
                 placeholder="Image URL"
                 className="mt-1 block w-full font-normal px-3 py-2 border border-porsche rounded-md shadow-sm focus:outline-none focus:ring-cedar focus:border-primary"
               />
