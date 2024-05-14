@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetchSingleVenue } from "../../hooks/useFetchSingleVenue";
 // import { fetchProfiles } from "../../utils/fetchProfiles";
-
+import BackToTopButton from "../../components/Buttons/BackToTop";
 import Carousel from "../../components/Carousel";
 import { FaStar } from "react-icons/fa";
 import DefaultButton from "../../components/Buttons/DefaultButton";
@@ -220,6 +220,7 @@ const VenueSpecificPage = () => {
           </p>
         </div>
       )}
+      <BackToTopButton />
     </div>
   );
 };

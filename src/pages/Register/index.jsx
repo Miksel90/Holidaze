@@ -2,6 +2,7 @@ import BrowseContainer from "../../components/Containers/BrowseContainer";
 import RegisterForm from "../../components/Auth/Register";
 import ReviewContainer from "../../components/Containers/ReviewsContainer";
 import ProfilesList from "../../components/Lists/ProfilesList";
+import BackToTopButton from "../../components/Buttons/BackToTop";
 
 function RegisterPage() {
   return (
@@ -24,6 +25,7 @@ function RegisterPage() {
         </h2>
         <ProfilesList />
       </div>
+      <BackToTopButton />
     </div>
   );
 }

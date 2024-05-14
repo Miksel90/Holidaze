@@ -4,6 +4,7 @@ import ReviewContainer from "../../components/Containers/ReviewsContainer";
 import LoginForm from "../../components/Auth/Login";
 import ProfilesList from "../../components/Lists/ProfilesList";
 import VenuesList from "../../components/Lists/VenueList";
+import BackToTopButton from "../../components/Buttons/BackToTop";
 
 const VenuePage = () => {
   const [userName, setUserName] = useState(null);
@@ -56,6 +57,7 @@ const VenuePage = () => {
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
         <ReviewContainer />
       </div>
+      <BackToTopButton />
     </div>
   );
 };

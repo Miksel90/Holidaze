@@ -3,9 +3,10 @@ import { useFetchProfiles } from "../../hooks/useFetchProfiles";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import EditProfileModal from "../../components/Modal/profile";
 import ListNewVenueModal from "../../components/Modal/venue/CreateVenue";
-import Carousel from "../../components/Carousel";
+import { useDeleteBooking } from "../../hooks/useDeleteBooking";
 import { Link, useParams } from "react-router-dom";
 import EditVenueModal from "../../components/Modal/venue/EditVenue";
+import BackToTopButton from "../../components/Buttons/BackToTop";
 
 function ProfilePage() {
   const { name } = useParams();
@@ -17,6 +18,8 @@ function ProfilePage() {
   const [editingVenue, setEditingVenue] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
   const venuesPerPage = 4;
+  const { isDeleting, isDeleted, deletingBookingId, removeBooking } =
+    useDeleteBooking();
 
   const handleOpenProfileModal = () => {
     setIsProfileModalOpen(true);
@@ -72,6 +75,16 @@ function ProfilePage() {
     handleCloseModal();
   };
 
+  const handleDelete = async (event, booking) => {
+    event.preventDefault();
+    if (booking?.id) {
+      try {
+        await removeBooking(booking.id);
+      } catch (error) {
+        console.error("Failed to delete the booking:", error);
+      }
+    }
+  };
   return (
     <div className="bg-white">
       <h1 className="text-cedar font-condensed p-4 text-2xl md:text-6xl">
@@ -158,9 +171,11 @@ function ProfilePage() {
                 </Link>
                 <div className="text-center mt-4">
                   <div className="text-center mt-4">
-                    <DefaultButton onClick={() => handleEditVenue(venue)}>
-                      Edit Venue
-                    </DefaultButton>
+                    {canInteractOnProfile && (
+                      <DefaultButton onClick={() => handleEditVenue(venue)}>
+                        Edit Venue
+                      </DefaultButton>
+                    )}
                   </div>
                 </div>
               </div>
@@ -175,43 +190,66 @@ function ProfilePage() {
             )}
           </div>
         </div>
-        <div className="col-span-6 bg-primary flex-grow">
-          <h3 className="mt-2 text-2xl font-medium text-center flex-grow">
-            Booked Venues
+        <div className="col-span-6 bg-primary flex-grow text-cedar">
+          <h3 className="mt-2 text-4xl font-medium text-center flex-grow font-condensed border-b-2 border-cedar w-52 mx-auto">
+            My Bookings
           </h3>
           {canInteractOnProfile &&
           profileData &&
           profileData.bookings &&
           profileData.bookings.length > 0 ? (
-            <Carousel>
+            <div>
               {profileData.bookings.map((booking) => (
                 <Link
                   key={booking.id}
                   to={`/venues/${booking.venue.id}`}
                   className="text-center "
                 >
-                  <div className=" py-4">
-                    <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
-                      {booking.venue.name}
-                    </h4>
-                    {booking.venue.media && booking.venue.media.length > 0 && (
-                      <img
-                        src={booking.venue.media[0].url}
-                        alt={booking.venue.media[0].alt}
-                        className="w-full h-auto max-h-52 object-cover px-10"
-                      />
-                    )}
-                    <div className=" flex flex-row justify-center text-lg font-medium mt-2">
-                      <p>
-                        From: {new Date(booking.dateFrom).toLocaleDateString()}
-                      </p>
-                      <div className="w-4"></div>
-                      <p>To: {new Date(booking.dateTo).toLocaleDateString()}</p>
+                  <div className=" px-8 py-4 flex flex-col md:flex-row gap-8 justify-center md:justify-evenly items-center border-b border-porsche">
+                    <div>
+                      {booking.venue.media &&
+                        booking.venue.media.length > 0 && (
+                          <img
+                            src={booking.venue.media[0].url}
+                            alt={booking.venue.media[0].alt}
+                            className="w-full h-52 max-h-52 min-w-60 max-w-60 object-cover  rounded-lg shadow-cedar shadow-md"
+                          />
+                        )}
+                    </div>
+                    <div>
+                      <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
+                        {booking.venue.name}
+                      </h4>
+
+                      <div className=" flex flex-row justify-center text-lg font-medium mt-2">
+                        <p>
+                          From:{" "}
+                          {new Date(booking.dateFrom).toLocaleDateString()}
+                        </p>
+                        <div className="w-4"></div>
+                        <p>
+                          To: {new Date(booking.dateTo).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <button
+                        className="bg-danger px-4 py-2 rounded-md text-white mt-2"
+                        onClick={(e) => handleDelete(e, booking)}
+                        disabled={
+                          isDeleting && deletingBookingId === booking.id
+                        }
+                        aria-label="Delete Booking"
+                      >
+                        {isDeleting && deletingBookingId === booking.id
+                          ? "Deleting..."
+                          : isDeleted && deletingBookingId === booking.id
+                          ? "Booking Deleted"
+                          : "Delete Booking"}
+                      </button>
                     </div>
                   </div>
                 </Link>
               ))}
-            </Carousel>
+            </div>
           ) : (
             <p className="text-center font-light text-xl py-8">
               {canInteractOnProfile
@@ -221,6 +259,7 @@ function ProfilePage() {
           )}
         </div>
       </div>
+      <BackToTopButton />
       <ListNewVenueModal
         isOpen={isListNewVenueModalOpen}
         onClose={handleCloseModal}

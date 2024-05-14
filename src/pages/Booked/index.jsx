@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet";
-
+import BackToTopButton from "../../components/Buttons/BackToTop";
 import ImageOne from "../../assets/Images/bg1.webp";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import { useLocation } from "react-router-dom";
@@ -53,6 +53,7 @@ const BookedPage = () => {
           />
         </div>
       </div>
+      <BackToTopButton />
     </div>
   );
 };

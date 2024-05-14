@@ -2,6 +2,7 @@ import { Helmet } from "react-helmet";
 import imageOne from "../../assets/Images/beachTwo.webp";
 import imageTwo from "../../assets/Images/beachOne.webp";
 import ContactSchema from "../../components/Containers/ContactContainer";
+import BackToTopButton from "../../components/Buttons/BackToTop";
 
 const AboutPage = () => {
   return (
@@ -69,6 +70,7 @@ const AboutPage = () => {
         </p>
         <ContactSchema />
       </div>
+      <BackToTopButton />
     </div>
   );
 };

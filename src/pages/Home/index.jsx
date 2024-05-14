@@ -8,6 +8,7 @@ import imageThree from "../../assets/Images/Explore.webp";
 import ProfilesList from "../../components/Lists/ProfilesList";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
+import BackToTopButton from "../../components/Buttons/BackToTop";
 
 function HomePage() {
   const [userName, setUserName] = useState(null);
@@ -94,6 +95,7 @@ function HomePage() {
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
         <ReviewContainer />
       </div>
+      <BackToTopButton />
     </div>
   );
 }
