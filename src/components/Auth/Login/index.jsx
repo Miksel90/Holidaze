@@ -35,7 +35,7 @@ const LoginForm = () => {
       setUserName(name);
       window.location.reload();
     } catch (loginError) {
-      setError("Login failed. Please check your email and password.");
+      setError("Login failed. Please check your Email and Password.");
       console.error("Login Error:", loginError);
     }
   };
@@ -85,7 +85,9 @@ const LoginForm = () => {
               className="mt-1 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
             />
           </div>
-          {error && <div className="text-black text-lg mb-2">{error}</div>}
+          {error && (
+            <div className="text-black text-2xl font-medium mb-2">{error}</div>
+          )}
           <Submitbutton>Login</Submitbutton>
         </form>
       )}
