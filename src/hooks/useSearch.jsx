@@ -18,7 +18,7 @@ export function useSearch(searchTerm = "") {
     setIsLoading(true);
     searchVenues(searchTerm, isAuthenticated)
       .then((response) => {
-        console.log("Search results: ", response);
+        // console.log("Search results: ", response);
         setData({
           profiles: response.profileData.data || [],
           venues: response.venuesData.data || [],

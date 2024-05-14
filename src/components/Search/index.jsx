@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
-import { useSearch } from "../../hooks/useSearch"; // Corrected import
+import { useState, useEffect, useCallback } from "react";
+import { useSearch } from "../../hooks/useSearch";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaHouse } from "react-icons/fa6";
 
+// Debounce function
 const delaySearch = (func, delay) => {
   let timeoutId;
   return function (...args) {
@@ -20,9 +21,13 @@ const SearchBar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const delayedSetSearchTerm = delaySearch((value) => {
-    setSearchTerm(value);
-  }, 300);
+  // Memoize the debounced function
+  const delayedSetSearchTerm = useCallback(
+    delaySearch((value) => {
+      setSearchTerm(value);
+    }, 300),
+    []
+  );
 
   useEffect(() => {
     if (!isLoading) {
@@ -78,7 +83,6 @@ const SearchBar = () => {
             className="block w-full rounded-md shadow-sm p-3 text-lg focus:ring-cedar focus:border-cedar pl-4"
             autoComplete="off"
             aria-label="Search"
-            value={searchTerm}
             onChange={(e) => delayedSetSearchTerm(e.target.value)}
           />
           <FaSearch className="absolute right-3 text-cedar text-xl z-10" />
