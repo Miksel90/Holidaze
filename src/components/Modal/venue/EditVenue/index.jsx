@@ -370,7 +370,7 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
               </button>
             </div>
           )}
-          <div className="flex flex-row justify-between p-4">
+          <div className="flex flex-row mx-auto py-4 gap-8">
             <button
               className="bg-danger px-4 py-2 font-sans rounded-md text-white "
               onClick={handleDelete}
