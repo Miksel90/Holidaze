@@ -25,8 +25,6 @@ Main features of the application are:
 
 ## Installation
 
-### You need to create your own api key from Noroff to use the application. The key should be placed in a .env file in the root of the project. The key should be named REACT_APP_API_KEY. The code to create the key is in the auth-folder in src.
-
 1. Clone the repo
 
    ```sh
@@ -45,6 +43,8 @@ Main features of the application are:
    ```
 
 ## Usage
+
+### You need to create your own api key from Noroff to use the application. The key should be placed in a .env file in the root of the project. The key should be named REACT_APP_API_KEY. The code to create the key is in the auth-folder in src.
 
 use npm commands
 
