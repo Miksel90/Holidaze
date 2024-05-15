@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import Submitbutton from "../../Buttons/SubmitButton";
+import SubmitButton from "../../Buttons/SubmitButton";
 import registerUser from "./register.js";
 
 const schema = yup
@@ -15,7 +15,7 @@ const schema = yup
       .email("Invalid email format.")
       .matches(
         /^[A-Za-z0-9._%+-]+@stud\.noroff\.no$/,
-        "Email must be a stud.noroff.no email."
+        "Email must be a stud.noroff.no email"
       )
       .required("Email is required."),
     password: yup
@@ -26,6 +26,10 @@ const schema = yup
       .matches(/[A-Z]/, "Password must contain at least one uppercase letter.")
       .matches(/[0-9]/, "Password must contain at least one number.")
       .required("Password is required."),
+    confirmPassword: yup
+      .string()
+      .oneOf([yup.ref("password"), null], "Passwords must match")
+      .required("Confirm Password is required."),
   })
   .required();
 
@@ -34,9 +38,10 @@ function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(schema),
+    mode: "onChange",
   });
   const navigate = useNavigate();
 
@@ -57,7 +62,7 @@ function RegisterForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-evenly gap-8 items-center"
+      className="flex flex-col justify-evenly gap-4 items-center"
     >
       <div className=" w-full max-w-md">
         <label
@@ -122,7 +127,28 @@ function RegisterForm() {
           </p>
         )}
       </div>
-      <Submitbutton>{buttonText}</Submitbutton>
+      <div className=" w-full max-w-md">
+        <label
+          htmlFor="confirmPassword"
+          className="block text-cedar font-condensed text-xl capitalized font-medium"
+        >
+          Confirm Password
+        </label>
+        <input
+          {...register("confirmPassword")}
+          type="password"
+          required
+          placeholder="Confirm your password"
+          id="confirmPassword"
+          className="mt-1 mb-2 block w-full rounded-md border-porsche border-2 shadow-sm p-3 text-cedar hover:border-cedar focus:outline-none focus:border-cedar"
+        />
+        {errors.confirmPassword && (
+          <p className="text-danger mt-2 bg-white px-4 py-2 rounded-md text-lg font-medium text-center">
+            {errors.confirmPassword.message}
+          </p>
+        )}
+      </div>
+      <SubmitButton disabled={!isValid}>{buttonText}</SubmitButton>
     </form>
   );
 }
