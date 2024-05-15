@@ -22,6 +22,7 @@ export default {
       porsche: "#ed9e67",
       matisse: "#1d5191",
       danger: "#ff0000",
+      success: "#00ff00",
     },
     fontFamily: {
       sans: ["Barlow", "sans-serif"],

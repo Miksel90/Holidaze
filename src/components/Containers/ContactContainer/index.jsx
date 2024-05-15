@@ -100,7 +100,7 @@ function ContactSchema() {
           </div>
         </form>
       ) : (
-        <p className="text-xl text-cedar mt-2">
+        <p className="text-3xl text-success mt-2 font-condensed ">
           Your message has been sent. Please wait for our reply.
         </p>
       )}
