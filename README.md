@@ -2,7 +2,7 @@
 
 <img src="/src/assets/Images/readmeImg.PNG">
 
-[Holidaze](https://holidaze2.netlify.app/) is a web application that allows users to browse, list and book venues. All users can browse the website and registered user book venues and edit their profile. A registred user can sign as venue manager and can then list their own venues. The api limits the the user to use URL-images. The application is responsive and is built with React and Tailwind CSS. It is using the a Noroff school API to fetch venues and profiles.
+[Holidaze](https://holidaze2.netlify.app/) is a web application that allows users to browse, list and book venues. All users can browse the website and registered users can book, edit, create and delete venues and edit their profile. A registered user can sign up as a venue manager and can then list their own venues. The api limits the the user to use URL-images. The application is responsive and is built with React and Tailwind CSS. It is using the a Noroff school API to fetch the data for venues and profiles.
 
 ## Description
 
