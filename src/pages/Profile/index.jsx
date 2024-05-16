@@ -137,7 +137,7 @@ function ProfilePage() {
                   {profileData.venues.length}
                 </li>
               </ul>
-              {canInteractOnProfile && (
+              {canInteractOnProfile && profileData.venueManager && (
                 <div className="mt-4 text-lg">
                   <DefaultButton onClick={handleOpenListNewVenueModal}>
                     List New Venue
@@ -171,10 +171,17 @@ function ProfilePage() {
                 </Link>
                 <div className="text-center mt-4">
                   <div className="text-center mt-4">
-                    {canInteractOnProfile && (
+                    {canInteractOnProfile && profileData.venueManager ? (
                       <DefaultButton onClick={() => handleEditVenue(venue)}>
                         Edit Venue
                       </DefaultButton>
+                    ) : (
+                      canInteractOnProfile && (
+                        <p className="text-danger text-lg font-condensed font-medium">
+                          You need to be a venue manager to edit your venues.
+                          You can change this in your profile settings.
+                        </p>
+                      )
                     )}
                   </div>
                 </div>
