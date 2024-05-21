@@ -11,7 +11,7 @@ const FavoritesContainer = () => {
 
   return (
     <div className="flex flex-col px-2">
-      <h2 className="text-xl font-condensed mb-4">My Favorite Venues</h2>
+      <h2 className="text-3xl font-condensed mb-4">My Favorite Venues</h2>
       {favorites.length === 0 ? (
         <p>No favorite venues yet.</p>
       ) : (

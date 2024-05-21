@@ -17,8 +17,8 @@ const useFavoriteStore = create(
         })),
     }),
     {
-      name: "favorite-venues-storage", // unique name for local storage
-      getStorage: () => localStorage, // Use the storage option to specify localStorage
+      name: "favorite-venues-storage",
+      getStorage: () => localStorage,
     }
   )
 );
