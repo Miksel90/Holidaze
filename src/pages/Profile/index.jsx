@@ -86,6 +86,11 @@ function ProfilePage() {
       }
     }
   };
+
+  const upcomingBookings = profileData.bookings.filter(
+    (booking) => new Date(booking.dateTo) > new Date()
+  );
+
   return (
     <div className="bg-white">
       <h1 className="text-cedar font-condensed p-4 text-2xl md:text-6xl">
@@ -152,7 +157,7 @@ function ProfilePage() {
           <FavoritesContainer />
         </div>
         <div className="col-span-6 bg-primary flex-grow">
-          <h3 className="text-2xl font-medium text-center py-4">
+          <h3 className="text-2xl font-medium text-center py-4 text-cedar">
             My Registered Venues
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2  gap-4 px-4 py-2">
@@ -202,15 +207,15 @@ function ProfilePage() {
           </div>
         </div>
         <div className="col-span-6 bg-primary flex-grow text-cedar">
-          <h3 className="mt-2 text-4xl font-medium text-center flex-grow font-condensed border-b-2 border-cedar w-52 mx-auto">
-            My Bookings
+          <h3 className="mt-2 text-3xl font-medium text-center flex-grow font-condensed  mx-auto">
+            Upcoming Bookings
           </h3>
           {canInteractOnProfile &&
           profileData &&
           profileData.bookings &&
-          profileData.bookings.length > 0 ? (
+          upcomingBookings.length > 0 ? (
             <div>
-              {profileData.bookings.map((booking) => (
+              {upcomingBookings.map((booking) => (
                 <Link
                   key={booking.id}
                   to={`/venues/${booking.venue.id}`}
@@ -223,15 +228,14 @@ function ProfilePage() {
                           <img
                             src={booking.venue.media[0].url}
                             alt={booking.venue.media[0].alt}
-                            className="w-full h-52 max-h-52 min-w-60 max-w-60 object-cover  rounded-lg shadow-cedar shadow-md"
+                            className="w-60 h-52 max-h-52  object-cover  rounded-lg shadow-cedar shadow-md"
                           />
                         )}
                     </div>
                     <div>
-                      <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 ">
+                      <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 md:w-60">
                         {booking.venue.name}
                       </h4>
-
                       <div className=" flex flex-row justify-center text-lg font-medium mt-2">
                         <p>
                           From:{" "}
@@ -243,7 +247,7 @@ function ProfilePage() {
                         </p>
                       </div>
                       <button
-                        className="bg-danger px-4 py-2 rounded-md text-white mt-2"
+                        className="bg-danger px-4 py-2 rounded-md text-white mt-2 "
                         onClick={(e) => handleDelete(e, booking)}
                         disabled={
                           isDeleting && deletingBookingId === booking.id
@@ -264,8 +268,8 @@ function ProfilePage() {
           ) : (
             <p className="text-center font-light text-xl py-8">
               {canInteractOnProfile
-                ? "No bookings found."
-                : "You cant see other peoples bookings, jeez!"}
+                ? "No upcoming bookings found."
+                : "You can't see other people's bookings, jeez!"}
             </p>
           )}
         </div>
