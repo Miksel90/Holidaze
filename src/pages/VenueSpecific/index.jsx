@@ -8,6 +8,7 @@ import { FaStar } from "react-icons/fa";
 import DefaultButton from "../../components/Buttons/DefaultButton";
 import defaultImage from "../../assets/Images/defaultProfile.webp";
 import BookVenue from "../../components/Booking";
+import HeartIcon from "../../components/FavoriteIcon";
 
 const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
@@ -75,8 +76,12 @@ const VenueSpecificPage = () => {
   };
 
   return (
-    <div className="flex flex-col px-2 bg-white gap-2">
+    <div className="flex flex-col px-2 bg-white gap-2 relative">
       <h1 className="text-4xl text-start font-condensed p-2">{venue.name}</h1>
+      <div className=" absolute top-2 right-2 text-4xl p-2 flex flex-wrap gap-2 items-center">
+        <p className="text-lg hidden md:block">Add to Favorites</p>
+        <HeartIcon venue={venue} />
+      </div>
       <Carousel>{venueImages}</Carousel>
       <div className="bg-primary p-4 text-cedar rounded-sm mt-2 grid grid-cols-1 md:grid-cols-6">
         <div className="col-span-1 md:col-span-3">

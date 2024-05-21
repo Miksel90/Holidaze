@@ -41,13 +41,13 @@ const VenuePage = () => {
           </div>
         </>
       )}
+
       <div className="col-span-1  md:col-span-6 bg-primary p-4  flex flex-col md:flex-wrap gap-4 justify-evenly">
         <h3 className="text-cedar text-center font-condensed text-3xl capitalize font-bold ">
           Recent Venues
         </h3>
         <VenuesList />
       </div>
-
       <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
         <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold">
           Popular Managers

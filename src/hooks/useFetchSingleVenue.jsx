@@ -10,7 +10,7 @@ export function useFetchSingleVenue(venueId) {
     setIsLoading(true);
     fetchSingleVenue(venueId)
       .then((response) => {
-        console.log("Venue response:", response);
+        // console.log("Venue response:", response);
         setVenue(response.data);
       })
       .catch((e) => {

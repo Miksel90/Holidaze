@@ -7,6 +7,7 @@ import { useDeleteBooking } from "../../hooks/useDeleteBooking";
 import { Link, useParams } from "react-router-dom";
 import EditVenueModal from "../../components/Modal/venue/EditVenue";
 import BackToTopButton from "../../components/Buttons/BackToTop";
+import FavoritesContainer from "../../components/Containers/FavoriteContainer";
 
 function ProfilePage() {
   const { name } = useParams();
@@ -146,6 +147,9 @@ function ProfilePage() {
               )}
             </div>
           </div>
+        </div>
+        <div className=" col-span-6 bg-primary text-center rounded-sm p-4 ">
+          <FavoritesContainer />
         </div>
         <div className="col-span-6 bg-primary flex-grow">
           <h3 className="text-2xl font-medium text-center py-4">

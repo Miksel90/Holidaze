@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { useState } from "react";
 import DefaultImage from "../../../assets/Images/default.webp";
+import HeartIcon from "../../FavoriteIcon";
 
 const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
@@ -50,8 +51,22 @@ function VenueCard({
       ? `${description.substring(0, 30)}...`
       : description;
 
+  const venue = {
+    id,
+    name,
+    description,
+    location,
+    maxGuests,
+    price,
+    rating,
+    media,
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center mt-2 bg-white border-2 border-cedar w-full max-w-sm rounded-sm font-sans group hover:shadow-lg hover:shadow-cedar transition-shadow duration-200">
+    <div className="relative flex flex-col items-center justify-center mt-2 bg-white border-2 border-cedar w-full max-w-sm rounded-sm font-sans group hover:shadow-lg hover:shadow-cedar transition-shadow duration-200">
+      <div className="absolute top-2 right-2 text-4xl">
+        <HeartIcon venue={venue} />
+      </div>
       <Link to={`/venues/${id}`} className="block w-full h-full">
         <img
           src={imageSrc}
