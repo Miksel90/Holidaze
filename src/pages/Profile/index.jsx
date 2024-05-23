@@ -101,9 +101,9 @@ function ProfilePage() {
           className="col-span-6 bg-primary bg-cover bg-center"
           style={{ backgroundImage: `url('${profileData.banner.url}')` }}
         >
-          <div className="bg-black bg-opacity-50 p-4 flex flex-col px-8 md:flex-row w-full justify-between items-center gap-2 text-white">
+          <div className="bg-black bg-opacity-50 p-4 flex flex-col px-8 md:flex-row flex-wrap w-full justify-between items-center gap-2 text-white">
             <div className="flex flex-col items-center gap-4 mb-10 md:mb-0">
-              <div className="w-52 h-52 ">
+              <div className="w-52 h-52">
                 <img
                   src={profileData.avatar.url}
                   alt={profileData.avatar.alt || "Profile avatar"}
@@ -118,27 +118,27 @@ function ProfilePage() {
                 </div>
               )}
             </div>
-            <div>
+            <div className="flex flex-col w-full md:w-auto">
               <h2 className="font-condensed text-2xl justify-start text-shadow">
                 Intro
               </h2>
-              <ul>
-                <li className="capitalize text-lg font-sans  text-wrap">
+              <ul className="flex flex-col space-y-2">
+                <li className="capitalize text-lg font-sans break-words">
                   {profileData.bio}
                 </li>
-                <li className="capitalize text-lg font-sans  text-wrap">
+                <li className="capitalize text-lg font-sans break-words">
                   <span className="font-medium">Contact: </span>
                   {profileData.email}
                 </li>
-                <li className="capitalize text-lg font-sans text-wrap">
+                <li className="capitalize text-lg font-sans break-words">
                   <span className="font-medium">Venue Manager: </span>
                   {profileData.venueManager ? "Yes" : "No"}
                 </li>
-                <li className="capitalize text-lg font-sans text-wrap">
+                <li className="capitalize text-lg font-sans break-words">
                   <span className="font-medium">Bookings: </span>
                   {profileData.bookings.length}
                 </li>
-                <li className="capitalize text-lg font-sans text-wrap">
+                <li className="capitalize text-lg font-sans break-words">
                   <span className="font-medium">Active Venues: </span>
                   {profileData.venues.length}
                 </li>
@@ -153,18 +153,18 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className=" col-span-6 bg-primary text-center rounded-sm p-4 ">
+        <div className="col-span-6 bg-primary text-center rounded-sm p-4">
           <FavoritesContainer />
         </div>
         <div className="col-span-6 bg-primary flex-grow">
           <h3 className="text-2xl font-medium text-center py-4 text-cedar">
             My Registered Venues
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2  gap-4 px-4 py-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-2">
             {currentVenues.map((venue) => (
               <div
                 key={venue.id}
-                className="bg-white shadow rounded-lg hover:shadow-md transition-shadow p-4 "
+                className="bg-white shadow rounded-lg hover:shadow-md transition-shadow p-4"
               >
                 <Link to={`/venues/${venue.id}`} className="block">
                   <h4 className="text-cedar font-medium text-xl mb-2 text-center">
@@ -207,7 +207,7 @@ function ProfilePage() {
           </div>
         </div>
         <div className="col-span-6 bg-primary flex-grow text-cedar">
-          <h3 className="mt-2 text-3xl font-medium text-center flex-grow font-condensed  mx-auto">
+          <h3 className="mt-2 text-3xl font-medium text-center flex-grow font-condensed mx-auto">
             Upcoming Bookings
           </h3>
           {canInteractOnProfile &&
@@ -219,16 +219,16 @@ function ProfilePage() {
                 <Link
                   key={booking.id}
                   to={`/venues/${booking.venue.id}`}
-                  className="text-center "
+                  className="text-center"
                 >
-                  <div className=" px-8 py-4 flex flex-col md:flex-row gap-8 justify-center md:justify-evenly items-center border-b border-porsche">
+                  <div className="px-8 py-4 flex flex-col md:flex-row flex-wrap gap-8 justify-center md:justify-evenly items-center border-b border-porsche">
                     <div>
                       {booking.venue.media &&
                         booking.venue.media.length > 0 && (
                           <img
                             src={booking.venue.media[0].url}
                             alt={booking.venue.media[0].alt}
-                            className="w-60 h-52 max-h-52  object-cover  rounded-lg shadow-cedar shadow-md"
+                            className="w-60 h-52 max-h-52 object-cover rounded-lg shadow-cedar shadow-md"
                           />
                         )}
                     </div>
@@ -236,7 +236,7 @@ function ProfilePage() {
                       <h4 className="text-cedar font-normal text-2xl md:text-4xl mb-2 md:w-60">
                         {booking.venue.name}
                       </h4>
-                      <div className=" flex flex-row justify-center text-lg font-medium mt-2">
+                      <div className="flex flex-row justify-center text-lg font-medium mt-2">
                         <p>
                           From:{" "}
                           {new Date(booking.dateFrom).toLocaleDateString()}
@@ -247,7 +247,7 @@ function ProfilePage() {
                         </p>
                       </div>
                       <button
-                        className="bg-danger px-4 py-2 rounded-md text-white mt-2 "
+                        className="bg-danger px-4 py-2 rounded-md text-white mt-2"
                         onClick={(e) => handleDelete(e, booking)}
                         disabled={
                           isDeleting && deletingBookingId === booking.id
