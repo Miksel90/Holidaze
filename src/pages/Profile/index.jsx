@@ -247,7 +247,7 @@ function ProfilePage() {
                         </p>
                       </div>
                       <button
-                        className="bg-danger px-4 py-2 rounded-md text-white mt-2"
+                        className="bg-white px-4 py-2 rounded-md text-cedar border-2 border-porsche hover:bg-danger hover:text-white hover:border-cedar font-medium mt-2"
                         onClick={(e) => handleDelete(e, booking)}
                         disabled={
                           isDeleting && deletingBookingId === booking.id
