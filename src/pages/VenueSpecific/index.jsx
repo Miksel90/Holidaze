@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useFetchSingleVenue } from "../../hooks/useFetchSingleVenue";
-// import { fetchProfiles } from "../../utils/fetchProfiles";
 import BackToTopButton from "../../components/Buttons/BackToTop";
 import Carousel from "../../components/Carousel";
 import { FaStar } from "react-icons/fa";
@@ -12,6 +11,11 @@ import HeartIcon from "../../components/FavoriteIcon";
 
 const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
+/**
+ * VenueSpecificPage component that displays detailed information about a specific venue.
+ *
+ * @returns {JSX.Element} The rendered VenueSpecificPage component.
+ */
 const VenueSpecificPage = () => {
   let { id } = useParams();
   const navigate = useNavigate();

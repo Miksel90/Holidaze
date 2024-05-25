@@ -1,3 +1,12 @@
+/**
+ * Fetches profiles with optional filtering by name.
+ *
+ * @async
+ * @function
+ * @param {string} [name=""] - The optional name to filter profiles.
+ * @returns {Promise<Object>} The response data from the fetch profiles request.
+ * @throws {Error} If the API key is missing or if there is a network error.
+ */
 export async function fetchProfiles(name = "") {
   const profilesUrl = `https://v2.api.noroff.dev/holidaze/profiles/${name}?_venues=true&_bookings=true`;
 

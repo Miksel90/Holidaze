@@ -1,5 +1,14 @@
 import { bookingUrl } from "./constants";
 
+/**
+ * Books a venue with the provided booking data.
+ *
+ * @async
+ * @function
+ * @param {Object} bookingData - The data for booking the venue.
+ * @returns {Promise<Object>} The response data from the booking request.
+ * @throws {Error} If the API key or access token is missing, or if the booking request fails.
+ */
 export async function bookVenue(bookingData) {
   const apiKey = import.meta.env.VITE_API_KEY;
 
@@ -14,9 +23,6 @@ export async function bookVenue(bookingData) {
     Authorization: `Bearer ${accessToken}`,
     "X-Noroff-API-Key": apiKey,
   };
-
-  // console.log("Sending Request with Headers:", headers);
-  // console.log("Sending Request with Body:", bookingData);
 
   try {
     const response = await fetch(bookingUrl, {

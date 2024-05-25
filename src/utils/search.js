@@ -1,5 +1,15 @@
 import { BASE_URL } from "./constants";
 
+/**
+ * Searches for venues and profiles based on the provided search term.
+ *
+ * @async
+ * @function
+ * @param {string} searchTerm - The search term to be used for searching venues and profiles.
+ * @param {boolean} isAuthenticated - A boolean indicating whether the user is authenticated.
+ * @returns {Promise<Object>} An object containing the search results for venues and profiles.
+ * @throws {Error} If the API key is missing or if there is a network error during the search.
+ */
 export async function searchVenues(searchTerm, isAuthenticated) {
   const encodedSearchTerm = encodeURIComponent(searchTerm);
 

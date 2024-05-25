@@ -10,6 +10,11 @@ import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import BackToTopButton from "../../components/Buttons/BackToTop";
 
+/**
+ * HomePage component that displays the home page with login form, search bar, and various sections.
+ *
+ * @returns {JSX.Element} The rendered HomePage component.
+ */
 function HomePage() {
   const [userName, setUserName] = useState(null);
 
@@ -23,7 +28,7 @@ function HomePage() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch">
       {userName ? (
-        <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-col justify-evenly ">
+        <div className="col-span-1 md:col-span-6 bg-primary p-8 flex flex-col justify-evenly">
           <h1 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
             Find your paradise today
           </h1>
@@ -34,13 +39,13 @@ function HomePage() {
           <Helmet>
             <title>Home | Holidaze</title>
           </Helmet>
-          <div className="col-span-1 md:col-span-3 bg-primary rounded-sm p-4 ">
+          <div className="col-span-1 md:col-span-3 bg-primary rounded-sm p-4">
             <h1 className="text-cedar text-center font-condensed text-3xl uppercase font-bold rounded-sm">
               Login
             </h1>
             <LoginForm />
           </div>
-          <div className="col-span-1 md:col-span-3 bg-primary p-8 flex flex-col justify-evenly ">
+          <div className="col-span-1 md:col-span-3 bg-primary p-8 flex flex-col justify-evenly">
             <h2 className="text-cedar text-center font-condensed text-3xl capitalize font-bold rounded-sm">
               Find your paradise today
             </h2>
@@ -48,10 +53,10 @@ function HomePage() {
           </div>
         </>
       )}
-      <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm ">
+      <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
         <Link to="/venues">
           <div className="relative">
-            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed  text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
               <h2 className="border-2 px-4 bg-white rounded-sm">Golf</h2>
             </div>
             <img src={imageOne} alt="Golf course" className="w-full h-20" />
@@ -61,8 +66,8 @@ function HomePage() {
       <div className="col-span-1 md:col-span-2 bg-primary text-center rounded-sm">
         <Link to="/venues">
           <div className="relative">
-            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-4xl  p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
-              <h2 className="border-2 px-4 bg-white rounded-sm">Suite LIfe</h2>
+            <div className="absolute inset-0 flex items-end justify-center text-cedar font-condensed text-4xl p-2 bg-primary hover:text-primary bg-opacity-0 hover:bg-opacity-50">
+              <h2 className="border-2 px-4 bg-white rounded-sm">Suite Life</h2>
             </div>
             <img
               src={imageTwo}
@@ -86,13 +91,13 @@ function HomePage() {
           </div>
         </Link>
       </div>
-      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
+      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4">
         <h2 className="text-cedar text-center font-condensed text-4xl capitalize font-bold rounded-sm py-2">
           Popular Managers
         </h2>
         <ProfilesList />
       </div>
-      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4 ">
+      <div className="col-span-1 md:col-span-3 bg-white text-center rounded-sm p-4">
         <ReviewContainer />
       </div>
       <BackToTopButton />

@@ -1,3 +1,12 @@
+/**
+ * Creates a new venue with the provided data.
+ *
+ * @async
+ * @function
+ * @param {Object} newVenueData - The data for the new venue to be created.
+ * @returns {Promise<Object>} The response data from the create new venue request.
+ * @throws {Error} If the API key or access token is missing, or if the create request fails.
+ */
 export async function createNewVenue(newVenueData) {
   const venueUrl = "https://v2.api.noroff.dev/holidaze/venues";
   const apiKey = import.meta.env.VITE_API_KEY;

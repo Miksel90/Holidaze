@@ -1,5 +1,10 @@
 import { Helmet } from "react-helmet";
 
+/**
+ * NotFound component that displays a 404 error message.
+ *
+ * @returns {JSX.Element} The rendered NotFound component.
+ */
 const NotFound = () => {
   return (
     <main>

@@ -12,6 +12,12 @@ import {
 import Layout from "./components/Layout/index.jsx";
 import "./App.css";
 
+/**
+ * Root component of the application.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered root component.
+ */
 function App() {
   return (
     <div className="max-w-app mx-auto">

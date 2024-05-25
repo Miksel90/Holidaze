@@ -6,6 +6,11 @@ import ProfilesList from "../../components/Lists/ProfilesList";
 import VenuesList from "../../components/Lists/VenueList";
 import BackToTopButton from "../../components/Buttons/BackToTop";
 
+/**
+ * VenuePage component that displays a search bar, recent venues, popular managers, reviews, and login form if the user is not logged in.
+ *
+ * @returns {JSX.Element} The rendered VenuePage component.
+ */
 const VenuePage = () => {
   const [userName, setUserName] = useState(null);
 

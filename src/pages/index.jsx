@@ -7,6 +7,9 @@ import NotFound from "./Error";
 import AboutPage from "./About";
 import RegisterPage from "./Register";
 
+/**
+ * Exports all the page components from a single file for easy import.
+ */
 export {
   HomePage,
   AboutPage,

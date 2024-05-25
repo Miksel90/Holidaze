@@ -1,5 +1,14 @@
 import { BASE_URL } from "./constants";
 
+/**
+ * Updates the profile information for the authenticated user.
+ *
+ * @async
+ * @function
+ * @param {Object} profileData - The updated profile data.
+ * @returns {Promise<Object>} The response data from the update profile info request.
+ * @throws {Error} If the access token, API key, or update request fails.
+ */
 export async function updateProfileInfo(profileData) {
   const accessToken = localStorage.getItem("accessToken");
   const userName = localStorage.getItem("userName");

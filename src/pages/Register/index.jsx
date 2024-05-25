@@ -4,6 +4,11 @@ import ReviewContainer from "../../components/Containers/ReviewsContainer";
 import ProfilesList from "../../components/Lists/ProfilesList";
 import BackToTopButton from "../../components/Buttons/BackToTop";
 
+/**
+ * RegisterPage component that displays the registration form, browse container, reviews, and popular managers.
+ *
+ * @returns {JSX.Element} The rendered RegisterPage component.
+ */
 function RegisterPage() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-6 gap-1 items-stretch">

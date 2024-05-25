@@ -1,5 +1,15 @@
 import { BASE_URL } from "./constants";
 
+/**
+ * Edits a venue with the specified venue ID and data.
+ *
+ * @async
+ * @function
+ * @param {string} venueId - The ID of the venue to be edited.
+ * @param {Object} venueData - The new data for the venue.
+ * @returns {Promise<Object>} The response data from the edit venue request.
+ * @throws {Error} If the API key or access token is missing, or if the edit request fails.
+ */
 export async function editVenue(venueId, venueData) {
   const editVenueUrl = `${BASE_URL}holidaze/venues/${venueId}`;
   const apiKey = import.meta.env.VITE_API_KEY;

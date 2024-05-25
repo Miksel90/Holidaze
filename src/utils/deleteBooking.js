@@ -1,5 +1,14 @@
 import { BASE_URL } from "./constants";
 
+/**
+ * Deletes a booking with the specified booking ID.
+ *
+ * @async
+ * @function
+ * @param {string} bookingId - The ID of the booking to be deleted.
+ * @returns {Promise<Response>} The response from the delete booking request.
+ * @throws {Error} If the API key or access token is missing, or if the delete booking request fails.
+ */
 export async function deleteBooking(bookingId) {
   const apiKey = import.meta.env.VITE_API_KEY;
 

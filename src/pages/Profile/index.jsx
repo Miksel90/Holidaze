@@ -9,6 +9,11 @@ import EditVenueModal from "../../components/Modal/venue/EditVenue";
 import BackToTopButton from "../../components/Buttons/BackToTop";
 import FavoritesContainer from "../../components/Containers/FavoriteContainer";
 
+/**
+ * ProfilePage component that displays user profile details, their venues, bookings, and allows editing of profile and venues.
+ *
+ * @returns {JSX.Element} The rendered ProfilePage component.
+ */
 function ProfilePage() {
   const { name } = useParams();
   const decodedName = decodeURIComponent(name);
@@ -23,27 +28,47 @@ function ProfilePage() {
     useDeleteBooking();
   const [isUserNameMatch, setIsUserNameMatch] = useState(false);
 
+  /**
+   * Opens the profile edit modal.
+   */
   const handleOpenProfileModal = () => {
     setIsProfileModalOpen(true);
   };
 
+  /**
+   * Opens the modal to list a new venue.
+   */
   const handleOpenListNewVenueModal = () => {
     setIsListNewVenueModalOpen(true);
   };
 
+  /**
+   * Opens the modal to edit a venue.
+   *
+   * @param {Object} venue - The venue data to edit.
+   */
   const handleEditVenue = (venue) => {
     setEditingVenue(venue);
   };
 
+  /**
+   * Closes all modals.
+   */
   const handleCloseModal = () => {
     setIsProfileModalOpen(false);
     setIsListNewVenueModalOpen(false);
   };
 
+  /**
+   * Moves to the next page of venues.
+   */
   const nextPage = () => {
     setCurrentPage(currentPage + 1);
   };
 
+  /**
+   * Moves to the previous page of venues.
+   */
   const previousPage = () => {
     setCurrentPage(currentPage - 1);
   };
@@ -79,11 +104,22 @@ function ProfilePage() {
   const totalVenues = profileData.venues?.length ?? 0;
   const hasMoreVenues = venueStartIndex + venuesPerPage < totalVenues;
 
+  /**
+   * Saves the changes made to the profile.
+   *
+   * @param {Object} updatedData - The updated profile data.
+   */
   const handleSaveChanges = (updatedData) => {
     console.log("Updated Profile Data:", updatedData);
     handleCloseModal();
   };
 
+  /**
+   * Deletes a booking.
+   *
+   * @param {Object} event - The event object.
+   * @param {Object} booking - The booking data to delete.
+   */
   const handleDelete = async (event, booking) => {
     event.preventDefault();
     if (booking?.id) {
