@@ -4,6 +4,15 @@ import background2 from "../../../assets/Images/bg2.webp";
 import background3 from "../../../assets/Images/bg3.webp";
 import DefaultButton from "../../Buttons/DefaultButton";
 
+/**
+ * BrowseContainer component that displays a rotating background image with a call-to-action button.
+ *
+ * @component
+ * @example
+ * return (
+ *   <BrowseContainer />
+ * )
+ */
 function BrowseContainer() {
   const backgrounds = [background1, background2, background3];
   const [currentBackground, setCurrentBackground] = useState(0);

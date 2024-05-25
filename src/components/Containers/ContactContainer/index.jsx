@@ -33,6 +33,15 @@ const schema = yup
   })
   .required();
 
+/**
+ * ContactSchema component that provides a form for users to contact with validation.
+ *
+ * @component
+ * @example
+ * return (
+ *   <ContactSchema />
+ * )
+ */
 function ContactSchema() {
   const {
     register,
@@ -45,6 +54,11 @@ function ContactSchema() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  /**
+   * Handles the form submission.
+   *
+   * @param {Object} data - The form data.
+   */
   const onSubmit = (data) => {
     console.log(data);
     reset();
@@ -95,7 +109,6 @@ function ContactSchema() {
             {errors.message?.message}
           </p>
           <div className="mt-2 text-center">
-            {" "}
             <SubmitButton>Send</SubmitButton>
           </div>
         </form>

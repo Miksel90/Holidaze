@@ -1,9 +1,21 @@
 import { useState, useEffect } from "react";
 
+/**
+ * BackToTopButton component that displays a button to scroll back to the top of the page when scrolled down.
+ *
+ * @component
+ * @example
+ * return (
+ *   <BackToTopButton />
+ * )
+ */
 const BackToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    /**
+     * Toggles the visibility of the button based on the scroll position.
+     */
     const toggleVisibility = () => {
       if (window.pageYOffset > 300) {
         setIsVisible(true);
@@ -19,6 +31,9 @@ const BackToTopButton = () => {
     };
   }, []);
 
+  /**
+   * Scrolls the window to the top smoothly.
+   */
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -31,7 +46,7 @@ const BackToTopButton = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="bg-matisse text-white p-3 rounded-full shadow-lg  transition duration-300"
+          className="bg-matisse text-white p-3 rounded-full shadow-lg transition duration-300"
         >
           Back to Top
         </button>

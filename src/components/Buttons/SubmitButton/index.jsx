@@ -1,5 +1,16 @@
 import PropTypes from "prop-types";
 
+/**
+ * SubmitButton component that renders a styled submit button.
+ *
+ * @component
+ * @param {Object} props - The props for SubmitButton.
+ * @param {React.ReactNode} props.children - The content to be displayed inside the button.
+ * @example
+ * return (
+ *   <SubmitButton>Submit</SubmitButton>
+ * )
+ */
 function SubmitButton({ children }) {
   return (
     <button

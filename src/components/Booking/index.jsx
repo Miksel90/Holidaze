@@ -5,10 +5,18 @@ import { ImCross } from "react-icons/im";
 import PropTypes from "prop-types";
 import DefaultButton from "../Buttons/DefaultButton";
 import { useBookVenue } from "../../hooks/useBookVenue";
-
 import "react-datepicker/dist/react-datepicker.css";
 import "../../App.css";
 
+/**
+ * PickDates component for selecting date range.
+ *
+ * @component
+ * @param {Object} props - The props for PickDates.
+ * @param {string} props.value - The selected date value.
+ * @param {function} props.onClick - The function to handle click event.
+ * @param {Object} ref - The reference to the button element.
+ */
 const PickDates = forwardRef(({ value, onClick }, ref) => (
   <button
     className="form-input px-4 py-2 border rounded-md shadow-sm shadow-black text-lg font-medium"
@@ -26,8 +34,15 @@ PickDates.propTypes = {
   onClick: PropTypes.func,
 };
 
+/**
+ * BookVenue component for booking a venue.
+ *
+ * @component
+ * @param {Object} props - The props for BookVenue.
+ * @param {Object} props.venue - The venue details.
+ * @returns {JSX.Element} The BookVenue component.
+ */
 const BookVenue = ({ venue }) => {
-  // console.log("Venue data received :", venue);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [guestCount, setGuestCount] = useState(1);
@@ -37,6 +52,11 @@ const BookVenue = ({ venue }) => {
   today.setHours(0, 0, 0, 0);
   const userName = localStorage.getItem("userName");
 
+  /**
+   * Handles date change event.
+   *
+   * @param {Array<Date>} dates - The selected start and end dates.
+   */
   const onChange = (dates) => {
     const [start, end] = dates;
     if (start && end) {
@@ -51,6 +71,10 @@ const BookVenue = ({ venue }) => {
     setEndDate(end);
     setError("");
   };
+
+  /**
+   * Clears the selected dates.
+   */
   const clearDates = () => {
     setStartDate(null);
     setEndDate(null);
@@ -70,6 +94,12 @@ const BookVenue = ({ venue }) => {
     return dates;
   }, [venue.bookings]);
 
+  /**
+   * Checks if the given date is already booked.
+   *
+   * @param {Date} date - The date to check.
+   * @returns {boolean} True if the date is booked, otherwise false.
+   */
   const isBookedDate = (date) => {
     return bookedDates.some(
       (bookedDate) =>
@@ -88,6 +118,11 @@ const BookVenue = ({ venue }) => {
     return 0;
   }, [startDate, endDate, venue.price]);
 
+  /**
+   * Generates the options for the number of guests.
+   *
+   * @returns {Array<JSX.Element>} The list of options.
+   */
   const selectNumberOfGuests = () => {
     const options = [];
     for (let i = 1; i <= venue.maxGuests; i++) {
@@ -102,6 +137,9 @@ const BookVenue = ({ venue }) => {
 
   const { isLoading, initiateBooking } = useBookVenue();
 
+  /**
+   * Handles the booking process.
+   */
   const handleBooking = () => {
     if (startDate && endDate && guestCount && venue.id && userName) {
       initiateBooking({
@@ -217,4 +255,5 @@ BookVenue.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
 export default BookVenue;

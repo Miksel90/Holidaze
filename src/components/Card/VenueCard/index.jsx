@@ -7,6 +7,44 @@ import HeartIcon from "../../FavoriteIcon";
 
 const StarIcon = () => <FaStar className="text-primary text-2xl " />;
 
+/**
+ * VenueCard component that displays information about a venue.
+ *
+ * @component
+ * @param {Object} props - The props for VenueCard.
+ * @param {string} props.id - The ID of the venue.
+ * @param {string} props.name - The name of the venue.
+ * @param {string} [props.created] - The creation date of the venue.
+ * @param {string} props.description - A short description of the venue.
+ * @param {Object} props.location - The location details of the venue.
+ * @param {string} [props.location.address] - The address of the venue.
+ * @param {string} props.location.city - The city where the venue is located.
+ * @param {string} props.location.country - The country where the venue is located.
+ * @param {number} props.maxGuests - The maximum number of guests allowed at the venue.
+ * @param {number} props.price - The price per night to stay at the venue.
+ * @param {number} [props.rating] - The rating of the venue.
+ * @param {Array<Object>} [props.media] - An array of media objects related to the venue.
+ * @param {string} props.media[].url - The URL of the media.
+ * @param {string} [props.media[].alt] - The alt text for the media.
+ * @example
+ * const venue = {
+ *   id: "1",
+ *   name: "Beautiful Beach House",
+ *   created: "2023-01-01",
+ *   description: "A lovely beach house with stunning views.",
+ *   location: {
+ *     city: "Miami",
+ *     country: "USA"
+ *   },
+ *   maxGuests: 6,
+ *   price: 300,
+ *   rating: 4,
+ *   media: [{ url: "http://example.com/image.jpg", alt: "Beach House" }]
+ * };
+ * return (
+ *   <VenueCard {...venue} />
+ * )
+ */
 function VenueCard({
   id,
   created,
@@ -22,21 +60,35 @@ function VenueCard({
     media.length > 0 ? media[0].url : DefaultImage
   );
 
+  /**
+   * Handles the error event when the image fails to load and sets a default image.
+   */
   const handleImageError = () => {
     setImageSrc(DefaultImage);
   };
 
+  /**
+   * Formats the creation date.
+   *
+   * @param {string} created - The creation date of the venue.
+   * @returns {string} The formatted date.
+   */
   const formattedDate = (created) => {
     return created
       ? new Date(created).toLocaleDateString()
       : "No date provided";
   };
 
+  /**
+   * Formats the price.
+   *
+   * @returns {string} The formatted price.
+   */
   const formattedPrice = () => {
     const roundedPrice = parseFloat(price).toFixed(2);
     return roundedPrice.length <= 10
       ? `$${roundedPrice}`
-      : "Priced Is Not Listed";
+      : "Price Is Not Listed";
   };
 
   const ratingStars =
@@ -118,7 +170,7 @@ VenueCard.propTypes = {
       url: PropTypes.string.isRequired,
       alt: PropTypes.string,
     })
-  ).isRequired,
+  ),
 };
 
 export default VenueCard;
