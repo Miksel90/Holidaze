@@ -184,7 +184,7 @@ const VenueSpecificPage = () => {
             </li>
             <li className="border-b border-primary mb-4 flex flex-row gap-4 py-1">
               <p className="font-medium">Address:</p>
-              <div className="capitalize w-full break-words overflow-hidden">
+              <div className="capitalize w-full break-words md:w-52">
                 {venue.location.address}, {venue.location.city},{" "}
                 {venue.location.country}
               </div>
