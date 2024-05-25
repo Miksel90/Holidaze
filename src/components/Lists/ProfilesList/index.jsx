@@ -4,14 +4,22 @@ import ProfileCard from "../../Card/ProfileCard";
 import { FaFaceFrown } from "react-icons/fa6";
 import Carousel from "../../Carousel";
 
+/**
+ * ProfilesList component that displays a list of profiles in a carousel if the user is logged in.
+ *
+ * @component
+ * @example
+ * return (
+ *   <ProfilesList />
+ * )
+ */
 function ProfilesList() {
-  const [accessTokenExists, setAccessTokenExits] = useState(null);
+  const [accessTokenExists, setAccessTokenExists] = useState(null);
   const { profiles, isLoading, error } = useFetchProfiles();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
-
-    setAccessTokenExits(!!accessToken);
+    setAccessTokenExists(!!accessToken);
   }, []);
 
   if (!accessTokenExists)

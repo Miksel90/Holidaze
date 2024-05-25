@@ -1,6 +1,15 @@
 import Logo from "../../../assets/Logo/holidazeLogo.webp";
 import FooterNavigation from "/src/components/Navigation/Footer/index.jsx";
 
+/**
+ * Footer component that displays the footer section of the website.
+ *
+ * @component
+ * @example
+ * return (
+ *   <Footer />
+ * )
+ */
 const Footer = () => {
   return (
     <footer className="bg-white font-sans shadow-md w-full bottom-0 p-1 text-cedar text-md md:text-md mt-1 ">

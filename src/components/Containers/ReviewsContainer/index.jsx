@@ -2,9 +2,23 @@ import { useState } from "react";
 import reviews from "./dummyReviews";
 import { FaQuoteLeft } from "react-icons/fa";
 
+/**
+ * ReviewContainer component that displays a random review from the reviews array.
+ *
+ * @component
+ * @example
+ * return (
+ *   <ReviewContainer />
+ * )
+ */
 function ReviewContainer() {
   const [currentReview] = useState(pickRandomReview());
 
+  /**
+   * Picks a random review from the reviews array.
+   *
+   * @returns {Object} A random review object.
+   */
   function pickRandomReview() {
     const randomIndex = Math.floor(Math.random() * reviews.length);
     return reviews[randomIndex];

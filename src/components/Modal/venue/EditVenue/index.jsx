@@ -1,10 +1,23 @@
 import { useState, useEffect, useRef } from "react";
 import DefaultButton from "../../../Buttons/DefaultButton";
-
 import { useDeleteVenue } from "../../../../hooks/useDeleteVenue";
 import { useEditVenue } from "../../../../hooks/useEditVenue";
 import PropTypes from "prop-types";
 
+/**
+ * EditVenueModal component that allows users to edit and delete venue information.
+ *
+ * @component
+ * @param {Object} props - The props for EditVenueModal.
+ * @param {boolean} props.isOpen - Determines if the modal is open.
+ * @param {function} props.onClose - Function to call when the modal is closed.
+ * @param {Object} props.venueData - The data of the venue to edit.
+ * @param {function} [props.onSave] - Optional callback function to call when the venue is saved.
+ * @example
+ * return (
+ *   <EditVenueModal isOpen={true} onClose={() => {}} venueData={{ ... }} />
+ * )
+ */
 function EditVenueModal({ isOpen, onClose, venueData }) {
   const modalRef = useRef(null);
   const [errors, setErrors] = useState({});
@@ -68,6 +81,11 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
     };
   }, [isOpen, onClose]);
 
+  /**
+   * Handles input changes and updates the form data.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const keys = name.split(".");
@@ -100,6 +118,9 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
     });
   };
 
+  /**
+   * Adds a new image input field to the form data.
+   */
   const handleAddImage = () => {
     setFormData({
       ...formData,
@@ -107,6 +128,11 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
     });
   };
 
+  /**
+   * Removes an image input field from the form data.
+   *
+   * @param {number} index - The index of the image to remove.
+   */
   const handleRemoveImage = (index) => {
     setFormData({
       ...formData,
@@ -114,6 +140,11 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
     });
   };
 
+  /**
+   * Handles form submission to update the venue information.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -170,6 +201,9 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
     }
   };
 
+  /**
+   * Handles the deletion of the venue.
+   */
   const handleDelete = async () => {
     if (venueData?.id) {
       try {
@@ -372,7 +406,7 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
           )}
           <div className="flex flex-row mx-auto py-4 gap-8">
             <button
-              className="bg-danger px-4 py-2 font-sans rounded-md text-white "
+              className="bg-danger px-4 py-2 font-sans rounded-md text-white"
               onClick={handleDelete}
               disabled={isDeleting}
               aria-label="Delete Venue"
@@ -385,7 +419,7 @@ function EditVenueModal({ isOpen, onClose, venueData }) {
             </button>
             <DefaultButton onClick={onClose}>Cancel</DefaultButton>
             <button
-              className="px-4 py-2 font-condensed border-2 rounded-md text-cedar bg-primary hover:bg-primary hover:text-white  border-porsche transition-colors"
+              className="px-4 py-2 font-condensed border-2 rounded-md text-cedar bg-primary hover:bg-primary hover:text-white border-porsche transition-colors"
               type="submit"
               disabled={isLoading}
               aria-label="Update Venue"

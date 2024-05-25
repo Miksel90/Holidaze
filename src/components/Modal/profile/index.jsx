@@ -4,11 +4,46 @@ import DefaultButton from "../../Buttons/DefaultButton";
 import SubmitButton from "../../Buttons/SubmitButton";
 import { useUpdateProfileInfo } from "../../../hooks/useUpdateProfileInfo";
 
+/**
+ * EditProfileModal component that allows users to edit their profile information.
+ *
+ * @component
+ * @param {Object} props - The props for EditProfileModal.
+ * @param {boolean} props.isOpen - Determines if the modal is open.
+ * @param {function} props.onClose - Function to call when the modal is closed.
+ * @param {Object} props.initialData - The initial data for the form.
+ * @param {string} [props.initialData.bio] - The user's bio.
+ * @param {Object} props.initialData.avatar - The user's avatar information.
+ * @param {string} props.initialData.avatar.url - The URL of the user's avatar.
+ * @param {string} [props.initialData.avatar.alt] - The alt text for the user's avatar.
+ * @param {Object} props.initialData.banner - The user's banner information.
+ * @param {string} props.initialData.banner.url - The URL of the user's banner.
+ * @param {string} [props.initialData.banner.alt] - The alt text for the user's banner.
+ * @param {boolean} props.initialData.venueManager - Indicates if the user is a venue manager.
+ * @example
+ * return (
+ *   <EditProfileModal
+ *     isOpen={true}
+ *     onClose={handleClose}
+ *     initialData={{
+ *       bio: "This is a bio",
+ *       avatar: { url: "avatar.jpg", alt: "User's avatar" },
+ *       banner: { url: "banner.jpg", alt: "User's banner" },
+ *       venueManager: true,
+ *     }}
+ *   />
+ * )
+ */
 const EditProfileModal = ({ isOpen, onClose, initialData }) => {
   const [formData, setFormData] = useState(initialData);
   const modalRef = useRef(null);
   const { updateProfile, isLoading, error, isSuccess } = useUpdateProfileInfo();
 
+  /**
+   * Handles input changes and updates the form data.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleChange = (e) => {
     const { name, value } = e.target;
     if (
@@ -27,7 +62,7 @@ const EditProfileModal = ({ isOpen, onClose, initialData }) => {
     } else if (name === "bio") {
       setFormData((prev) => ({
         ...prev,
-        bio: value.slice(0, 100), // Enforce max 100 characters
+        bio: value.slice(0, 100),
       }));
     } else {
       setFormData((prev) => ({
@@ -44,6 +79,11 @@ const EditProfileModal = ({ isOpen, onClose, initialData }) => {
     }
   }, [isSuccess, onClose]);
 
+  /**
+   * Handles clicks outside the modal to close it.
+   *
+   * @param {Object} event - The event object.
+   */
   const handleOutsideClick = (event) => {
     if (modalRef.current && !modalRef.current.contains(event.target)) {
       onClose();
@@ -57,6 +97,11 @@ const EditProfileModal = ({ isOpen, onClose, initialData }) => {
     };
   }, []);
 
+  /**
+   * Handles form submission to update the profile information.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     updateProfile(formData);
@@ -153,7 +198,6 @@ const EditProfileModal = ({ isOpen, onClose, initialData }) => {
 EditProfileModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
   initialData: PropTypes.shape({
     bio: PropTypes.string,
     avatar: PropTypes.shape({

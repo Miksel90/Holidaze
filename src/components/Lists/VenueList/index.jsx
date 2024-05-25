@@ -3,6 +3,15 @@ import { useFetchVenues } from "../../../hooks/useFetchVenues";
 import VenueCard from "../../Card/VenueCard";
 import DefaultButton from "../../Buttons/DefaultButton";
 
+/**
+ * VenuesList component that displays a list of venues with filtering and pagination.
+ *
+ * @component
+ * @example
+ * return (
+ *   <VenuesList />
+ * )
+ */
 function VenuesList() {
   const { venues, isLoading, error } = useFetchVenues();
   const dropdownRef = useRef(null);
@@ -52,6 +61,7 @@ function VenuesList() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropdownOpen]);
+
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 
@@ -67,10 +77,6 @@ function VenuesList() {
     }
   };
 
-  // const handleCheckboxChange = (metaKey) => {
-  //   setFilterMeta((prev) => ({ ...prev, [metaKey]: !prev[metaKey] }));
-  // };
-
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col md:flex-row justify-between items-center w-full p-4 gap-4">
@@ -79,7 +85,7 @@ function VenuesList() {
           placeholder="Filter by name..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
-          className="mt-1 block  rounded-md  border-2 border-porsche shadow-sm p-2 text-lg
+          className="mt-1 block rounded-md border-2 border-porsche shadow-sm p-2 text-lg
           text-cedar focus:outline-none focus:border-cedar placeholder:text-cedar placeholder:text-bold"
         />
         <div className="relative">
@@ -126,7 +132,7 @@ function VenuesList() {
           )}
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {currentVenues.map((venue) => (
           <VenueCard key={venue.id} {...venue} />
         ))}

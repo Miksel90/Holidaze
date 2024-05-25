@@ -2,9 +2,20 @@ import { useState, useEffect, useRef } from "react";
 import DefaultButton from "../../../Buttons/DefaultButton";
 import SubmitButton from "../../../Buttons/SubmitButton";
 import PropTypes from "prop-types";
-
 import { useCreateNewVenue } from "../../../../hooks/useCreateNewVenue";
 
+/**
+ * ListNewVenueModal component that allows users to list a new venue.
+ *
+ * @component
+ * @param {Object} props - The props for ListNewVenueModal.
+ * @param {boolean} props.isOpen - Determines if the modal is open.
+ * @param {function} props.onClose - Function to call when the modal is closed.
+ * @example
+ * return (
+ *   <ListNewVenueModal isOpen={true} onClose={() => {}} />
+ * )
+ */
 function ListNewVenueModal({ isOpen, onClose }) {
   const modalRef = useRef(null);
   const { createVenue } = useCreateNewVenue();
@@ -46,6 +57,11 @@ function ListNewVenueModal({ isOpen, onClose }) {
     };
   }, [isOpen, onClose]);
 
+  /**
+   * Handles input changes and updates the form data.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const keys = name.split(".");
@@ -80,6 +96,9 @@ function ListNewVenueModal({ isOpen, onClose }) {
     });
   };
 
+  /**
+   * Adds a new image input field to the form data.
+   */
   const handleAddImage = () => {
     if (formData.media.length < 8) {
       setFormData({
@@ -89,6 +108,11 @@ function ListNewVenueModal({ isOpen, onClose }) {
     }
   };
 
+  /**
+   * Removes an image input field from the form data.
+   *
+   * @param {number} index - The index of the image to remove.
+   */
   const handleRemoveImage = (index) => {
     if (formData.media.length > 1) {
       setFormData({
@@ -98,6 +122,11 @@ function ListNewVenueModal({ isOpen, onClose }) {
     }
   };
 
+  /**
+   * Handles form submission to create a new venue.
+   *
+   * @param {Object} e - The event object.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -156,17 +185,17 @@ function ListNewVenueModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-primary bg-opacity-50 z-50  flex justify-center items-center overflow-auto">
+    <div className="fixed inset-0 bg-primary bg-opacity-50 z-50 flex justify-center items-center overflow-auto">
       <div
         ref={modalRef}
-        className="bg-white p-10 rounded-lg max-w-lg w-full  mx-auto border-2 border-cedar"
+        className="bg-white p-10 rounded-lg max-w-lg w-full mx-auto border-2 border-cedar"
         style={{ maxHeight: "800vh" }}
       >
-        <span className="absolute top-3 right-5 " onClick={onClose}>
+        <span className="absolute top-3 right-5" onClick={onClose}>
           &times;
         </span>
         <h2 className="text-xl text-center py-4">List New Venue</h2>
-        <form onSubmit={handleSubmit} className="flex flex-col ">
+        <form onSubmit={handleSubmit} className="flex flex-col">
           <input
             type="text"
             required

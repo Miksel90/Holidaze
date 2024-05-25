@@ -1,3 +1,16 @@
+/**
+ * @typedef {Object} Review
+ * @property {string} name - The name of the reviewer.
+ * @property {number} rating - The rating given by the reviewer (1 to 5).
+ * @property {string} review - The review text.
+ * @property {number} year - The year the review was written.
+ */
+
+/**
+ * An array of review objects, each containing details about a review.
+ *
+ * @type {Review[]}
+ */
 const reviews = [
   {
     name: "Darth Vader",

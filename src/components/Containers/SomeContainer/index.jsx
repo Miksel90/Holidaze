@@ -7,6 +7,15 @@ import {
 } from "react-icons/fa";
 import { TiSocialGooglePlus } from "react-icons/ti";
 
+/**
+ * SomeContainer component that displays a set of social media icons with links.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SomeContainer />
+ * )
+ */
 const SomeContainer = () => {
   const icons = [
     { Component: FaFacebookF, url: "https://www.facebook.com" },

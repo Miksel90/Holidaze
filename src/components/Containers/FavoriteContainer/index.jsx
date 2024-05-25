@@ -6,6 +6,15 @@ import HeartIcon from "../../FavoriteIcon";
 import DefaultImage from "../../../assets/Images/default.webp";
 import useFavoriteStore from "../../../store/FavoriteStore";
 
+/**
+ * FavoritesContainer component that displays the user's favorite venues.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FavoritesContainer />
+ * )
+ */
 const FavoritesContainer = () => {
   const { favorites } = useFavoriteStore();
 
@@ -27,10 +36,28 @@ const FavoritesContainer = () => {
   );
 };
 
+/**
+ * Truncates a name if it exceeds the maximum length.
+ *
+ * @param {string} name - The name to truncate.
+ * @param {number} maxLength - The maximum length of the name.
+ * @returns {string} The truncated name.
+ */
 const truncateName = (name, maxLength) => {
   return name.length > maxLength ? name.substring(0, maxLength) + "..." : name;
 };
 
+/**
+ * FavoriteVenue component that displays a single favorite venue.
+ *
+ * @component
+ * @param {Object} props - The props for FavoriteVenue.
+ * @param {string} props.venueId - The ID of the venue.
+ * @example
+ * return (
+ *   <FavoriteVenue venueId="123" />
+ * )
+ */
 const FavoriteVenue = ({ venueId }) => {
   const { venue, isLoading, error } = useFetchSingleVenue(venueId);
   const [imageSrc, setImageSrc] = useState(DefaultImage);
@@ -41,6 +68,9 @@ const FavoriteVenue = ({ venueId }) => {
     }
   }, [venue]);
 
+  /**
+   * Handles the error event when the image fails to load and sets a default image.
+   */
   const handleImageError = () => {
     setImageSrc(DefaultImage);
   };
