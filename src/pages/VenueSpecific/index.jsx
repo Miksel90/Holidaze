@@ -85,7 +85,9 @@ const VenueSpecificPage = () => {
 
   return (
     <div className="flex flex-col px-2 bg-white gap-2 relative">
-      <h1 className="text-4xl text-start font-condensed p-2">{venue.name}</h1>
+      <h1 className="text-4xl text-start font-condensed p-2 w-full break-words">
+        {venue.name}
+      </h1>
       <div className="absolute top-2 right-2 text-4xl p-2 flex flex-wrap gap-2 items-center">
         {isLoggedIn && (
           <>
@@ -97,7 +99,9 @@ const VenueSpecificPage = () => {
       <Carousel>{venueImages}</Carousel>
       <div className="bg-primary p-4 text-cedar rounded-sm mt-2 grid grid-cols-1 md:grid-cols-6">
         <div className="col-span-1 md:col-span-3">
-          <h2 className="text-2xl px-2 capitalize">{venue.description}</h2>
+          <h2 className="text-2xl px-2 capitalize w-full break-words">
+            {venue.description}
+          </h2>
           <p className="text-lg px-2">
             {venue.location?.city || "City not available"},{" "}
             {venue.location?.country || "Country not available"}
@@ -180,7 +184,7 @@ const VenueSpecificPage = () => {
             </li>
             <li className="border-b border-primary mb-4 flex flex-row gap-4 py-1">
               <p className="font-medium">Address:</p>
-              <div className="capitalize">
+              <div className="capitalize w-full break-words overflow-hidden">
                 {venue.location.address}, {venue.location.city},{" "}
                 {venue.location.country}
               </div>
