@@ -102,7 +102,7 @@ const VenueSpecificPage = () => {
           <h2 className="text-2xl px-2 capitalize w-full break-words">
             {venue.description}
           </h2>
-          <p className="text-lg px-2">
+          <p className="text-lg px-2 w-full break-words">
             {venue.location?.city || "City not available"},{" "}
             {venue.location?.country || "Country not available"}
           </p>
@@ -184,9 +184,11 @@ const VenueSpecificPage = () => {
             </li>
             <li className="border-b border-primary mb-4 flex flex-row gap-4 py-1">
               <p className="font-medium">Address:</p>
-              <div className="capitalize w-full break-words md:w-52">
-                {venue.location.address}, {venue.location.city},{" "}
-                {venue.location.country}
+              <div className="capitalize ">
+                <p className=" w-15 break-words ">
+                  {venue.location.address}, {venue.location.city},
+                  {venue.location.country}
+                </p>
               </div>
             </li>
           </ul>
