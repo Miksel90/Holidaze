@@ -34,7 +34,7 @@ const BookedPage = () => {
             <h2 className="col-span-1 md:col-span-2 md:col-start-2 font-condensed text-2xl font-medium">
               Booking Details
             </h2>
-            <ul className="col-span-1 md:col-span-2 md:col-start-2">
+            <ul className="col-span-1 md:col-span-2 md:col-start-2 break-words">
               <li className="py-1">Name: {venueName}</li>
               <li>Location: {venueLocation}</li>
               <li>
