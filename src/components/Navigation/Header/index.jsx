@@ -3,15 +3,32 @@ import HamburgerButton from "../../Buttons/Hamburger/index.jsx";
 import { Link } from "react-router-dom";
 import LogoutUser from "../../Auth/Logout/index.jsx";
 
+/**
+ * HeaderNavigation component that provides navigation links in the header.
+ *
+ * @component
+ * @example
+ * return (
+ *   <HeaderNavigation />
+ * )
+ */
 const HeaderNavigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [hasUserName, setHasUserName] = useState(false);
   const menuRef = useRef(null);
 
+  /**
+   * Toggles the menu open or closed.
+   */
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  /**
+   * Handles clicks outside the menu to close it.
+   *
+   * @param {Object} event - The event object.
+   */
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsMenuOpen(false);

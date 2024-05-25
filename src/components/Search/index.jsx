@@ -5,7 +5,13 @@ import { FaSearch } from "react-icons/fa";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaHouse } from "react-icons/fa6";
 
-// Debounce function
+/**
+ * Delays the execution of a function.
+ *
+ * @param {function} func - The function to delay.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {function} The delayed function.
+ */
 const delaySearch = (func, delay) => {
   let timeoutId;
   return function (...args) {
@@ -14,6 +20,15 @@ const delaySearch = (func, delay) => {
   };
 };
 
+/**
+ * SearchBar component that allows users to search for profiles and venues.
+ *
+ * @component
+ * @example
+ * return (
+ *   <SearchBar />
+ * )
+ */
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const { profiles, venues, isLoading, error } = useSearch(searchTerm);
@@ -21,7 +36,9 @@ const SearchBar = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Memoize the debounced function
+  /**
+   * Delays setting the search term.
+   */
   const delayedSetSearchTerm = useCallback(
     delaySearch((value) => {
       setSearchTerm(value);
@@ -45,6 +62,9 @@ const SearchBar = () => {
     }
   }, [searchTerm, profiles, venues, isLoading]);
 
+  /**
+   * Clears the search input and results.
+   */
   const clearSearch = () => {
     setSearchTerm("");
     setSearchResults([]);

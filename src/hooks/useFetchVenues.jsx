@@ -2,6 +2,16 @@ import { useEffect, useState } from "react";
 import { fetchVenues } from "../utils/fetchVenues.js";
 import saveFavoriteVenue from "../store/FavoriteStore/index.jsx";
 
+/**
+ * Custom hook to fetch a list of venues.
+ *
+ * @returns {Object} The state and functions related to fetching venues.
+ * @returns {Array} venues - The fetched list of venues.
+ * @returns {boolean} isLoading - Loading state of the fetch process.
+ * @returns {Object} error - Error object if the fetch fails.
+ * @example
+ * const { venues, isLoading, error } = useFetchVenues();
+ */
 export function useFetchVenues() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);

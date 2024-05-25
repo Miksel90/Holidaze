@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 
+/**
+ * FooterNavigation component that provides navigation links in the footer.
+ *
+ * @component
+ * @example
+ * return (
+ *   <FooterNavigation />
+ * )
+ */
 const FooterNavigation = () => {
   return (
-    <nav className="flex flex-col md:flex-row font-condensed items-center justify-center ">
+    <nav className="flex flex-col md:flex-row font-condensed items-center justify-center">
       <ul className="flex flex-col md:flex-row text-lg md:text-xl items-center gap-3 md:gap-10 py-2 px-4 bg-white rounded-sm uppercase">
         <li className="md:mr-4 hover:underline">
           <Link to="/venues">Browse Venues</Link>
