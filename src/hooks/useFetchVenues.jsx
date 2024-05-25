@@ -12,7 +12,6 @@ export function useFetchVenues() {
     setIsLoading(true);
     fetchVenues()
       .then((json) => {
-        console.log(json);
         setVenues(json.data);
       })
       .catch((e) => {
