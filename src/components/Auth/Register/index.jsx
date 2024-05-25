@@ -33,6 +33,15 @@ const schema = yup
   })
   .required();
 
+/**
+ * RegisterForm component for handling user registration.
+ *
+ * @component
+ * @example
+ * return (
+ *   <RegisterForm />
+ * )
+ */
 function RegisterForm() {
   const [buttonText, setButtonText] = useState("Register");
   const {
@@ -45,6 +54,13 @@ function RegisterForm() {
   });
   const navigate = useNavigate();
 
+  /**
+   * Handles form submission for user registration.
+   *
+   * @async
+   * @param {Object} data - The form data.
+   * @throws {Error} Throws an error if the registration process fails.
+   */
   const onSubmit = async (data) => {
     try {
       setButtonText("Registering...");
