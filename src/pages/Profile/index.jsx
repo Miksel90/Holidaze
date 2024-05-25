@@ -21,6 +21,7 @@ function ProfilePage() {
   const venuesPerPage = 4;
   const { isDeleting, isDeleted, deletingBookingId, removeBooking } =
     useDeleteBooking();
+  const [isUserNameMatch, setIsUserNameMatch] = useState(false);
 
   const handleOpenProfileModal = () => {
     setIsProfileModalOpen(true);
@@ -53,6 +54,13 @@ function ProfilePage() {
       setCanInteractOnProfile(true);
     }
   }, [decodedName]);
+
+  useEffect(() => {
+    const username = localStorage.getItem("userName");
+    if (profiles?.data && username && username === profiles.data.name) {
+      setIsUserNameMatch(true);
+    }
+  }, [profiles]);
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
@@ -153,12 +161,14 @@ function ProfilePage() {
             </div>
           </div>
         </div>
-        <div className="col-span-6 bg-primary text-center rounded-sm p-4">
-          <FavoritesContainer />
-        </div>
+        {isUserNameMatch && (
+          <div className="col-span-6 bg-primary text-center rounded-sm p-4">
+            <FavoritesContainer />
+          </div>
+        )}
         <div className="col-span-6 bg-primary flex-grow">
           <h3 className="text-2xl font-medium text-center py-4 text-cedar">
-            My Registered Venues
+            {profileData.name}`s Registered Venues
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-4 py-2">
             {currentVenues.map((venue) => (
