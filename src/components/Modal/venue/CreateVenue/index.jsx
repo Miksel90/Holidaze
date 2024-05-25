@@ -185,7 +185,7 @@ function ListNewVenueModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-primary bg-opacity-50 z-50 flex justify-center items-center overflow-auto">
+    <div className="fixed inset-0 bg-primary bg-opacity-50 z-50 flex justify-center items-center overflow-auto p-8">
       <div
         ref={modalRef}
         className="bg-white p-10 rounded-lg max-w-lg w-full mx-auto border-2 border-cedar"

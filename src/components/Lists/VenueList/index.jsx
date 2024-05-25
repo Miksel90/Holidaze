@@ -85,6 +85,7 @@ function VenuesList() {
           placeholder="Filter by name..."
           value={filterText}
           onChange={(e) => setFilterText(e.target.value)}
+          aria-label="Filter venues by name"
           className="mt-1 block rounded-md border-2 border-porsche shadow-sm p-2 text-lg
           text-cedar focus:outline-none focus:border-cedar placeholder:text-cedar placeholder:text-bold"
         />
