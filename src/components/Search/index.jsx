@@ -97,7 +97,7 @@ const SearchBar = () => {
           <input
             id="search"
             type="search"
-            placeholder="Search..."
+            placeholder="Search for profiles or venues..."
             autoFocus
             required
             className="block w-full rounded-md shadow-sm p-3 text-lg focus:ring-cedar focus:border-cedar pl-4"
